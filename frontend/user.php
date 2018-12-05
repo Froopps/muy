@@ -9,7 +9,7 @@
 	<title>MyUNIMIYoutube | User</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../images/icon.gif" rel="icon" type="../image/gif">
+    <link href="../sources/images/icon.gif" rel="icon" type="../image/gif">
 	<link rel="stylesheet" type="text/css" href="../css/my.css"/>
 </head>
 
@@ -35,7 +35,7 @@
 
             <div class="content">
                 <div id="testa">
-                    <img id="propic" src="../images/cover.png" alt="propic">
+                    <img id="propic" src="../sources/images/cover.png" alt="propic">
                     <div id="descuser">
                         <div class="nomeutente">
                             <h6>Froopps</h6>

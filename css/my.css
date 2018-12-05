@@ -117,7 +117,7 @@ header a:hover {
 }
 
 header a#logo {
-    background: url(../images/logo.png);
+    background: url(../sources/images/logo.png);
     background-size: 6.5em;
     background-position: center;
     background-repeat: no-repeat;
@@ -168,7 +168,7 @@ header #src{
     font-size: 120%;
     color: #717171;
     text-indent: 1.4em;
-    background-image: url(../images/searchicon.png);
+    background-image: url(../sources/images/searchicon.png);
     background-size: 1.6em;
     background-repeat: no-repeat;
     transition: width 0.6s ease-in-out;
@@ -389,7 +389,7 @@ h1:hover, h2:hover{
 h3.rate{
     float: right;
     Padding: 0 10px 0 0;
-    background-image: url(../images/star.png);
+    background-image: url(../sources/images/star.png);
     background-size: 10px;
     background-repeat: no-repeat;
     text-indent: -18px
@@ -474,7 +474,7 @@ h6{
 .topvip{
     float: left;
     margin: 0.05em 0 0 0.1em;
-    background-image: url(../images/star.png);
+    background-image: url(../sources/images/star.png);
     background-size: 1em;
     background-repeat: no-repeat;
     color: transparent                      /*!!!!!!!!!!!!!!!!!!*/
