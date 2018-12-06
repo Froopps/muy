@@ -8,9 +8,7 @@
 <head>
 	<title>MyUNIMIYoutube | User</title>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../sources/images/icon.gif" rel="icon" type="../image/gif">
-	<link rel="stylesheet" type="text/css" href="../css/my.css"/>
+    <?php include "../common/head.html"; ?>
 </head>
 
 <body>
@@ -34,24 +32,25 @@
         <main>
 
             <div class="content">
-<div class="eticanale">
-                        <a class="etichetta" href="#etichetta">#affreschi</a>
-                        <a class="etichetta" href="#etichetta">#sport</a>
-                    </div>
+                
                 <div id="testa">
-                    <img id="propic" src="../sources/images/cover.png" alt="propic">
-                    <div id="descuser">
-                        <div class="nomeutente">
-                            <h1>Froopps</h1>
-                            <h1 class="topvip">TOPVIP</h1>
-                        </div>
-                        <div>
-                            Nome<br>
-                            Cognome<br>
-                            Sesso<br>
-                            Città<br>
-                        </div>
-                    </div>
+                    <table class="user_info">
+                        <tr>
+                            <td rowspan="2"><img id="propic" src="../sources/images/cover.png" alt="propic"></td>
+                            <td class="info"><h1>Froopps</h1></td>
+                            <td><img class="top-vip_logo" src="../sources/images/top-vip.png"></td>
+                        </tr>
+                        <tr>
+                            <td class="info">
+                                <ul>
+                                    <li>Nome</li>
+                                    <li>Cognome</li>
+                                    <li>Sesso</li>
+                                    <li>Città</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 
                 <div class="categoria">
@@ -109,9 +108,10 @@
                         </table>
                     </div>
                 </div>
+                
             </div>
 
-        <main>
+        </main>
 
 </body>
 

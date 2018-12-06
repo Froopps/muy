@@ -9,7 +9,8 @@ html{}
 *{box-sizing: border-box}
 
 body{
-	font-family: Helvetica, sans-serif;
+	/* font-family: Helvetica, sans-serif; */
+    font-family: Raleway, serif;
 	font-size: 100%;
     background-color: #f7faff
 }
@@ -26,6 +27,7 @@ div.ham{
 a{text-decoration: none}
 
 input{
+    font-family: Raleway, serif;
     padding: 0.3em;
     width: 350px;
     border-style: ridge;
@@ -87,6 +89,7 @@ div.spazio-vert{
     height: 1em
 }
 
+span{float: left}
 
 
 
@@ -138,7 +141,7 @@ header a#logo {
     background-repeat: no-repeat;
 	background-color: white;
     border-bottom-right-radius: 1em;
-    color: transparent;
+    color: rgba(0, 0, 0, 0);
 	float: left
 }
 
@@ -419,9 +422,9 @@ h3{
 
 h3.rate{
     float: right;
-    Padding: 0 10px 0 0;
+    Padding: 0 14px 3px 0;
     background-image: url(../sources/images/star.png);
-    background-size: 10px;
+    background-size: 14px;
     background-repeat: no-repeat;
     text-indent: -18px
 }
@@ -476,36 +479,34 @@ input[type=checkbox]{
 /* USER PAGE */
 
 #testa{
-    height: 8em;
-    overflow: hidden;
     margin-bottom: 1em
 }
 
+table.user_info{}
+
+table.user_info td.info{
+    padding-left: 0.5em;
+}
+
+table.user_info ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+table.user_info li{
+    
+}
+
 #propic{
+    box-sizing: content-box;
     width: 8em;
-    height: 8em;
     border: 0;
     border-radius: 100em;
-    float: left
+    border: solid goldenrod 5px
 }
 
-#descuser{
-    float: left;
-    height: 100%;
-    width: 80%;
-    padding: 0.3em 0 0 0.7em
-}
-
-.nomeutente{float: left; width: 100%}
-
-.topvip{
-    float: left;
-    margin: 0.05em 0 0 0.1em;
-    background-image: url(../sources/images/star.png);
-    background-size: 1em;
-    background-repeat: no-repeat;
-    color: transparent                      /*!!!!!!!!!!!!!!!!!!*/
-}
+.top-vip_logo{width: 2em}
 
 .eticanale{
     width: 100%;
