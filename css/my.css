@@ -422,11 +422,15 @@ hr{border: 1px solid #848484}
 
 #signup-table td{
     margin: 0;
-    padding: 0.3em
+    padding: 0.5em
 }
 
 #signup-table .left{
     text-align: left
+}
+
+input[type=checkbox]{
+    width: auto
 }
 
 
