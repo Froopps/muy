@@ -1,0 +1,1 @@
+id="top-propic" nel tag <img class="propic"> (riga 3) è da mettere solo se l'utente è top-vip, così come <td><img class="top-vip_logo" src="../sources/images/top-vip.png"></td> (riga 5)

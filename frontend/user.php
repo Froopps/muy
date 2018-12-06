@@ -34,23 +34,7 @@
             <div class="content">
                 
                 <div id="testa">
-                    <table class="user_info">
-                        <tr>
-                            <td rowspan="2"><img id="propic" src="../sources/images/cover.png" alt="propic"></td>
-                            <td class="info"><h1>Froopps</h1></td>
-                            <td><img class="top-vip_logo" src="../sources/images/top-vip.png"></td>
-                        </tr>
-                        <tr>
-                            <td class="info">
-                                <ul>
-                                    <li>Nome</li>
-                                    <li>Cognome</li>
-                                    <li>Sesso</li>
-                                    <li>Città</li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </table>
+                    <?php include "../common/user_info.html"; ?>
                 </div>
                 
                 <div class="categoria">

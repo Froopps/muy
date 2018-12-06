@@ -262,6 +262,20 @@ nav ul{
     padding: 0.8em 0 0 4em;
 }
 
+nav li{text-align: right}
+
+nav li.no_link{
+    padding: 1em;
+    color: #717171;
+    text-align: center
+}
+
+nav hr{
+    width: 70%;
+    border-color: #717171;
+    margin: 5px 0 auto auto
+}
+
 #nasc{
     float: left;
     background-color:#e8e9ed;
@@ -280,14 +294,6 @@ nav ul{
     -moz-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
     -o-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
     -ms-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5)
-}
-
-nav li{
-    /*display:inline;
-    justify-content:flex-start;
-    align-items:right;
-    display: flex*/
-    text-align: right
 }
 
 [id='nav-toggle']:checked ~ #nasc {
@@ -498,13 +504,14 @@ table.user_info li{
     
 }
 
-#propic{
+.propic{
     box-sizing: content-box;
     width: 8em;
     border: 0;
-    border-radius: 100em;
-    border: solid goldenrod 5px
+    border-radius: 100em
 }
+
+#top-propic{border: solid goldenrod 5px}
 
 .top-vip_logo{width: 2em}
 
@@ -512,3 +519,12 @@ table.user_info li{
     width: 100%;
     padding: 0.3em
 }
+
+
+
+
+
+/* PAGINA TOP USERS */
+
+#classifica_usr{width: 100%}
+.tab_top_usr{padding: 1em}
