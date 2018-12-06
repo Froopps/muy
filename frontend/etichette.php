@@ -34,35 +34,36 @@
         <main>
 
             <div class="content">
-                <h5>A</h5><hr>
-                <a href="#categoria"><h2>Affreschi</h2></a>
-                <h5>B</h5><hr>
-                <h5>C</h5><hr>
-                <h5>D</h5><hr>
-                <h5>E</h5><hr>
-                <h5>F</h5><hr>
-                <h5>G</h5><hr>
-                <h5>H</h5><hr>
-                <h5>I</h5><hr>
-                <h5>J</h5><hr>
-                <h5>K</h5><hr>
-                <h5>L</h5><hr>
-                <h5>M</h5><hr>
-                <h5>N</h5><hr>
-                <h5>O</h5><hr>
-                <h5>P</h5><hr>
-                <h5>Q</h5><hr>
-                <h5>R</h5><hr>
-                <h5>S</h5><hr>
-                <h5>T</h5><hr>
-                <h5>U</h5><hr>
-                <h5>V</h5><hr>
-                <h5>W</h5><hr>
-                <h5>X</h5><hr>
-                <h5>Y</h5><hr>
-                <h5>Z</h5><hr>
-                <h5>#</h5><hr>
-                <h5>!?%</h5><hr>
+                <h2>A</h2><hr>
+                    <a class=oggetto-canale href="#categoria">Affreschi</a><br>
+                    <a class=oggetto-canale href="#categoria">Astronavi</a><br>
+                <div class=spazio-vert></div><h2>B</h2><hr>
+                <div class=spazio-vert></div><h2>C</h2><hr>
+                <div class=spazio-vert></div><h2>D</h2><hr>
+                <div class=spazio-vert></div><h2>E</h2><hr>
+                <div class=spazio-vert></div><h2>F</h2><hr>
+                <div class=spazio-vert></div><h2>G</h2><hr>
+                <div class=spazio-vert></div><h2>H</h2><hr>
+                <div class=spazio-vert></div><h2>I</h2><hr>
+                <div class=spazio-vert></div><h2>J</h2><hr>
+                <div class=spazio-vert></div><h2>K</h2><hr>
+                <div class=spazio-vert></div><h2>L</h2><hr>
+                <div class=spazio-vert></div><h2>M</h2><hr>
+                <div class=spazio-vert></div><h2>N</h2><hr>
+                <div class=spazio-vert></div><h2>O</h2><hr>
+                <div class=spazio-vert></div><h2>P</h2><hr>
+                <div class=spazio-vert></div><h2>Q</h2><hr>
+                <div class=spazio-vert></div><h2>R</h2><hr>
+                <div class=spazio-vert></div><h2>S</h2><hr>
+                <div class=spazio-vert></div><h2>T</h2><hr>
+                <div class=spazio-vert></div><h2>U</h2><hr>
+                <div class=spazio-vert></div><h2>V</h2><hr>
+                <div class=spazio-vert></div><h2>W</h2><hr>
+                <div class=spazio-vert></div><h2>X</h2><hr>
+                <div class=spazio-vert></div><h2>Y</h2><hr>
+                <div class=spazio-vert></div><h2>Z</h2><hr>
+                <div class=spazio-vert></div><h2>#</h2><hr>
+                <div class=spazio-vert></div><h2>!?%</h2><hr>
             </div>
 
         </main>

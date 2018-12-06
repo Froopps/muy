@@ -35,34 +35,98 @@
 
             <div class="content">
                 <div class="categoria">
-                    <div><a class="categoria_titolo" href="#categoria1">Categoria contenuto 1</a></div>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
+                    <div><a class="categoria_titolo" href="#mvvideos">Most visited videos</a></div>
+                    <div class="scrollbar">
+                        <table>
+                            <tr>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><button id="arrow"><img src="../sources/images/arrow.png" width="100px"></button></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-                    <div class="categoria">
-                    <div><a class="categoria_titolo" href="#categoria2">Categoria contenuto 2</a></div>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
-                    <?php include "../common/multimedia_object.html"; ?>
+                <div class="categoria">
+                    <div><a class="categoria_titolo" href="#avaudios">Most visited audios</a></div>
+                    <div class="scrollbar">
+                        <table>
+                            <tr>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><button id="arrow"><img src="../sources/images/arrow.png" width="100px"></button></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="categoria">
+                    <div><a class="categoria_titolo" href="#mvimages">Most visited images</a></div>
+                    <div class="scrollbar">
+                        <table>
+                            <tr>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><?php include "../common/multimedia_object.html"; ?></td>
+                            <td><button id="arrow"><img src="../sources/images/arrow.png" width="100px"></button></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-        <main>
+        </main>
 
 </body>
 
