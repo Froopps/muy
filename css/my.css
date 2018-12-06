@@ -64,12 +64,13 @@ input[type=file]{
 .etichetta{
     padding: 0.3em;
     background-color: #1db99a;
-    color: black;
+    color: white;
     border-radius: 7px
 }
 
 .etichetta:hover{
-    background-color: #0effd2
+    background-color: #0effd2;
+    color: black
 }
 
 h1{
@@ -361,7 +362,6 @@ div.scrollbar{
 
 
 .obj_multimedia{
-    float: left;
     margin: 0.5em;
     padding: 0.5em
 }
@@ -500,16 +500,20 @@ table.user_info ul{
     padding: 0;
 }
 
-table.user_info li{
-    
-}
-
 .propic{
     box-sizing: content-box;
     width: 8em;
+    opacity: 1;
     border: 0;
     border-radius: 100em
 }
+
+.propic:hover{
+    opacity: 0.7;
+    border-color: rgba(218, 165, 32, 0.7)
+}
+
+a.utente h1:hover{color:#388baf}
 
 #top-propic{border: solid goldenrod 5px}
 
@@ -528,3 +532,53 @@ table.user_info li{
 
 #classifica_usr{width: 100%}
 .tab_top_usr{padding: 1em}
+
+
+/* PAGINA TOP CATEGORIES */
+
+#classifica_cat {width: 100%}
+
+.tab_top_cat{padding: 1em}
+
+.eti_position{padding: 0}
+
+.mosaico{
+    float: left;
+    box-sizing: content-box;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    padding: 3px
+}
+
+#bottom-layer{
+    border: 3px solid #16A085;
+    border-radius: 0.5em
+}
+
+.mosaico:hover{
+    border-color: rgba(22, 160, 133, 0.3)
+}
+
+#bottom-layer:hover > .mos_cel{
+    opacity: 0.7
+}
+
+.mosaico:hover .etichetta{
+    background-color: #0effd2;
+    color: black
+}
+
+#top-layer{
+    position: relative;
+    left: -6px;
+    top: -206px
+}
+
+.mos_cel{
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+
+.mos_img{width: 100px;}

@@ -57,7 +57,7 @@
                             <td><?php include "../common/multimedia_object.html"; ?></td>
                             <td><?php include "../common/multimedia_object.html"; ?></td>
                             <td><?php include "../common/multimedia_object.html"; ?></td>
-                            <td><button id="arrow"><img src="../sources/images/arrow.png" width="100px"></button></td>
+                            <td><button id="arrow"><img src="../sources/images/arrow.png" width="100px" alt="Mostra altro"></button></td>
                             </tr>
                         </table>
                     </div>
@@ -87,7 +87,7 @@
                             <td><?php include "../common/multimedia_object.html"; ?></td>
                             <td><?php include "../common/multimedia_object.html"; ?></td>
                             <td><?php include "../common/multimedia_object.html"; ?></td>
-                            <td><button id="arrow"><img src="../sources/images/arrow.png" width="100px"></button></td>
+                            <td><button id="arrow"><img src="../sources/images/arrow.png" width="100px" alt="Mostra altro"></button></td>
                             </tr>
                         </table>
                     </div>
@@ -117,7 +117,7 @@
                             <td><?php include "../common/multimedia_object.html"; ?></td>
                             <td><?php include "../common/multimedia_object.html"; ?></td>
                             <td><?php include "../common/multimedia_object.html"; ?></td>
-                            <td><button id="arrow"><img src="../sources/images/arrow.png" width="100px"></button></td>
+                            <td><button id="arrow"><img src="../sources/images/arrow.png" width="100px" alt="Mostra altro"></button></td>
                             </tr>
                         </table>
                     </div>
