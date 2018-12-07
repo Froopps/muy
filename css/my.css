@@ -111,6 +111,9 @@ header {
 	background-color: #16A085;
     float: left;
     position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     overflow: auto;
     z-index: 1001;
 	width: 100%;
@@ -122,7 +125,13 @@ header {
     -ms-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5)
 }
 
+form#src_block{
+    display: flex;
+    align-items: center
+}
+
 header a {
+    float: left;
     font-size: 120%;
 	color: #f2f2f2;
 	background-color: #16A085;
@@ -138,27 +147,78 @@ header a:hover {
 header a#logo {
     background: url(../sources/images/logo.png);
     background-size: 6.5em;
+    width: 5.5em;
+    height:  60.4px;
     background-position: center;
     background-repeat: no-repeat;
 	background-color: white;
     border-bottom-right-radius: 1em;
-    color: rgba(0, 0, 0, 0);
+    color: transparent;
 	float: left
 }
 
-/* Lato sinistro */
-header a.hsx{
-	float:left
+header a#primo{border-bottom-left-radius: 1em}
+
+header a#avanzata{
+    width: 1.6em;
+    color: rgba(0, 0, 0, 0);
+    overflow: hidden;
+    background-color: aquamarine;
+    padding: 0.2em 0.5em;
+    border-radius: 5em;
+    background-color: white;
+    background-image: url(../sources/images/searchicon_plus.png);
+    background-size: 1.6em;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: width 0.5s ease-in-out, color 0.5s;
+    -webkit-transition: width 0.5s ease-in-out, color 0.5s;
+    -moz-transition: width 0.5s ease-in-out, color 0.5s;
+    -o-transition: width 0.5s ease-in-out, color 0.5s;
+    -ms-transition: width 0.5s ease-in-out, color 0.5s;
+    transform: translateX(-6px);
+    -webkit-transform: translateX(-6px);
+    -moz-transform: translateX(-6px);
+    -o-transform: translateX(-6px);
+    -ms-transform: translateX(-6px)
 }
 
-header a#primohsx{
-    border-bottom-left-radius: 1em;
-	float:left
+header a#avanzata:hover{
+    width: 5.5em;
+    color: rgba(0, 0, 0, 1);
+    background-size: 0
 }
 
-/* Lato destro */
-header a.hdx{
-	float: right
+[name="src_type"]{
+    float: left;
+    font-family: Raleway, serif;
+    text-align: left;
+    margin: 1em 0em;
+    border: 0;
+    padding: 0 0 0 0.5em;
+    width: 8.5em;
+    height: 2.43em;
+    appearance: button;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    -o-appearance: button;
+    -ms-appearance: button;
+    background-color: white;
+    background-image: url(../sources/images/select_button.png);
+    background-position: 100% center;
+    background-repeat: no-repeat;
+    border: 1px solid white;
+    border-bottom-left-radius: 5em;
+    border-top-left-radius: 5em;
+    transform: translateX(25px);
+    -webkit-transform: translateX(25px);
+    -moz-transform: translateX(25px);
+    -o-transform: translateX(25px);
+    -ms-transform: translateX(25px)
+}
+
+[name="src_type"]:hover{
+    cursor: pointer
 }
 
 header #srcbtn{
@@ -172,14 +232,13 @@ header #srcbtn{
     height: 2.53em;
     color: transparent;
     background-color: transparent;
-    background-repeat: no-repeat;
     /*border: 1px solid black*/
 }
 
 header #src{
     float:left;
     margin: 0.7em 0.7em 0.7em 0;
-    width: 15%;
+    width: 7.5em;
     padding: 0.27em;
     border-style: hidden;
     border-top-right-radius: 1em;
@@ -190,20 +249,20 @@ header #src{
     background-image: url(../sources/images/searchicon.png);
     background-size: 1.6em;
     background-repeat: no-repeat;
-    transition: width 0.6s ease-in-out;
-    -webkit-transition: width 0.6s ease-in-out;
-    -moz-transition: width 0.6s ease-in-out;
-    -o-transition: width 0.6s ease-in-out;
-    -ms-transition: width 0.6s ease-in-out
+    transition: width 0.5s ease-in-out;
+    -webkit-transition: width 0.5s ease-in-out;
+    -moz-transition: width 0.5s ease-in-out;
+    -o-transition: width 0.5s ease-in-out;
+    -ms-transition: width 0.5s ease-in-out
 }
 
 header #src:hover{
-    width: 45%;
+    width: 15em;
     color: black
 }
 
 header #src:focus{
-    width: 45%;
+    width: 15em;
     color: black;
     border: 0
 }
@@ -308,8 +367,13 @@ nav hr{
     overflow-y: auto
 }
 
-[id='nav-toggle']:checked ~ .content {
+[id='nav-toggle']:checked ~ main > article {
     background-color: black;
+    transform: translateX(320px);
+    -webkit-transform: translateX(320px);
+    -moz-transform: translateX(320px);
+    -o-transform: translateX(320px);
+    -ms-transform: translateX(320px);
 }
 
 [id='nav-toggle']:not(:checked) ~ nav > .burger {
