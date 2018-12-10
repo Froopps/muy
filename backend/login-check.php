@@ -1,11 +1,38 @@
 <?php
     session_start();
-    print_r($_POST);
-    if($_POST["login"]=="Froopps" && $_POST['pwd']=="abc"){
-        $_SESSION["logged"]=true;
-        header("Location:../frontend/home.php");
-    }else{
-        $_SESSION["logged"]=false;
-        header("Location:../frontend/login.php");
+    include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
+    $redirect_with_error="Location: http://localhost/muy/home.php?error=";
+    if($error_connection["flag"]){
+        $redirect_with_error.=urlencode($error_connection["msg"]);
+        header($redirect_with_error);
+        exit();
     }
+    $email="'".$connected_db->real_escape_string($_POST["login"])."'";
+    $query="SELECT COUNT(*),email,passwd,nickname,foto FROM utente WHERE email=".$email;
+    $res=$connected_db->query($query);
+    if(!$res){
+        $redirect_with_error.="Errore nella connessione con il database ";
+        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+        goto error;
+    }
+    $row=$res->fetch_row();
+    if($row[0]==0){
+        $redirect_with_error.="Email o password errati";
+        //goto error;
+    }
+    if(!hash_match($_POST["pwd"],$row[2])){
+        $redirect_with_error.="Password sbagliata".$res->fetch_row()[1];
+        goto error;
+    }
+    $_SESSION["email"]=$row[1];
+    $_SESSION["nome"]=$row[3];
+    $_SESSION["foto"]=$row[4];
+    #just for developement test
+    header("Location: http://localhost/muy");
+    $connected_db->close();
+    exit();
+    error:
+        header($redirect_with_error);
+        $connected_db->close();
+        exit();
 ?>
