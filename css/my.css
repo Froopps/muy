@@ -30,13 +30,14 @@ input{
     font-family: Raleway, serif;
     padding: 0.3em;
     width: 350px;
-    border-style: ridge;
+    border: 1px solid #717171;
     border-top-right-radius: 1em;
     border-bottom-right-radius: 1em;
     color: #717171
 }
 
 select{
+    font-family: Raleway, serif;
     padding: 0.3em;
     color: #717171
 }
@@ -60,6 +61,8 @@ input[type=submit]:hover{
 input[type=file]{
     border-style: none;
 }
+
+textarea{font-family: Raleway, serif; resize: none}
 
 .etichetta{
     padding: 0.3em;
@@ -191,7 +194,6 @@ header a#avanzata:hover{
 
 [name="src_type"]{
     float: left;
-    font-family: Raleway, serif;
     text-align: left;
     margin: 1em 0em;
     border: 0;
@@ -412,11 +414,27 @@ div.categoria{
 }
 
 div.scrollbar{
+    display: flex;
+    align-items: center;
     overflow-x: scroll
 }
 
+div#arrowbox{
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.arrow_txt{
+    margin: 0 0 0.5em 0;
+    font-size 120%;
+    color: #848484
+}
+
 #arrow{
+    float: left;
     border: none;
+    padding: 0;
     background-color: transparent;
 }
 
