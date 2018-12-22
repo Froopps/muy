@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 ?>
 
 <!DOCTYPE HTML>
@@ -15,14 +16,9 @@
 
         <!-- controllo loggato -->
         <?php 
-            if(isset($_SESSION["logged"])){
-                if($_SESSION["logged"]){
-                    include "../common/header_logged.html";
-                    include "../common/sidebar_logged.html";
-                }else{
-                    include "../common/header_unlogged.html";
-                    include "../common/sidebar_unlogged.html";
-                }
+            if(isset($_SESSION["email"])){
+                include "../common/header_logged.php";
+                include "../common/sidebar_logged.html";
             }else{
                 include "../common/header_unlogged.html";
                 include "../common/sidebar_unlogged.html";
@@ -34,7 +30,27 @@
             <div class="content">
                 
                 <div id="testa">
-                    <?php include "../common/user_info.html"; ?>
+                    <?php
+                        $redirect_with_error="Location: http://localhost/muy/home.php?error=";
+                        if($error_connection["flag"]){
+                            $redirect_with_error.=urlencode($error_connection["msg"]);
+                            header($redirect_with_error);
+                            exit();
+                        }
+                        $query="SELECT * FROM utente WHERE email='".$_GET["user"];
+                        $query.="'";
+                        $res=$connected_db->query($query);
+                        if(!$res){
+                            $redirect_with_error.="Errore nella connessione con il database";
+                            log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                            header($redirect_with_error);
+                            $connected_db->close();
+                            exit();
+                        }
+                        $row=$res->fetch_assoc();
+                        user_info($row);
+                    ?>
+                    <!--?php include "../common/user_info.html"; ?-->
                 </div>
                 
                 <div class="categoria">

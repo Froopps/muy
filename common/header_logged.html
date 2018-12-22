@@ -16,7 +16,9 @@
           <a id="avanzata" href="#ricerca_avanzata">Avanzata</a>
         </form>
     <span>
-        <a href="../frontend/user.php">Froopps</a>
+        <?php
+            echo "<a href='../frontend/user.php?user=".$_SESSION["email"]."'>".$_SESSION["nome"]."</a>";
+        ?>
         <a href="../backend/esci.php">Esci</a>
     </span>
 </header>
