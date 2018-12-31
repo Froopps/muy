@@ -8,14 +8,14 @@
 <head>
 	<title>MyUNIMIYoutube | Registrazione</title>
 	
-    <?php include "../common/head.html"; ?>
+    <?php include "../common/head.php"; ?>
 </head>
 
 <body>
 
         <?php
-            include "../common/header_unlogged.html";
-            include "../common/sidebar_unlogged.html";
+            include "../common/header_logged.php";
+            include "../common/sidebar_logged.html";
         ?>
 
         <main>

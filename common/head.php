@@ -2,4 +2,4 @@
 <link href="../sources/images/icon.gif" rel="icon" type="../image/gif">
 <link rel="stylesheet" type="text/css" href="../css/my.css"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<script src="script/user_info_validation.js"></script>
+

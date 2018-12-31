@@ -9,7 +9,7 @@
 	<title>MyUNIMIYoutube | Home</title>
     
     <?php 
-        include "../common/head.html";
+        include "../common/head.php";
         include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
         if($error_connection["flag"]){
             header("Location: http://localhost/pagina_errore");
@@ -26,7 +26,7 @@
             include "../common/header_logged.php";
             include "../common/sidebar_logged.html";
         }else{
-            include "../common/header_unlogged.html";
+            include "../common/header_unlogged.php";
             include "../common/sidebar_unlogged.html";
         }
     ?>

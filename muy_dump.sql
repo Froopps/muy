@@ -5,11 +5,11 @@ CREATE TABLE utente(
     email VARCHAR(200)NOT NULL,
     passwd VARCHAR(200)NOT NULL,
     nickname VARCHAR(200)DEFAULT'User'NOT NULL,
-    foto VARCHAR(200)DEFAULT'default/user_logo.jpg'NOT NULL,
+    foto VARCHAR(200)DEFAULT'defaults/default-profile-pic.png'NOT NULL,
     nome VARCHAR(200)NOT NULL,
     cognome VARCHAR(200)NOT NULL,
     dataNascita DATE NOT NULL,
-    sesso ENUM('m','f'),
+    sesso ENUM('Maschio','Femmina'),
     citta VARCHAR(200),
     visibilita INT UNSIGNED NOT NULL,
     CONSTRAINT utente_pk PRIMARY KEY(email)
@@ -39,7 +39,7 @@ CREATE TABLE canale(
 CREATE TABLE oggettoMultimediale(
     percorso VARCHAR(200)NOT NULL,
     titolo VARCHAR(200)NOT NULL,
-    tipo ENUM('v','a','i')NOT NULL,
+    tipo ENUM('Video','Audio','Immagine')NOT NULL,
     collocazione ENUM('locale','youtube')NOT NULL,
     dataCaricamento DATE NOT NULL,
     visualizzazioni BIGINT UNSIGNED NOT NULL,

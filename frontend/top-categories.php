@@ -8,23 +8,19 @@
 <head>
 	<title>MyUNIMIYoutube | Top categories</title>
     
-    <?php include "../common/head.html"; ?>
+    <?php include "../common/head.php"; ?>
 </head>
 
 <body>
     
         <!-- controllo loggato -->
         <?php 
-            if(isset($_SESSION["logged"])){
-                if($_SESSION["logged"]){
-                    include "../common/header_logged.html";
-                    include "../common/sidebar_logged.html";
-                }else{
-                    include "../common/header_unlogged.html";
-                    include "../common/sidebar_unlogged.html";
-                }
-            }else{
-                include "../common/header_unlogged.html";
+            if(isset($_SESSION["email"])){
+                include "../common/header_logged.html";
+                include "../common/sidebar_logged.html";
+            }
+            else{
+                include "../common/header_unlogged.php";
                 include "../common/sidebar_unlogged.html";
             }
         ?>

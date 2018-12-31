@@ -13,7 +13,10 @@
         <a id="avanzata" href="#ricerca_avanzata">Avanzata</a>
     </form>
     <span>
-        <a href="../frontend/signup.php">Registrati</a>
-        <a href="../frontend/login.php">Login</a>
+        <!---a href="../frontend/signup.php">Registrati</a--->
+        <button class="button_text" onclick="document.getElementById('modal_bg_1').style.display='flex'">Login</button>
     </span>
 </header>
+<?php
+    include_once "../frontend/modal_login.php"
+?>
