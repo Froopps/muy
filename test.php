@@ -1,0 +1,9 @@
+<html>
+    <head>
+    <title>TEST</title>
+    </head>
+<?php
+    session_start();
+    print_r($_SESSION);
+?>
+</html>

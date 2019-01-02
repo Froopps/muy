@@ -23,21 +23,16 @@
     }
     #set the value for visibility of a user
     function set_visibility($arr){
-        $info=array("email"=>0,"nome"=>1,"cognome"=>2,"dataNascita"=>3,"nickname"=>4,"foto"=>5,"sesso"=>6,"città"=>7);
+        $info=array("email"=>0,"nome"=>1,"cognome"=>2,"dataNascita"=>3,"sesso"=>4,"città"=>5);
         $visibility_mask=0;
         foreach($arr as $key){
-            if(!isset($info[$key])){
-                continue;
-            }
-            else{
-                $visibility_mask+=pow(2,$info[$key]);
-            }
+            $visibility_mask+=pow(2,$info[$key]);
         }
         return $visibility_mask;
     }
     #get the list of visible info for a user
     function get_visible_list($vis){
-        $info=array("email","nome","cognome","dataNascita","nickname","foto","sesso","citta");
+        $info=array("email","nome","cognome","dataNascita","sesso","citta");
         $public_list=array();
         foreach($info as $a){
             if($vis%2==0){
@@ -78,7 +73,7 @@
     #case sensitiveness(php) and obliviousness(sql) make the world null evil
     function escape($str,$connected_db){
         $str=trim($str);
-        if(strtolower($value)=="null"){
+        if(strtolower($str)=="null"){
             $str="\\".$str;
         }
         return $connected_db->real_escape_string($str);

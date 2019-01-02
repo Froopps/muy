@@ -18,7 +18,7 @@
     $row=$res->fetch_row();
     if($row[0]==0){
         $redirect_with_error.="Email o password errati";
-        //goto error;
+        goto error;
     }
     if(!hash_match($_POST["pwd"],$row[2])){
         $redirect_with_error.="Password sbagliata".$res->fetch_row()[1];

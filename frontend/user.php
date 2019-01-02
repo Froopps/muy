@@ -9,7 +9,7 @@
 <head>
 	<title>MyUNIMIYoutube | User</title>
     
-    <?php include "../common/head.html"; ?>
+    <?php include "../common/head.php"; ?>
 </head>
 
 <body>
@@ -18,9 +18,9 @@
         <?php 
             if(isset($_SESSION["email"])){
                 include "../common/header_logged.php";
-                include "../common/sidebar_logged.html";
+                include "../common/sidebar_logged.php";
             }else{
-                include "../common/header_unlogged.html";
+                include "../common/header_unlogged.php";
                 include "../common/sidebar_unlogged.html";
             }
         ?>
@@ -37,9 +37,7 @@
                             header($redirect_with_error);
                             exit();
                         }
-                        $query="SELECT * FROM utente WHERE email='".$_GET["user"];
-                        $query.="'";
-                        $res=$connected_db->query($query);
+                        $res=get_user_by_email($_GET["user"],$connected_db);
                         if(!$res){
                             $redirect_with_error.="Errore nella connessione con il database";
                             log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
@@ -48,16 +46,43 @@
                             exit();
                         }
                         $row=$res->fetch_assoc();
-                        user_info($row);
+                        display_user_info($row);
                     ?>
                     <!--?php include "../common/user_info.html"; ?-->
                 </div>
                 
+                <?php   //get nomi canali
+                    $query="SELECT nome, etichetta FROM canale WHERE proprietario='".$_GET["user"];
+                    $query.="'";
+                    $res=$connected_db->query($query);
+                    if(!$res){
+                        $redirect_with_error.="Errore nella connessione con il database";
+                        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                        header($redirect_with_error);
+                        $connected_db->close();
+                        exit();
+                    }
+                    while($row=$res->fetch_assoc()){
+                        $nomecanale[]=$row["nome"];
+                        $etidb[]=$row["etichetta"];
+                    }
+                    $ncan=0;
+                ?>
+                
                 <div class="categoria">
-                    <div><a class="categoria_titolo" href="#canale1">Canale 1</a></div>
+                    <div class="categoria_user_nome">
+                        <a class="categoria_titolo" href="#canale1"><?php echo $nomecanale[$ncan] ?></a>
+                        <a class="plus_logo" href="upload.php?canale=<?php echo str_replace(" ","_",$nomecanale[$ncan]) ?>"><img src="../sources/images/plus.png" width="30px" alt="Aggiungi"></a>
+                    </div>
+                    <hr>
                     <div class="eticanale">
-                        <a class="etichetta" href="#etichetta">#affreschi</a>
-                        <a class="etichetta" href="#etichetta">#sport</a>
+                        <?php
+                            $eti=explode(",",$etidb[$ncan]);
+                            foreach($eti as $et){
+                                echo "<a class='etichetta' href='#etichetta'>#".$et."</a>";
+                            }
+                            $ncan++;
+                        ?>
                     </div>
                     <div class="scrollbar">
                         <?php include "../common/multimedia_object.html"; ?>
@@ -68,9 +93,18 @@
                     </div>
                 </div>
                 <div class="categoria">
-                    <div><a class="categoria_titolo" href="#canale2">Canale 2</a></div>
+                    <div class="categoria_user_nome">
+                        <a class="categoria_titolo" href="#canale2"><?php echo $nomecanale[$ncan] ?></a>
+                        <a class="plus_logo" href="upload.php?canale=<?php echo str_replace(" ","_",$nomecanale[$ncan]) ?>"><img src="../sources/images/plus.png" width="30px" alt="Aggiungi"></a>
+                    </div>
+                    <hr>
                     <div class="eticanale">
-                        <a class="etichetta" href="#etichetta">#lezioni di scienze</a>
+                        <?php
+                            $eti=explode(",",$etidb[$ncan]);
+                            foreach($eti as $et){
+                                echo "<a class='etichetta' href='#etichetta'>#".$et."</a>";
+                            }
+                        ?>
                     </div>
                     <div class="scrollbar">
                         <?php include "../common/multimedia_object.html"; ?>
@@ -101,6 +135,7 @@
                 </div>
                 <div class="categoria">
                     <div><a class="categoria_titolo" href="#canale3">Canale 3</a></div>
+                    <hr>
                     <div class="eticanale">
                         <a class="etichetta" href="#etichetta">#spazzatura</a>
                     </div>

@@ -3,6 +3,7 @@
     #realpath convert the pathname considering the current os and its correct symbols
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/functions.php");
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/display_functions.php");
+    include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/getter_functions.php");
     $host="localhost";
     $user="root";
     $passwd="";

@@ -23,6 +23,10 @@
     $query_values.="'".$res["result"]."',";
     $query_columns.="email,";
     #pwd check
+    if(strlen($_POST["pwd"])<8){
+        $redirect_with_error.="La password deve essere di almeno 8 caratteri";
+        goto error;
+    }
     if($_POST["pwd"]!=$_POST["pwd-c"]){
         $redirect_with_error.="Conferma email sbagliata";
         goto error;
@@ -57,13 +61,13 @@
     $query_values.="'".$birthday."',";
     $query_columns.="dataNascita,";
     #nickname check
-    if(!empty($_POST["nic"])){
-        $query_values.="'".escape($_POST["nic"],$connected_db)."',";
+    if(!empty($_POST["nick"])){
+        $query_values.="'".escape($_POST["nick"],$connected_db)."',";
         $query_columns.="nickname,";
     }
     #checking anyone sending post without the signup form
     if(!empty($_POST["sex"])){
-        if(!($_POST["sex"]=="f"||$_POST["sex"]=="m")){
+        if(!($_POST["sex"]=="Femmina"||$_POST["sex"]=="Maschio")){
             $redirect_with_error.="Il sesso può essere maschio o femmina";
             goto error;
         }
@@ -97,6 +101,7 @@
     header("Location: http://localhost/muy");
     $connected_db->close();
     exit();
+    
     error:
         header($redirect_with_error);
         $connected_db->close();
