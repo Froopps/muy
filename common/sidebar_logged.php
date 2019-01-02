@@ -1,3 +1,6 @@
+<?php
+    include_once "modal_channel.php"
+?>
 <nav>
     <input type="checkbox" id="nav-toggle" hidden>
     <label for="nav-toggle" class="burger">
@@ -17,7 +20,8 @@
         <li class="no_link">Account<hr></li>
         <li><a href="#notifiche">Notifiche</a></li>
         <li><a href="#amici">Amici</a></li>
-        <li><a href="#nuovo">Nuovo Canale</a></li>
+        <!---return required. If the function return false the onclick event will be aborted. Deafault <a> behaviour --->
+        <li><a href="#nuovo" onclick="document.getElementById('modal_bg_2').style.display='flex'">Nuovo Canale</a></li>
         <li><a href="#stats">Statistiche</a></li>
         <li><a href="#xyz">Impostazioni</a></li>
         <li class="no_link">About<hr></li>

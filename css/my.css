@@ -202,7 +202,7 @@ header a#avanzata:hover{
     background-size: 0
 }
 
-[name="src_type"]{
+[name="src_type"],.src_type{
     float: left;
     text-align: left;
     margin: 1em 0em;
@@ -545,7 +545,7 @@ hr{border: 1px solid #848484}
     align-items: center;
     justify-content:center;
     position:fixed;
-    z-index: 1;
+    z-index: 2;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -629,6 +629,19 @@ hr{border: 1px solid #848484}
 .closure_cross:hover{
     color:red;
     cursor:pointer;
+}
+
+/*SELECT IN MODAL CHANNEL*/
+.sel_channel_vis{
+    appearance: button-list;
+    -webkit-appearance: button-list;
+    -moz-appearance: button-list;
+    -o-appearance: button-list;
+    -ms-appearance: button-list;
+    height:2em;
+    width:8em;
+    font-size:120%;
+    margin-right:78%;
 }
 
 /* TABELLA SIGNUP */

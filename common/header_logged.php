@@ -4,7 +4,7 @@
         <a id="primo" href="../frontend/upload.php">Upload</a>
     </span>
     <form id="src_block" action="#src_results" method="get">
-      <select name="src_type">
+      <select class="src_type" name="src_type">
           <option value="v">Video</option>
           <option value="a">Audio</option>
           <option value="i">Immagine</option>

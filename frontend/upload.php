@@ -15,7 +15,7 @@
 
         <?php
             include "../common/header_logged.php";
-            include "../common/sidebar_logged.html";
+            include "../common/sidebar_logged.php";
         ?>
 
         <main>

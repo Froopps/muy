@@ -18,7 +18,7 @@
         <?php 
             if(isset($_SESSION["email"])){
                 include "../common/header_logged.php";
-                include "../common/sidebar_logged.html";
+                include "../common/sidebar_logged.php";
             }else{
                 include "../common/header_unlogged.php";
                 include "../common/sidebar_unlogged.html";
@@ -37,9 +37,7 @@
                             header($redirect_with_error);
                             exit();
                         }
-                        $query="SELECT * FROM utente WHERE email='".$_GET["user"];
-                        $query.="'";
-                        $res=$connected_db->query($query);
+                        $res=get_user_by_email($_GET["user"],$connected_db);
                         if(!$res){
                             $redirect_with_error.="Errore nella connessione con il database";
                             log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
@@ -48,7 +46,7 @@
                             exit();
                         }
                         $row=$res->fetch_assoc();
-                        user_info($row);
+                        display_user_info($row);
                     ?>
                     <!--?php include "../common/user_info.html"; ?-->
                 </div>

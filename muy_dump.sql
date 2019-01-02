@@ -36,13 +36,40 @@ CREATE TABLE canale(
     CONSTRAINT canale_fk FOREIGN KEY (proprietario) REFERENCES utente(email) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE oggettoMultimediale(
+CREATE TABLE video(
     percorso VARCHAR(200)NOT NULL,
+    anteprima VARCHAR(200)DEFAULT('defaults/video_logo.png')NOT NULL,
     titolo VARCHAR(200)NOT NULL,
-    tipo ENUM('Video','Audio','Immagine')NOT NULL,
+    descrizione MEDIUMTEXT,
     collocazione ENUM('locale','youtube')NOT NULL,
-    dataCaricamento DATE NOT NULL,
-    visualizzazioni BIGINT UNSIGNED NOT NULL,
+    dataCaricamento DATETIME NOT NULL,
+    visualizzazioni BIGINT UNSIGNED DEFAULT 0 NOT NULL,
+    canale VARCHAR(200)NOT NULL,
+    proprietario VARCHAR(200)NOT NULL,
+    CONSTRAINT oggettoMultimediale_pk PRIMARY KEY (percorso),
+    CONSTRAINT oggettoMultimediale_fk FOREIGN KEY (canale,proprietario) REFERENCES canale(nome,proprietario) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE audio(
+    percorso VARCHAR(200)NOT NULL,
+    anteprima VARCHAR(200)DEFAULT('defaults/audio_logo.png')NOT NULL,
+    titolo VARCHAR(200)NOT NULL,
+    descrizione MEDIUMTEXT,
+    dataCaricamento DATETIME NOT NULL,
+    visualizzazioni BIGINT UNSIGNED DEFAULT 0 NOT NULL,
+    canale VARCHAR(200)NOT NULL,
+    proprietario VARCHAR(200)NOT NULL,
+    CONSTRAINT oggettoMultimediale_pk PRIMARY KEY (percorso),
+    CONSTRAINT oggettoMultimediale_fk FOREIGN KEY (canale,proprietario) REFERENCES canale(nome,proprietario) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE immagine(
+    percorso VARCHAR(200)NOT NULL,
+    anteprima VARCHAR(200)DEFAULT('defaults/immagini_logo.png')NOT NULL,
+    titolo VARCHAR(200)NOT NULL,
+    descrizione MEDIUMTEXT,
+    dataCaricamento DATETIME NOT NULL,
+    visualizzazioni BIGINT UNSIGNED DEFAULT 0 NOT NULL,
     canale VARCHAR(200)NOT NULL,
     proprietario VARCHAR(200)NOT NULL,
     CONSTRAINT oggettoMultimediale_pk PRIMARY KEY (percorso),

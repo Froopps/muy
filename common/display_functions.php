@@ -1,6 +1,7 @@
 <?php
     include_once "functions.php";
-    function user_info($info){
+    function display_user_info($info){
+        $written_key=array("dataNascita"=>"compleanno","citta"=>"città");
         echo "<table class='user_info'><tr>";
         $pub=get_visible_list($info["visibilita"]);
         #change in /default/logo.jpg
@@ -15,12 +16,15 @@
         echo "<td class='info'><a class='utente' href='#user'><h1>".$info["nickname"]."</h1></a></td>";
         echo "</tr><tr><td class='info'><ul>";
         foreach($pub as $key){
-            echo "<li>".htmlentities(stripslashes($info[$key]))."</li>";
+            if(isset($written_key[$key]))
+                echo "<li>".htmlentities($written_key[$key]).": ".htmlentities(stripslashes($info[$key]))."</li>";
+            else
+                echo "<li>".htmlentities($key).": ".htmlentities(stripslashes($info[$key]))."</li>";
         }
         echo "</ul></td></tr></table>";
     }
 
     function channel_content_list($channel){
-        
+
     }
 ?>
