@@ -11,7 +11,7 @@
         goto error;
     }
     #checking anyone sending post without the signup form. We need all the required data
-    if(empty($_POST["MAX_FILE_SIZE"])||empty($_POST["channel"])||empty($_POST["title"])||empty($_POST["type"])||empty($_FILES["file"])){
+    if(empty($_POST["MAX_FILE_SIZE"])||empty($_POST["channel"])||empty($_POST["title"])||empty($_POST["tag"])||empty($_POST["type"])||empty($_FILES["file"])){
         $redirect_with_error.="Invia tutti i dati richiesti";
         goto error;
     }
@@ -21,8 +21,9 @@
         goto error;
     }
     #percorso
-    #possiamo valutare di usare un percorso diverso, da muy_res per dire
-    $path=$_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_SESSION["email"]."/".str_replace(" ","_",$_POST["channel"])."/".str_replace(" ","_",$_FILES["file"]["name"]);
+    $path=$_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_SESSION["email"]."/".str_replace(" ","_",$_POST["channel"]);
+    mkdir($path."/".str_replace(" ","_",$_FILES["file"]["name"]),0770);
+    $path.="/".str_replace(" ","_",$_FILES["file"]["name"])."/".str_replace(" ","_",$_FILES["file"]["name"]);
     if(file_exists($path)){
         $redirect_with_error.="Il file esiste già, rinominalo prima di caricarlo";
         goto error;
@@ -93,9 +94,50 @@
     move_uploaded_file($_FILES["file"]["tmp_name"],$path);
     #anteprima too
 
+    #etichette
+    if($_POST["tag"][0]=="#"){
+        $_POST["tag"]=substr($_POST["tag"],1);
+    }
+    $tags=explode("#",$_POST["tag"]);
+    foreach($tags as $tag){
+        #spazi inizio
+        while($tag[0]==" "){
+            $tag=substr($tag,1);
+        }
+        #spazi fine
+        while(substr($tag,-1)==" "){
+            $tag=substr($tag,0,-1);
+        }
+        $query="SELECT * FROM `categoria` WHERE tag='#".$tag."'";
+        $res=$connected_db->query($query);
+        if(!$res){
+            $redirect_with_error.="Errore nella connessione con il database ";
+            log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+            goto error;
+        }
+        $row=$res->fetch_assoc();
+        if(empty($row)){
+            $query="INSERT INTO categoria (tag) VALUES ('#".$tag."')";
+            $res=$connected_db->query($query);
+            if(!$res){
+                $redirect_with_error.="Errore nella connessione con il database ";
+                log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                goto error;
+            }
+        }
+        $query="INSERT INTO contenutotaggato (tag,oggetto) VALUES ('#".$tag."','".$path."')";
+        $res=$connected_db->query($query);
+        if(!$res){
+            $redirect_with_error.="Errore nella connessione con il database ";
+            log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+            goto error;
+        }
+    }
+
     header("Location: http://localhost/muy");
     $connected_db->close();
     exit();
+
     error:
         header($redirect_with_error);
         $connected_db->close();
