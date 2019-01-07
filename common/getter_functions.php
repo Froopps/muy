@@ -1,7 +1,6 @@
 <?php
 function get_user_by_email($mail,$connected_db){
-    $query="SELECT * FROM utente WHERE email='".$mail;
-    $query.="'";
+    $query="SELECT * FROM utente WHERE email='".$mail."'";
     $res=$connected_db->query($query);
     return $res;
 }

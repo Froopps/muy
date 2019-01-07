@@ -78,12 +78,13 @@ textarea{
 }
 
 h1{
-    float: left;
     font-size: 2rem;
     font-weight: 1;
     color: black;
     margin: 0;
 }
+
+hr{width: 95%;}
 
 hr.short_hr{
     width: 10%;
@@ -101,7 +102,30 @@ th{
     margin: 0;
 }
 
+.error_span{
+    width: 100%;
+    text-align: center;
+    color: #d82323;
+    font-size: 1.3rem;
+    padding-bottom: 0.5em;
+}
+
+.message_span{
+    width: 100%;
+    text-align: center;
+    color: #16A085;
+    font-size: 1.3rem;
+    padding-bottom: 0.5em;
+}
+
 td.error{color: #d82323;}
+
+div.flex-space-between{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 
 
@@ -207,7 +231,7 @@ header a#avanzata{
 
 header a#avanzata:hover{
     width: 5.5em;
-    color: rgba(0, 0, 0, 1);
+    color: #717171;
     background-size: 0
 }
 
@@ -279,13 +303,13 @@ header #src{
 
 header #src:hover{
     width: 15em;
-    color: black
+    color: black;
 }
 
 header #src:focus{
     width: 15em;
     color: black;
-    border: 0
+    border: 0;
 }
 
 
@@ -422,20 +446,20 @@ main a{
 div.content{
     float: left;
     width: 85%;
-    margin: 90px 0 0 15%;
-    
+    margin: 90px 0 0 15%;    
 }
 
 div.categoria{
     float: left;
-    width: 99%;
+    width: 100%;
     padding-bottom: 1em
 }
 
 div.scrollbar{
     display: flex;
     align-items: center;
-    overflow-x: scroll
+    overflow-x: scroll;
+    margin-bottom: 0.5em;
 }
 
 div#arrowbox{
@@ -463,9 +487,12 @@ div#arrowbox{
 
 
 .obj_multimedia{
+    width: 11em;
     margin: 0.5em;
-    padding: 0.5em
+    padding: 0.5em;
 }
+
+div.ohidden{overflow: hidden;}
 
 .imgobj{
     max-width: 11em;
@@ -483,7 +510,7 @@ div#arrowbox{
     font-size: 1.5rem;
     font-weight: 1;
     color: black;
-    margin: 0
+    margin: 0;
 }
 
 .oggetto-canale{
@@ -501,10 +528,6 @@ h3{
     margin: 0;
     float: left;
     margin-top: 0.5em
-}
-
-.categoria_titolo{
-    width: 50%
 }
 
 .oggetto-titolo, .oggetto-canale, .categoria_titolo{
@@ -685,7 +708,7 @@ input[type=checkbox]{
 
 /* USER PAGE */
 
-#testa{margin-bottom: 1em}
+#testa-user{margin-bottom: 1em}
 
 table.user_info{}
 
@@ -724,12 +747,15 @@ a.utente h1:hover{color:#388baf}
 }
 
 div.categoria_user_nome{
+    width: 95%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-a.plus_logo:hover{opacity: 0.7}
+a.plus_logo{padding: 0 0.3em 0 0.3em;}
+
+a.plus_logo:hover{opacity: 0.7;}
 
 
 

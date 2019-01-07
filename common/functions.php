@@ -78,4 +78,29 @@
         }
         return $connected_db->real_escape_string($str);
     }
+
+    function valutazione($content_path,$connected_db){
+        $res=array("error"=>FALSE,"msg"=>"","result"=>"");
+        $query="SELECT voto FROM valutazione WHERE relativoA='".$content_path."'";
+        $query_res=$connected_db->query($query);
+        if(!$query_res){
+            $res["error"]=TRUE;
+            $res["msg"]="db err";
+            log_into("Errore di esecuzione della query ".$query." ".$connected_db->error);
+            return $res;
+        }
+        $add=0;
+        $cont=0;
+        if(empty($row))
+            return 0;
+        else{
+            while($row=$query_res->fetch_assoc()){
+                $add+=$row["voto"];
+                $cont++;
+            }
+        }
+        $rating=$add/$cont;
+        $res["result"]=substr($rating,0,3);
+        return $res["result"];
+    }
 ?>

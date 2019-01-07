@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | Registrazione</title>
+	<title>MyUNIMIYoutube | Upload</title>
 	
     <?php include "../common/head.php"; ?>
 </head>

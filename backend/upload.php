@@ -3,6 +3,7 @@
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
     $redirect_with_error="Location: http://localhost/muy/frontend/upload.php?error=";
+    $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=Upload_avvenuto_con_successo";
     $query_columns="";
     $query_values="";
     #exit() is used after redirect to avoid further statements execution after redirecting with error
@@ -23,6 +24,7 @@
     #percorso
     $path=$_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_SESSION["email"]."/".str_replace(" ","_",$_POST["channel"]);
     mkdir($path."/".str_replace(" ","_",$_FILES["file"]["name"]),0770);
+    $path_anteprima=$path."/".str_replace(" ","_",$_FILES["file"]["name"]);
     $path.="/".str_replace(" ","_",$_FILES["file"]["name"])."/".str_replace(" ","_",$_FILES["file"]["name"]);
     if(file_exists($path)){
         $redirect_with_error.="Il file esiste già, rinominalo prima di caricarlo";
@@ -32,7 +34,8 @@
     $query_columns.="percorso,";
     #anteprima
     if($_FILES["anteprima"]["error"]==0){
-        $query_values.="'".$path."_anteprima_".$_FILES["anteprima"]["name"]."',";
+        $path_anteprima.="/anteprima_".$_FILES["file"]["name"]."_".$_FILES["anteprima"]["name"];
+        $query_values.="'".$path_anteprima."',";
         $query_columns.="anteprima,";
     }
     if($_FILES["anteprima"]["error"]>0&&$_FILES["anteprima"]["error"]!=4){
@@ -41,7 +44,7 @@
         #serve controllo che $_FILES["anteprima"]["type"] sia immagine
     }
     #titolo
-    if(!preg_match('/^[A-Za-z0-9\'èéàòù ]+$/',$_POST["title"])){
+    if(!preg_match('/^[A-Za-z0-9\'èéàòù!? ]+$/',$_POST["title"])){
         $redirect_with_error.="Titolo non accettabile";
         goto error;
     }
@@ -49,7 +52,7 @@
     $query_columns.="titolo,";
     #descrizione
     if(!empty($_POST["desc"])){
-        if(!preg_match('/^[A-Za-z0-9\'èéàòù ]+$/',$_POST["desc"])){
+        if(!preg_match('/^[A-Za-z0-9\'èéàòù!? ]+$/',$_POST["desc"])){
             $redirect_with_error.="Descrizione non accettabile";
             goto error;
         }
@@ -92,32 +95,46 @@
     }
     #move files
     move_uploaded_file($_FILES["file"]["tmp_name"],$path);
-    #anteprima too
+    if($_FILES["anteprima"]["error"]==0){
+        move_uploaded_file($_FILES["anteprima"]["tmp_name"],$path_anteprima);
+    }
 
     #etichette
-    if($_POST["tag"][0]=="#"){
-        $_POST["tag"]=substr($_POST["tag"],1);
-    }
-    $tags=explode("#",$_POST["tag"]);
-    foreach($tags as $tag){
-        #spazi inizio
-        while($tag[0]==" "){
-            $tag=substr($tag,1);
+    if(isset($_POST["tag"])){
+        if($_POST["tag"][0]=="#"){
+            $_POST["tag"]=substr($_POST["tag"],1);
         }
-        #spazi fine
-        while(substr($tag,-1)==" "){
-            $tag=substr($tag,0,-1);
-        }
-        $query="SELECT * FROM `categoria` WHERE tag='#".$tag."'";
-        $res=$connected_db->query($query);
-        if(!$res){
-            $redirect_with_error.="Errore nella connessione con il database ";
-            log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-            goto error;
-        }
-        $row=$res->fetch_assoc();
-        if(empty($row)){
-            $query="INSERT INTO categoria (tag) VALUES ('#".$tag."')";
+        $tags=explode("#",$_POST["tag"]);
+        foreach($tags as $tag){
+            #spazi inizio
+            while($tag[0]==" "){
+                $tag=substr($tag,1);
+            }
+            #spazi fine
+            while(substr($tag,-1)==" "){
+                $tag=substr($tag,0,-1);
+            }
+            #doppi spazi
+            $tag=preg_replace('/\s+/', ' ',$tag);
+            
+            $query="SELECT * FROM `categoria` WHERE tag='#".$tag."'";
+            $res=$connected_db->query($query);
+            if(!$res){
+                $redirect_with_error.="Errore nella connessione con il database ";
+                log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                goto error;
+            }
+            $row=$res->fetch_assoc();
+            if(empty($row)){
+                $query="INSERT INTO categoria (tag) VALUES ('#".$tag."')";
+                $res=$connected_db->query($query);
+                if(!$res){
+                    $redirect_with_error.="Errore nella connessione con il database ";
+                    log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                    goto error;
+                }
+            }
+            $query="INSERT INTO contenutotaggato (tag,oggetto) VALUES ('#".$tag."','".$path."')";
             $res=$connected_db->query($query);
             if(!$res){
                 $redirect_with_error.="Errore nella connessione con il database ";
@@ -125,16 +142,8 @@
                 goto error;
             }
         }
-        $query="INSERT INTO contenutotaggato (tag,oggetto) VALUES ('#".$tag."','".$path."')";
-        $res=$connected_db->query($query);
-        if(!$res){
-            $redirect_with_error.="Errore nella connessione con il database ";
-            log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-            goto error;
-        }
     }
-
-    header("Location: http://localhost/muy");
+    header($redirect_with_msg);
     $connected_db->close();
     exit();
 

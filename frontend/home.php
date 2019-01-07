@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 ?>
 
 <!DOCTYPE HTML>
@@ -10,7 +11,6 @@
     
     <?php 
         include "../common/head.php";
-        include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
         if($error_connection["flag"]){
             header("Location: http://localhost/pagina_errore");
             exit();
@@ -37,14 +37,18 @@
                 <?php
                     if(isset($_GET["error"])){
                         #edit span to achieve a fashion error displaying
-                        echo "<span class='error_span'>".$_GET["error"]."</span>";
+                        echo "<span class='error_span'>".str_replace("_"," ",$_GET["error"])."</span>";
+                    }
+                    if(isset($_GET["msg"])){
+                        #edit span to achieve a fashion message displaying
+                        echo "<span class='message_span'>".str_replace("_"," ",$_GET["msg"])."</span>";
                     }
                 ?>
                 <div class="categoria">
-                    <div><a class="categoria_titolo" href="#mvvideos">Most visited videos</a></div>
+                    <div><a class="categoria_titolo" href="categoria.php?tag=Video_più_visti&s=true">Most visited videos</a></div>
                     <div class="scrollbar">
                         <?php
-                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='v' ORDER BY visualizzazione DESC LIMIT 10";
+                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='v' ORDER BY visualizzazioni DESC LIMIT 10";
                         ?>
                         <?php include "../common/multimedia_object.html"; ?>
                         <?php include "../common/multimedia_object.html"; ?>
@@ -73,10 +77,10 @@
                     </div>
                 </div>
                 <div class="categoria">
-                    <div><a class="categoria_titolo" href="#avaudios">Most visited audios</a></div>
+                    <div><a class="categoria_titolo" href="categoria.php?tag=Audio_più_visti&s=true">Most visited audios</a></div>
                     <div class="scrollbar">
                         <?php
-                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='v' ORDER BY visualizzazione DESC LIMIT 10";
+                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='a' ORDER BY visualizzazioni DESC LIMIT 10";
                         ?>
                         <?php include "../common/multimedia_object.html"; ?>
                         <?php include "../common/multimedia_object.html"; ?>
@@ -105,10 +109,10 @@
                     </div>
                 </div>
                 <div class="categoria">
-                    <div><a class="categoria_titolo" href="#mvimages">Most visited images</a></div>
+                    <div><a class="categoria_titolo" href="categoria.php?tag=Immagini_più_viste&s=true">Most visited images</a></div>
                     <div class="scrollbar">
                         <?php
-                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='v' ORDER BY visualizzazione DESC LIMIT 10";
+                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='i' ORDER BY visualizzazioni DESC LIMIT 10";
                         ?>
                         <?php include "../common/multimedia_object.html"; ?>
                         <?php include "../common/multimedia_object.html"; ?>
@@ -136,6 +140,27 @@
                         </div>
                     </div>
                 </div>
+                <div class="categoria">
+                    <div><a class="categoria_titolo" href="#seeee">Procedurali</a></div>
+                    <div class="scrollbar">
+                        <?php
+                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='i' ORDER BY visualizzazioni DESC LIMIT 10";
+                        ?>
+                        <?php
+                            $query="SELECT * FROM `oggettomultimediale` WHERE 1";
+                            $res=$connected_db->query($query);
+                            if(!$res){
+                                $connected_db->close();
+                                exit();
+                            }
+                            while($row=$res->fetch_assoc()){
+                                display_multimedia_object($row,$connected_db);
+                            }
+                            $connected_db->close();
+                        ?>
+                    </div>
+                </div>
+                
             </div>
 
         </main>
