@@ -53,6 +53,7 @@
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
         goto error;
     }
+    
     header("Location: http://localhost/muy");
     $connected_db->close();
     exit();

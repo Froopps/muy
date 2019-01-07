@@ -42,7 +42,7 @@ CREATE TABLE oggettoMultimediale(
     titolo VARCHAR(200)NOT NULL,
     descrizione MEDIUMTEXT,
     tipo ENUM('v','a','i')NOT NULL,
-    #collocazione ENUM('locale','youtube')NOT NULL,
+    /*collocazione ENUM('locale','youtube')NOT NULL,*/
     dataCaricamento DATETIME NOT NULL,
     visualizzazioni BIGINT UNSIGNED DEFAULT 0 NOT NULL,
     canale VARCHAR(200)NOT NULL,

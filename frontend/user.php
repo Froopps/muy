@@ -50,12 +50,10 @@
                     <?php
                         display_user_info($row);
                     ?>
-                    <!--?php include "../common/user_info.html"; ?-->
                 </div>
                 
                 <?php
-                    $query="SELECT nome, etichetta, visibilita FROM canale WHERE proprietario='".$_GET["user"]."'";
-                    $res=$connected_db->query($query);
+                    $res=get_channel_by_owner($_GET["user"],$connected_db);
                     if(!$res){
                         $redirect_with_error.="Errore nella connessione con il database";
                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
