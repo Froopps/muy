@@ -501,11 +501,11 @@ h3{
     color: #bababa;
     margin: 0;
     float: left;
-    margin-top: 0.5em
+    margin-top: 0.5em;
 }
 
 .categoria_titolo{
-    width: 50%
+    width: 50%;
 }
 
 .oggetto-titolo, .oggetto-canale, .categoria_titolo{
@@ -515,17 +515,17 @@ h3{
     -webkit-transition: left 0.3s ease-in-out;
     -moz-transition: left 0.3s ease-in-out;
     -o-transition: left 0.3s ease-in-out;
-    -ms-transition: left 0.3s ease-in-out
+    -ms-transition: left 0.3s ease-in-out;
 }
 
 .oggetto-titolo:hover, .oggetto-canale:hover{
     left: 10px;
-    color:#388baf
+    color:#388baf;
 }
 
 .categoria_titolo:hover{
     left: 1em;
-    color:#388baf
+    color:#388baf;
 }
 
 h3.rate{
@@ -534,7 +534,7 @@ h3.rate{
     background-image: url(../sources/images/star.png);
     background-size: 14px;
     background-repeat: no-repeat;
-    text-indent: -18px
+    text-indent: -18px;
 }
 
 .categoria_titolo, h2{
@@ -542,7 +542,7 @@ h3.rate{
     font-size: 2rem;
     font-weight: 1;
     font-style: italic;
-    color: #848484
+    color: #848484;
 }
 
 hr{border: 1px solid #848484}
@@ -650,7 +650,6 @@ hr{border: 1px solid #848484}
     height:2em;
     width:8em;
     font-size:120%;
-    margin-right:78%;
 }
 
 /* TABELLA SIGNUP */
@@ -674,7 +673,6 @@ hr{border: 1px solid #848484}
 input[type=checkbox]{
     width: auto
 }
-
 
 
 
@@ -733,6 +731,17 @@ div.categoria_user_nome{
 a.plus_logo:hover{opacity: 0.7}
 
 
+/*IMPOSTAZIONI UTENTE*/
+
+.button_mod{
+    font-family: Raleway, serif;
+    color: #f2f2f2;
+    background-color: #16A085;
+}
+
+#croppie_box{
+    display:none;
+}
 
 
 /* PAGINA TOP USERS */

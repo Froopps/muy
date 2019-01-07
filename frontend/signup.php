@@ -19,7 +19,6 @@
         ?>
 
         <main>
-            <script type="text/javascript" src="../common/script/user_info_validation.js"></script>
             <div class="content">
                 <?php
                     if(isset($_GET["error"])){
@@ -27,7 +26,7 @@
                         echo "<span class='error_span'>".$_GET["error"]."</span>";
                     }
                 ?>
-                <form action="../backend/signup.php" method="post">
+                <form id="sign_up_form" enctype="multipart/form-data" action="../backend/signup.php" method="post">
                     <table id="signup-table">
                         <tr><td></td><td></td><td>Nascondi</td></tr>
                         <tr><td>e-Mail*:</td><td><input type="text" name="mail" placeholder="e-mail" required onkeyup="pattern_validation(this,0)"></td><td><input type="checkbox" name="check_list[]" value="email"></td></tr>
@@ -42,12 +41,13 @@
                             <option value="Femmina">Female</option>
                         </select></td><td><input type="checkbox" name="check_list[]" value="sesso"></td></tr>
                         <tr><td>Città:</td><td><input type="text" name="cit" placeholder="Città" onkeyup="pattern_validation(this,1)"></td><td><input type="checkbox" name="check_list[]" value="città"></td></tr>
-                        <tr><td colspan="2"><input type="submit"></td></tr>
+                        <tr><td colspan="2"><input name="btnsubmit" type="submit"></td></tr>
                     </table>
                 </form>
             </div>
 
         </main>
+        <script type="text/javascript" src="../common/script/user_info_validation.js"></script>
 
 </body>
 

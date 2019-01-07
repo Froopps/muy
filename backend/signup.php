@@ -91,6 +91,12 @@
         $query_values.="'".set_visibility($_POST["check_list"])."'";
         $query_columns.="visibilita";
     }
+    #checking profile pic finire sta roba
+
+    $new_user_dir=$_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_POST["mail"];
+    mkdir($new_user_dir,0770);
+    mkdir($new_user_dir."/pro_pic",0770);
+    
     $query="INSERT INTO utente (".$query_columns.") VALUES (".$query_values.")";
     $res=$connected_db->query($query);
     if(!$res){

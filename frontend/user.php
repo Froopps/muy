@@ -52,9 +52,8 @@
                 </div>
                 
                 <?php   //get nomi canali
-                    $query="SELECT nome, etichetta FROM canale WHERE proprietario='".$_GET["user"];
-                    $query.="'";
-                    $res=$connected_db->query($query);
+                    
+                    $res=get_channel_by_owner($_GET["user"],$connected_db);
                     if(!$res){
                         $redirect_with_error.="Errore nella connessione con il database";
                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
