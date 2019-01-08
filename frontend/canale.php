@@ -6,7 +6,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | Top categories</title>
+	<title>MyUNIMIYoutube | Canale</title>
     
     <?php include "../common/head.php"; ?>
 </head>
@@ -27,7 +27,14 @@
 
         <main>
             <div class="channel_view">
-                
+                <?php
+                    if(isset($_GET["error"])){
+                        echo "<span class='error_span'>".$_GET["error"]."</span>";
+                    }
+                    if(isset($_GET["msg"])){
+                        echo "<span class='message_span'>".$_GET["msg"]."</span>";
+                    }
+                ?>
             </div>
         </main>
 </body>

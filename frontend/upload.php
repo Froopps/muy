@@ -47,7 +47,7 @@
                                             header($redirect_with_error);
                                             exit();
                                         }
-                                        $query="SELECT nome FROM canale WHERE proprietario='".$_SESSION["email"];
+                                        $query="SELECT nome FROM canale WHERE proprietario='".escape($_SESSION["email"],$connected_db);
                                         $query.="'";
                                         $res=$connected_db->query($query);
                                         if(!$res){
@@ -58,12 +58,12 @@
                                             exit();
                                         }
                                         while($row=$res->fetch_assoc()){
-                                            echo "<option value='".$row["nome"]."'";
+                                            echo "<option value=\"".$row["nome"]."\"";
                                             // se arrivi da user seleziona automaticamente il canale
-                                            if(isset($_GET["canale"]) && str_replace("_"," ",$_GET["canale"])==$row["nome"]){
+                                            if(isset($_GET["canale"]) && $_GET["canale"]==$row["nome"]){
                                                 echo " selected";
                                             }
-                                            echo ">".$row["nome"]."</option>";
+                                            echo ">".stripslashes($row["nome"])."</option>";
                                         }
                                     ?>
                                 </select></td></tr>
@@ -100,23 +100,23 @@
                                             header($redirect_with_error);
                                             exit();
                                         }
-                                        $query="SELECT nome FROM canale WHERE proprietario='".$_SESSION["email"];
+                                        $query="SELECT nome FROM canale WHERE proprietario='".escape($_SESSION["email"],$connected_db);
                                         $query.="'";
                                         $res=$connected_db->query($query);
                                         if(!$res){
-                                            $redirect_with_error.="Errore nella connessione con il database";
+                                            $redirect_with_error.=urlencode("Errore nella connessione con il database");
                                             log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                                             header($redirect_with_error);
                                             $connected_db->close();
                                             exit();
                                         }
                                         while($row=$res->fetch_assoc()){
-                                            echo "<option value='".$row["nome"]."'";
+                                            echo "<option value=\"".$row["nome"]."\"";
                                             // se arrivi da user seleziona automaticamente il canale
-                                            if(isset($_GET["canale"]) && str_replace("_"," ",$_GET["canale"])==$row["nome"]){
+                                            if(isset($_GET["canale"]) && $_GET["canale"]==$row["nome"]){
                                                 echo " selected";
                                             }
-                                            echo ">".$row["nome"]."</option>";
+                                            echo ">".stripslashes($row["nome"])."</option>";
                                         }
                                     ?>
                                 </select></td></tr>

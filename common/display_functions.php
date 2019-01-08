@@ -14,14 +14,14 @@
         if(!file_exists($pro_pic."/".$info["foto"]))
             log_into("Can't find profile pic at ".$pro_pic."/".$info["foto"]);
         $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".$info["foto"]));
-        echo "<td rowspan='2'><a href='#user'><img class='propic' src=$pro_pic alt=$pro_pic_alt></a></td>";
+        echo "<td rowspan='2'><a href='#user'><img class='propic' src=$pro_pic alt=$pro_pic_alt></a></td>";     #id='top-propic' se topvip
         echo "<td class='info'><a class='utente' href='#user'><h1>".$info["nickname"]."</h1></a></td>";
         echo "</tr><tr><td class='info'><ul>";
         foreach($pub as $key){
             if(isset($written_key[$key]))
-                echo "<li>".htmlentities($written_key[$key]).": ".htmlentities(stripslashes($info[$key]))."</li>";
+                echo "<li>".toUpperFirst($written_key[$key]).": ".$info[$key]."</li>";
             else
-                echo "<li>".htmlentities($key).": ".htmlentities(stripslashes($info[$key]))."</li>";
+                echo "<li>".toUpperFirst($key).": ".$info[$key]."</li>";
         }
         echo "</ul></td></tr></table>";
     }
@@ -31,12 +31,13 @@
     }
 
     function display_multimedia_object($info,$connected_db){
+        $path=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
         echo "<span class=\"obj_multimedia\">";
         #leva if e lascia solo else
         if($info["anteprima"]=="defaults/obj_logo.jpg"||$info["anteprima"]=="anteprima_yt")
             $cover="data:image/png;base64,".base64_encode(file_get_contents("../sources/images/cover.png"));
         else
-            $cover="data:image/png;base64,".base64_encode(file_get_contents($info["anteprima"]));
+            $cover="data:image/png;base64,".base64_encode(file_get_contents($path.$info["anteprima"]));
         echo "<a class=\"oggetto\" href=\"#link\"><img class=\"imgobj\" src=\"".$cover."\" alt=\"cover\"></a>";
         echo "<div class=\"ohidden\"><a class=\"oggetto-titolo\" href=\"#link\">".$info["titolo"]."</a></div>";
         $res=get_user_by_email($info["proprietario"],$connected_db);
@@ -50,7 +51,7 @@
         }
         */
         $row=$res->fetch_assoc();
-        echo "<div class=\"ohidden\"><a class=\"oggetto-canale\" href=user.php?user=\"".$info["proprietario"]."\">".$row["nickname"]."</a></div>";
+        echo "<div class=\"ohidden\"><a class=\"oggetto-canale\" href=\"user.php?user=".htmlentities(urlencode(stripslashes($info["proprietario"])))."\">".$row["nickname"]."</a></div>";
         echo "<div class=\"ohidden\"><a class=\"oggetto-canale\" href=\"#channel\">".$info["canale"]."</a></div>";
         echo "<h3>Visual: ".$info["visualizzazioni"]."</h3>";
         echo "<h3 class=\"rate\">".valutazione($info["percorso"],$connected_db)."</h3>";

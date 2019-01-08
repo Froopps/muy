@@ -81,7 +81,7 @@
 
     function valutazione($content_path,$connected_db){
         $res=array("error"=>FALSE,"msg"=>"","result"=>"");
-        $query="SELECT voto FROM valutazione WHERE relativoA='".$content_path."'";
+        $query="SELECT voto FROM valutazione WHERE relativoA='".escape($content_path,$connected_db)."'";
         $query_res=$connected_db->query($query);
         if(!$query_res){
             $res["error"]=TRUE;
@@ -102,5 +102,10 @@
         $rating=$add/$cont;
         $res["result"]=substr($rating,0,3);
         return $res["result"];
+    }
+
+    function toUpperFirst($str){
+        $str=strtoupper($str[0]).substr($str,1);
+        return $str;
     }
 ?>

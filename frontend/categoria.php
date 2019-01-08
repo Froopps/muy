@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | #<?php echo $tag=str_replace("_"," ",$_GET["tag"]); ?></title>
+	<title>MyUNIMIYoutube | <?php echo $tag=$_GET["tag"]; ?></title>
     
     <?php include "../common/head.php"; ?>
 </head>
@@ -26,8 +26,18 @@
 
         <main>
             <div class="content">
+                <?php
+                    if(isset($_GET["error"])){
+                        #edit span to achieve a fashion error displaying
+                        echo "<span class='error_span'>".$_GET["error"]."</span>";
+                    }
+                    if(isset($_GET["msg"])){
+                        #edit span to achieve a fashion message displaying
+                        echo "<span class='message_span'>".$_GET["msg"]."</span>";
+                    }
+                ?>
                 <div class="flex-space-between">
-                    <span><h2>#<?php echo $tag; ?></h2></span>
+                    <span><h2><?php echo $tag; ?></h2></span>
                     <span>
                         Ordina:
                         <select name="sort">
@@ -41,9 +51,9 @@
                 <div>
                     <?php
                         if(isset($_GET["s"]))
-                            $redirect_with_error="Location: http://localhost/muy/frontend/categoria.php?tag=".$_GET["tag"]."&s=true&error=";
+                            $redirect_with_error="Location: http://localhost/muy/frontend/categoria.php?tag=".htmlentities(urlencode($_GET["tag"]))."&s=true&error=";
                         else
-                            $redirect_with_error="Location: http://localhost/muy/frontend/categoria.php?tag=".$_GET["tag"]."error=";
+                            $redirect_with_error="Location: http://localhost/muy/frontend/categoria.php?tag=".htmlentities(urlencode($_GET["tag"]))."error=";
                         if($error_connection["flag"]){
                             $redirect_with_error.=urlencode($error_connection["msg"]);
                             header($redirect_with_error);
@@ -53,10 +63,10 @@
                             #casi speciali
                             echo "yes";
                         }else{
-                            $query="SELECT percorso, anteprima, titolo, descrizione, tipo, dataCaricamento, visualizzazioni, canale, proprietario FROM contenutotaggato JOIN oggettomultimediale ON (contenutotaggato.oggetto = oggettomultimediale.percorso) WHERE tag='#".$tag."'";
+                            $query="SELECT percorso, anteprima, titolo, descrizione, tipo, dataCaricamento, visualizzazioni, canale, proprietario FROM contenutotaggato JOIN oggettomultimediale ON (contenutotaggato.oggetto = oggettomultimediale.percorso) WHERE tag='".escape($tag,$connected_db)."'";
                             $res=$connected_db->query($query);
                             if(!$res){
-                                $redirect_with_error.="Errore nella connessione con il database";
+                                $redirect_with_error.=urlencode("Errore nella connessione con il database");
                                 log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                                 header($redirect_with_error);
                                 $connected_db->close();
@@ -66,6 +76,7 @@
                                 display_multimedia_object($row,$connected_db);
                             }
                         }
+                        $connected_db->close();
                     ?>
                 </div>
             </div>

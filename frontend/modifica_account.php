@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 ?>
 
 <!DOCTYPE HTML>
@@ -15,7 +16,6 @@
     
         <!-- controllo loggato -->
         <?php 
-            include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
             $redirect_with_error="Location: http://localhost/muy/frontend/signup.php?error=";
             if($error_connection["flag"]){
                 $redirect_with_error.=urlencode($error_connection["msg"]);

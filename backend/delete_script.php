@@ -2,9 +2,10 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
-    $redirect_with_error="Location: http://localhost/muy/frontend/channel_mod.php?canale=".$_GET["canale"]."&error=";
-    $redirect_with_msg="Location: http://localhost/muy/frontend/channel_mod.php?canale=".$_GET["canale"]."&msg=Oggetto_eliminato_con_successo";
-    $canale=str_replace("_"," ",$_GET["canale"]);
+    $url="canale=".urlencode($_GET["canale"]); 
+    $redirect_with_error="Location: http://localhost/muy/frontend/channel_mod.php?".htmlentities($url)."&error=";
+    $redirect_with_msg="Location: http://localhost/muy/frontend/channel_mod.php?".htmlentities($url)."&msg=".urlencode("Oggetto eliminato con successo");
+    $canale=$_GET["canale"];
 
     if($error_connection["flag"]){
         $redirect_with_error.=urlencode($error_connection["msg"]);
@@ -20,7 +21,7 @@
     $row=$res->fetch_assoc();
     #controllo se altro utente sta cercando di eliminare
     if($row["proprietario"]!=$_SESSION["email"]){
-        $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=Accesso_negato";
+        $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=".urlencode("Accesso_negato");
         header($redirect_with_error);
         exit();
     }

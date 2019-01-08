@@ -7,6 +7,11 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
     
+    $a="èdsoa'h'yha";
+    echo escape($a,$connected_db);
+        
+    echo "<br>";
+
     $query="SELECT voto FROM valutazione WHERE voto='2'";
     $res=$connected_db->query($query);
     if(!$res){

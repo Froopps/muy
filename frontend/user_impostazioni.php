@@ -2,7 +2,7 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
     $redirect_with_error="Location: http://localhost/muy/home.php?error=";
-        if($error_connection["flag"]){
+    if($error_connection["flag"]){
         $redirect_with_error.=urlencode($error_connection["msg"]);
         header($redirect_with_error);
         exit();
@@ -26,15 +26,23 @@
     ?>
     <main>
         <div class="content">
+            <?php
+                if(isset($_GET["error"])){
+                    echo "<span class='error_span'>".$_GET["error"]."</span>";
+                }
+                if(isset($_GET["msg"])){
+                    echo "<span class='message_span'>".$_GET["msg"]."</span>";
+                }
+            ?>
             <div class="headingArea">
-                <h2>Aggiorna</h1>
+                <h2>Aggiorna</h2>
             </div>
             <div class="user_impo_container">
                     <?php
                         
                         $res=get_user_by_email($_SESSION["email"],$connected_db);
                         if(!$res){
-                            $redirect_with_error.="Errore nella connessione con il database";
+                            $redirect_with_error.=urlencode("Errore nella connessione con il database");
                             log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                             header($redirect_with_error);
                             $connected_db->close();

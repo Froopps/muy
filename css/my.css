@@ -651,15 +651,13 @@ hr{border: 1px solid #848484}
 
 .closure_cross_container{
     align-self:flex-start;
-    margin-left:5%;
+    margin-left:5%
 }
-.closure_cross{
-    font-size:200%;
-}
+.closure_cross{font-size: 200%}
 
 .closure_cross:hover{
     color:red;
-    cursor:pointer;
+    cursor:pointer
 }
 
 /*SELECT IN MODAL CHANNEL*/
@@ -671,7 +669,7 @@ hr{border: 1px solid #848484}
     -ms-appearance: button-list;
     height:2em;
     width:8em;
-    font-size:120%;
+    font-size:120%
 }
 
 /* TABELLA SIGNUP */
@@ -724,13 +722,13 @@ table.user_info ul{
     box-sizing: content-box;
     width: 8em;
     opacity: 1;
-    border: 0;
+    border: solid #717171 5px;
     border-radius: 100em
 }
 
 .propic:hover{
-    opacity: 0.7;
-    border-color: rgba(218, 165, 32, 0.7)
+    opacity: 0.5;
+    /*border-color: rgba(218, 165, 32, 0.7)*/
 }
 
 a.utente h1:hover{color:#388baf}
@@ -748,12 +746,12 @@ div.categoria_user_nome{
     width: 95%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center
 }
 
-a.plus_logo{padding: 0 0.3em 0 0.3em;}
+a.glyph-button{padding: 0 0.3em 0 0.3em}
 
-a.plus_logo:hover{opacity: 0.7;}
+a.glyph-button:hover{opacity: 0.7}
 
 
 /*IMPOSTAZIONI UTENTE*/
