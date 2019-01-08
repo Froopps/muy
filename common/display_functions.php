@@ -13,7 +13,7 @@
         $pro_pic_alt="Spiacenti foto non trovata";
         if(!file_exists($pro_pic."/".$info["foto"]))
             log_into("Can't find profile pic at ".$pro_pic."/".$info["foto"]);
-        $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".$info["foto"]));
+        $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".stripslashes($info["foto"])));
         echo "<td rowspan='2'><a href='#user'><img class='propic' src=$pro_pic alt=$pro_pic_alt></a></td>";
         echo "<td class='info'><a class='utente' href='#user'><h1>".$info["nickname"]."</h1></a></td>";
         echo "</tr><tr><td class='info'><ul>";

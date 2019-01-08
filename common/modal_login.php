@@ -1,4 +1,4 @@
-<div id="modal_bg_1" class="modal_bg">
+<div id="modal_bg_1" style="display:block" class="modal_bg">
     <div class="modal_wrapper">
         <div class="closure_cross_container" >
             <span class="closure_cross" onclick="document.getElementById('modal_bg_1').style.display='none'">&times</span>

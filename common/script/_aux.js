@@ -35,25 +35,59 @@ function crop_image(in_file,image,user,button){
             }
             function sub(img){
                 console.log(user)
-                /*var newF=new FormData()
+                var newF=new FormData()
                 newF.append('cropped_pro_pic',img,'pro_pic')
-                newF.append('user',html_form.elements["mail"])
+                newF.append('user',user)
                 xhr=ajaxRequest()
-                xhr.open("POST","http://localhost/muy/backend/test.php",true)
-                xhr.onload=function(){
-                    if(xhr.status==200){
-                        sub_form_inscope()
-                    }
-                    else{
-                        console.log(xhr.response)
+                xhr.open("POST","http://localhost/muy/backend/pro_pic_update.php",true)
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState && xhr.status==200){
+                        button.innerHTML="ok"
                     }
                 }
                 xhr.send(newF)
             }
-            function sub_form_inscope(){
-                html_form.submit()*/
-            }
         }
         reader.readAsDataURL(in_file.files[0])
     }
+}
+
+//set the default foto
+function set_def_foto(user,button){
+
+    var par="default=1&user="+user
+    xhr=ajaxRequest()
+        xhr.open("POST","http://localhost/muy/backend/pro_pic_update.php",true)
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                button.innerHTML="ok"
+            }
+        }
+        xhr.send(par)
+}
+
+function update_user_info(user,attribute){
+
+    var par=attribute.name+"="+attribute.value+"=&user="+user
+    xhr=ajaxRequest()
+        xhr.open("GET","http://localhost/muy/backend/test.php?"+par,true)
+        xhr.responseType='document'
+        xhr.overrideMimeType('application/xml')
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                //button.innerHTML="ok"
+                
+                var error=xhr.responseXML.getElementsByTagName('error')[0]
+                
+                if(error.getAttribute('triggered')=='true'){
+                    var newErSpan=document.createElement('span')
+                    newErSpan.setAttribute('class','error_span')
+                    newErSpan.appendChild(document.createTextNode(error.childNodes[0].childNodes[0].nodeValue))
+                    document.getElementsByClassName('user_impo_container').firstChild=newErSpan
+                }
+            }
+        }
+        xhr.send()
+
 }

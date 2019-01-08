@@ -30,6 +30,7 @@
                 <h2>Aggiorna</h1>
             </div>
             <div class="user_impo_container">
+            <table class="signup-table impo_table">
                     <?php
                         
                         $res=get_user_by_email($_SESSION["email"],$connected_db);
@@ -41,12 +42,40 @@
                             exit();
                         }
                         $row=$res->fetch_assoc();
-                        $types=array();
-
+                        //echo "<tr><td><input type='file' accept='image/png,image/jpeg' onchange=\"crop_image(this,document.getElementById('croppie_box'),'".$_SESSION["email"]."',document.getElementById('crop_button'))\"></td><td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td><td><button type='button' class='in_notext' onclick=\"set_def_foto('".$_SESSION["email"]."',this)\">Elimina</button></td></tr>";
+                    
                     ?>
-                <table class="signup-table">
-                        <tr><td><input type="file" accept="image/png,image/jpeg" onchange="crop_image(this,document.getElementById('croppie_box'),'peppiniello',document.getElementById('crop_button'))"><td><td><button id="crop_button" type="button">Bella</button></td></tr>
-                        <tr><td><img id="croppie_box" src="#" alt="Spiazènti"></td></tr>
+                    <tr class='heading_in_table'><td><h4>Email</h4></td></td>
+                    <tr>
+                        <td><input class='in_email_up' type="text" name='email' value='<?php echo $row['email'];?>'></td>
+                        <td></td>
+                        <td><button id='crop_button' class='in_notext' type='button' onclick="update_user_info('<?php echo $_SESSION['email'];?>',document.getElementsByClassName('in_email_up')[0])">Aggiorna</button></td>
+                    </tr>
+                    <tr class='heading_in_table'><td><h4>Nome</h4></td></td>
+                    <tr>
+                        <td><input type="text" value='<?php echo $row['nome'];?>'></td>
+                        <td></td>
+                        <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
+                    </tr>
+                    <tr class='heading_in_table'><td><h4>Cognome</h4></td></td>
+                    <tr>
+                        <td><input type="text" value='<?php echo $row['cognome'];?>'></td>
+                        <td></td>
+                        <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
+                    </tr>
+                    <tr class='heading_in_table'><td><h4>Nickname</h2><td><tr>
+                    <tr>
+                        <td><input type="text" value='<?php echo $row['nickname'];?>'></td>
+                        <td></td>
+                        <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
+                    </tr>
+                    <tr class='heading_in_table'><td><h4>Foto profilo</h2><td><tr>
+                    <tr>
+                        <td><input type='file' accept='image/png,image/jpeg' onchange="crop_image(this,document.getElementById('croppie_box'),'<?php echo $_SESSION['email'];?>',document.getElementById('crop_button'))"></td>
+                        <td><button type='button' class='in_notext' onclick="set_def_foto('<?php echo $_SESSION['email'];?>',this)">Elimina</button></td>
+                        <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
+                    </tr>
+                    <tr><td><img id='croppie_box' src='#' alt='Spiazènti'></td><tr>
                 </table>
             </div>
         </div>

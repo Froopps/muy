@@ -15,7 +15,7 @@
         $redirect_with_error.="Inserire tutti i dati necessari";
         goto error;
     }
-    $query="SELECT COUNT(*) FROM canale WHERE nome='".$_POST["channel_name"]."' and proprietario='".$_POST["owner"]."'";
+    $query="SELECT COUNT(*) FROM canale WHERE nome='".stripslashes($_POST["channel_name"])."' and proprietario='".stripslashes($_POST["owner"])."'";
     $res=$connected_db->query($query);
     if(!$res){
         $redirect_with_error.="Errore nella connessione con il database ";
@@ -54,6 +54,7 @@
         goto error;
     }
     
+    mkdir($_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_POST["owner"]."/".$_POST["channel_name"],0770);
     header("Location: http://localhost/muy");
     $connected_db->close();
     exit();

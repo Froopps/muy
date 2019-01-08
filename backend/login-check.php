@@ -24,7 +24,7 @@
         $redirect_with_error.="Password sbagliata".$res->fetch_row()[1];
         goto error;
     }
-    $_SESSION["email"]=$row[1];
+    $_SESSION["email"]=stripslashes($row[1]);
     $_SESSION["nome"]=$row[3];
     $_SESSION["foto"]=$row[4];
     #just for developement test
