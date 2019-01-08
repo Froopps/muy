@@ -19,7 +19,7 @@
         <li><a href="../frontend/etichette.php">Etichette</a></li>
         <li class="no_link">Account<hr></li>
         <li><a href="#amici">Amici</a></li>
-        <!---return required. If the function return false the onclick event will be aborted. Deafault <a> behaviour --->
+        <!-- return required. If the function return false the onclick event will be aborted. Deafault <a> behaviour -->
         <li><a href="#nuovo" onclick="document.getElementById('modal_bg_2').style.display='flex'">Nuovo Canale</a></li>
         <li><a href="#stats">Statistiche</a></li>
         <li><a href="../frontend/user_impostazioni.php">Impostazioni</a></li>

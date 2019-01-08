@@ -20,7 +20,6 @@
 
 <body>
 
-    <!-- controllo loggato -->
     <?php 
         if(isset($_SESSION["email"])){
             include "../common/header_logged.php";
@@ -37,15 +36,17 @@
                 <?php
                     if(isset($_GET["error"])){
                         #edit span to achieve a fashion error displaying
-                        echo "<span class='error_span'>".str_replace("_"," ",$_GET["error"])."</span>";
+                        echo "<span class='error_span'>".$_GET["error"]."</span>";
                     }
                     if(isset($_GET["msg"])){
                         #edit span to achieve a fashion message displaying
-                        echo "<span class='message_span'>".str_replace("_"," ",$_GET["msg"])."</span>";
+                        echo "<span class='message_span'>".$_GET["msg"]."</span>";
                     }
                 ?>
                 <div class="categoria">
-                    <div><a class="categoria_titolo" href="categoria.php?tag=Video_più_visti&s=true">Most visited videos</a></div>
+                    <?php
+                        echo "<div><a class='categoria_titolo' href='categoria.php?tag=".htmlentities(urlencode("Most visited videos")."&s=true")."'>Most visited videos</a></div>"
+                    ?>
                     <div class="scrollbar">
                         <?php
                             $query="SELECT * FROM oggettoMultimediale WHERE tipo='v' ORDER BY visualizzazioni DESC LIMIT 10";
@@ -77,7 +78,9 @@
                     </div>
                 </div>
                 <div class="categoria">
-                    <div><a class="categoria_titolo" href="categoria.php?tag=Audio_più_visti&s=true">Most visited audios</a></div>
+                    <?php
+                        echo "<div><a class='categoria_titolo' href='categoria.php?tag=".htmlentities(urlencode("Most visited audios")."&s=true")."'>Most visited audios</a></div>"
+                    ?>
                     <div class="scrollbar">
                         <?php
                             $query="SELECT * FROM oggettoMultimediale WHERE tipo='a' ORDER BY visualizzazioni DESC LIMIT 10";
@@ -109,7 +112,9 @@
                     </div>
                 </div>
                 <div class="categoria">
-                    <div><a class="categoria_titolo" href="categoria.php?tag=Immagini_più_viste&s=true">Most visited images</a></div>
+                    <?php
+                        echo "<div><a class='categoria_titolo' href='categoria.php?tag=".htmlentities(urlencode("Most visited images")."&s=true")."'>Most visited images</a></div>"
+                    ?>
                     <div class="scrollbar">
                         <?php
                             $query="SELECT * FROM oggettoMultimediale WHERE tipo='i' ORDER BY visualizzazioni DESC LIMIT 10";

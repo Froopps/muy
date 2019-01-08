@@ -1,5 +1,5 @@
 <?php
     session_start();
     session_destroy();
-    header("Location:../frontend/home.php");
+    header("Location:../frontend/home.php?msg=Arrivederci");
 ?>
