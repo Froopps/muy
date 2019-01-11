@@ -20,8 +20,13 @@
     }
     $row=$res->fetch_assoc();
     #controllo se altro utente sta cercando di eliminare
+    if(!isset($_SESSION["email"])){
+        $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=".urlencode("Accesso negato");
+        header($redirect_with_error);
+        exit();
+    }
     if($row["proprietario"]!=$_SESSION["email"]){
-        $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=".urlencode("Accesso_negato");
+        $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=".urlencode("Accesso negato");
         header($redirect_with_error);
         exit();
     }

@@ -5,7 +5,7 @@
         </div>
         <form id="modal_login" method="post" action="../backend/new_channel.php">
             <?php
-                echo "<input type='hidden' name='owner' value=".$_SESSION["email"].">";
+                echo "<input type='hidden' name='owner' value=\"".escape($_SESSION["email"],$connected_db)."\">";
             ?>
             <label for="channel_name">Nome Canale:</label>
             <input type="text" name="channel_name" required>

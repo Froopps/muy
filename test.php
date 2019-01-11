@@ -3,13 +3,27 @@
     <title>TEST</title>
     </head>
 <body>
+    <script>
+        var a=""
+        if(a=="")
+            alert("si")
+        else
+            alert("no")
+    </script>
+    
+    
+    <br>
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
     
-    $a="èdsoa'h'yha";
-    echo escape($a,$connected_db);
-        
+    echo substr("video/.mp4",0,6);
+    echo "<br>";
+    $a=null;
+    if(isset($a))
+        echo "yes";
+    else
+        echo "no";
     echo "<br>";
 
     $query="SELECT voto FROM valutazione WHERE voto='2'";

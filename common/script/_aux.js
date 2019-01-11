@@ -91,3 +91,7 @@ function update_user_info(user,attribute){
         xhr.send()
 
 }
+
+function removeFile(input){
+    document.getElementsByName(input)[0].value=""
+}

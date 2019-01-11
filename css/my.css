@@ -54,7 +54,10 @@ input[type=submit]:hover{
     background-color: #d0d0d0;
 }
 
-input[type=file]{border-style: none;}
+input[type=file]{
+    width: auto;
+    border-style: none
+}
 
 textarea{
     font-family: Raleway, serif;

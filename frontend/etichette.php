@@ -28,6 +28,14 @@
 
             <div class="content">
                 <?php
+                    if(isset($_GET["error"])){
+                        echo "<span class='error_span'>".$_GET["error"]."</span>";
+                    }
+                    if(isset($_GET["msg"])){
+                        echo "<span class='message_span'>".$_GET["msg"]."</span>";
+                    }
+                ?>
+                <?php
                     $redirect_with_error="Location: http://localhost/muy/frontend/etichette.php?error=";
                         if($error_connection["flag"]){
                             $redirect_with_error.=urlencode($error_connection["msg"]);
@@ -47,6 +55,10 @@
                         $tag[]=$row["tag"];
                     }
                     $current_letter="";
+                    if(empty($tag)){
+                        echo "<span class='message_span'>Non ci sono ancora etichette</span>";
+                        exit();
+                    }
                     foreach($tag as $eti){
                         $letter=$eti[1];
                         if($current_letter==""){

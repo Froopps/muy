@@ -10,19 +10,20 @@
         #can't link by url something outside webroot directory for security constraints. So we need to embedd
         #the URI urlencoding file_get_contents() return value
         $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
-        $pro_pic_alt="Spiacenti foto non trovata";
+        $pro_pic_alt="-No image-";
         if(!file_exists($pro_pic."/".$info["foto"]))
             log_into("Can't find profile pic at ".$pro_pic."/".$info["foto"]);
             
         $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".stripslashes($info["foto"])));
-        echo "<td rowspan='2'><a href='#user'><img class='propic' src=$pro_pic alt=$pro_pic_alt></a></td>";
+        echo "<td rowspan='2'><a href='user.php?user=".htmlentities(urlencode(stripslashes($info["email"])))."'><img class='propic' src=".$pro_pic." alt='".$pro_pic_alt."'></a></td>";
 
         echo "<td class='info'><a class='utente' href='#user'><h1>".$info["nickname"]."</h1></a></td>";
         echo "</tr><tr><td class='info'><ul>";
         foreach($pub as $key){
-            if(isset($written_key[$key]))
-                echo "<li>".toUpperFirst($written_key[$key]).": ".$info[$key]."</li>";
-            else
+            if(isset($written_key[$key])){
+                if(isset($info[$key]))
+                    echo "<li>".toUpperFirst($written_key[$key]).": ".$info[$key]."</li>";
+            }else
                 echo "<li>".toUpperFirst($key).": ".$info[$key]."</li>";
         }
         echo "</ul></td></tr></table>";
@@ -36,7 +37,7 @@
         $path=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
         echo "<span class=\"obj_multimedia\">";
         #leva if e lascia solo else
-        if($info["anteprima"]=="defaults/obj_logo.jpg"||$info["anteprima"]=="anteprima_yt")
+        if($info["anteprima"]=="anteprima_yt")
             $cover="data:image/png;base64,".base64_encode(file_get_contents("../sources/images/cover.png"));
         else
             $cover="data:image/png;base64,".base64_encode(file_get_contents($path.$info["anteprima"]));
