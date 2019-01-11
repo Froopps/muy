@@ -753,6 +753,10 @@ a.glyph-button{padding: 0 0.3em 0 0.3em}
 
 a.glyph-button:hover{opacity: 0.7}
 
+.pic_and_but{
+    text-align:center;
+}
+
 
 /*IMPOSTAZIONI UTENTE*/
 
@@ -783,6 +787,11 @@ h4{
     font-family: Raleway, serif;
     color: #f2f2f2;
     background-color: #16A085;
+    font-size:105%;
+    animation: myzoom 0.7s ease-in-out;
+    -webkit-animation: myzoom 0.7s ease-in-out;
+    -moz-animation: myzoom 0.7s ease-in-out;
+    -o-animation: myzoom 0.7s ease-in-out;
 }
 
 
@@ -840,3 +849,69 @@ h4{
 }
 
 .mos_img{width: 100px;}
+
+/*FRIENDS LIST VIEW*/
+
+.friend_list_tb{
+    margin-top:30px;
+    width:80%;
+    display:flex;
+    flex-direction:column;
+}
+
+.friend_list_row{
+    margin-top:15px;
+    width:100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.friend_list_entry{
+    width:45%;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.friend_list_entry_half{
+    width:50%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.four_more{
+    display:flex;
+    flex-direction:column; 
+}
+
+.pro_pic_in_list{
+    box-sizing:border-box;
+    width:5em;
+    border-radius:100%;
+}
+
+.side_info_in_list{
+    font-size:80%;
+}
+
+.nick_in_link{
+    margin-top:0px;
+    margin-bottom:0px;
+    font-size:1.7em;
+}
+
+.action_div{
+    margin-bottom:10px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+
+}
+
+.error_div{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+}
+

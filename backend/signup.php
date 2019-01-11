@@ -103,7 +103,6 @@
     }
     $new_user_dir=$_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_POST["mail"];
     mkdir($new_user_dir,0770);
-    mkdir($new_user_dir."/pro_pic",0770);
 
     $_SESSION["email"]=stripslashes($resm["result"]);
     $_SESSION["nome"]=$_POST["nick"];

@@ -1,9 +1,14 @@
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
-    $redirect_with_error="Location: http://localhost/muy/home.php?error=";
+    $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=";
     if($error_connection["flag"]){
         $redirect_with_error.=urlencode($error_connection["msg"]);
+        header($redirect_with_error);
+        exit();
+    }
+    if(!isset($_SESSION["email"])){
+        $rediret_with_error.=urlencode("Accesso negato");
         header($redirect_with_error);
         exit();
     }
@@ -53,41 +58,60 @@
                         //echo "<tr><td><input type='file' accept='image/png,image/jpeg' onchange=\"crop_image(this,document.getElementById('croppie_box'),'".$_SESSION["email"]."',document.getElementById('crop_button'))\"></td><td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td><td><button type='button' class='in_notext' onclick=\"set_def_foto('".$_SESSION["email"]."',this)\">Elimina</button></td></tr>";
                     
                     ?>
-                    <tr class='heading_in_table'><td><h4>Email</h4></td></td>
+                    <tr class='heading_in_table'><td><h4>Email</h4></td></td></tr>
                     <tr>
                         <td><input class='in_email_up' type="text" name='email' value='<?php echo $row['email'];?>'></td>
                         <td></td>
-                        <td><button id='crop_button' class='in_notext' type='button' onclick="update_user_info('<?php echo $_SESSION['email'];?>',document.getElementsByClassName('in_email_up')[0])">Aggiorna</button></td>
+                        <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_email_up')[0],this)">Aggiorna</button></td>
                     </tr>
                     <tr class='heading_in_table'><td><h4>Nome</h4></td></td>
                     <tr>
-                        <td><input type="text" value='<?php echo $row['nome'];?>'></td>
+                        <td><input class='in_nome_up' type="text" name='nome' value='<?php echo $row['nome'];?>'></td>
                         <td></td>
-                        <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
+                        <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_nome_up')[0],this)">Aggiorna</button></td>
                     </tr>
                     <tr class='heading_in_table'><td><h4>Cognome</h4></td></td>
                     <tr>
-                        <td><input type="text" value='<?php echo $row['cognome'];?>'></td>
+                        <td><input class='in_cognome_up' type="text" name='cognome' value='<?php echo $row['cognome'];?>'></td>
                         <td></td>
-                        <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
+                        <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_cognome_up')[0],this)">Aggiorna</button></td>
                     </tr>
-                    <tr class='heading_in_table'><td><h4>Nickname</h2><td><tr>
+                    <tr class='heading_in_table'><td><h4>Nickname</h4><td></tr>
                     <tr>
-                        <td><input type="text" value='<?php echo $row['nickname'];?>'></td>
+                        <td><input class='in_nickname_up' type="text" name='nickname' value='<?php echo $row['nickname'];?>'></td>
                         <td></td>
-                        <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
+                        <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_nickname_up')[0],this)">Aggiorna</button></td>
                     </tr>
-                    <tr class='heading_in_table'><td><h4>Foto profilo</h2><td><tr>
+                    <tr class='heading_in_table'><td><h4>Sesso</h4><td></tr>
                     <tr>
-                        <td><input type='file' accept='image/png,image/jpeg' onchange="crop_image(this,document.getElementById('croppie_box'),'<?php echo $_SESSION['email'];?>',document.getElementById('crop_button'))"></td>
+                        <td>
+                            <select class='in_sex_up' name="sesso" value=<?php echo $row['sesso'];?>>
+                                <option value="Maschio">Male</option>
+                                <option value="Femmina">Female</option>
+                            </select>
+                        </td>
+                        <td></td>
+                        <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_sex_up')[0],this)">Aggiorna</button></td>
+                    </tr>
+                    <tr class='heading_in_table'><td><h4>Città</h4><td></tr>
+                    <tr>
+                        <td><input class='in_citta_up' type="text" name='citta' value='<?php echo $row['citta'];?>'></td>
+                        <td></td>
+                        <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_citta_up')[0],this)">Aggiorna</button></td>
+                    </tr>
+                    <tr class='heading_in_table'><td><h4>Foto profilo</h2><td></tr>
+                    <tr>
+                        <td><input type='file' accept='image/png,image/jpeg' onchange="crop_image(this,document.getElementById('croppie_box'),document.getElementById('crop_button'),'pro')"></td>
                         <td><button type='button' class='in_notext' onclick="set_def_foto('<?php echo $_SESSION['email'];?>',this)">Elimina</button></td>
                         <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
                     </tr>
-                    <tr><td><img id='croppie_box' src='#' alt='Spiazènti'></td><tr>
+                    <tr><td><img id='croppie_box' src='#' alt='Spiazènti'></td></tr>
                 </table>
             </div>
         </div>
     </main>
+    <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
     <script type="text/javascript" src="../node_modules/croppie/croppie.js"></script>
 </body>
+</html>

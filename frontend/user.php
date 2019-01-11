@@ -8,7 +8,21 @@
 
 <head>
     <?php
-        echo "<title>MyUNIMIYoutube | ".$_SESSION["nome"]."</title>";
+        $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=";
+        if($error_connection["flag"]){
+            $redirect_with_error.=urlencode($error_connection["msg"]);
+            header($redirect_with_error);
+            exit();
+        }
+        $res=get_user_by_email($_GET["user"],$connected_db);
+        $row=$res->fetch_assoc();
+        if(!$res||$row['COUNT(*)']<=0){
+            $redirect_with_error.=urlencode("Errore nella connessione con il database ");
+            header($redirect_with_error);
+            exit();
+        }
+        
+        echo "<title>MyUNIMIYoutube | ".$row["nome"]."</title>";
         include "../common/head.php";
     ?>
 </head>
@@ -42,15 +56,8 @@
                 
                 <div id="testa-user">
                     <?php
-                        $redirect_with_error="Location: http://localhost/muy/frontend/user.php?error=";
-                        if($error_connection["flag"]){
-                            $redirect_with_error.=urlencode($error_connection["msg"]);
-                            header($redirect_with_error);
-                            exit();
-                        }
-                        $res=get_user_by_email($_SESSION["email"],$connected_db);
-                        $row=$res->fetch_assoc();
-                        display_user_info($row);
+                        
+                        display_user_info($row,$connected_db);
                     ?>
                 </div>
                 
@@ -110,6 +117,8 @@
             </div>
 
         </main>
+    <script type="text/javascript" src="../common/script/setup.js"></script>
+    <script type="text/javascript" src="../common/script/friendship.js"></script>
 
 </body>
 
