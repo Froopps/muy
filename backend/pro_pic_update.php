@@ -19,6 +19,7 @@
         goto error;
     }
     #query before saving the result to avoid unused image on server
+
     $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_SESSION["email"]."/".$_FILES["cropped_pro_pic"]["name"];
     $q_pro_pic=escape("content/".$_SESSION["email"]."/".$_FILES["cropped_pro_pic"]["name"],$connected_db);
     $query="UPDATE utente SET foto='".$q_pro_pic."' WHERE email='".escape($_SESSION["email"],$connected_db)."'";
@@ -28,6 +29,7 @@
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
         goto error;
     }
+
     #the cropping is made as a change to an existing user
     if(file_exists($pro_pic)){
         unlink($pro_pic);

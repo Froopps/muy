@@ -87,3 +87,9 @@ function update_user_info(attribute,button){
 
 }
 
+
+
+function removeFile(input){
+    document.getElementsByName(input)[0].value=""
+}
+

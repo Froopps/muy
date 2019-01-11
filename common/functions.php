@@ -52,6 +52,12 @@
             $res["msg"]="Mail non valida";
             return $res;
         }
+        #verify length
+        if(strlen($value)>200){
+            $res["error"]=TRUE;
+            $res["msg"]="Mail troppo lunga";
+            return $res;
+        }
         #verify that no accounts are currently associated with this before continuing to process other incoming data
         $email=escape($value,$connected_db);
         $query="SELECT COUNT(*) FROM utente WHERE email='".$email."'";
@@ -102,6 +108,23 @@
         $rating=$add/$cont;
         $res["result"]=substr($rating,0,3);
         return $res["result"];
+    }
+
+    function trimSpaceBorder($str){
+        #spazi inizio
+        while($str[0]==" ")
+            $str=substr($str,1);
+        #spazi fine
+        while(substr($str,-1)==" ")
+            $str=substr($str,0,-1);
+        return $str;
+    }
+
+    function trimSpace($str){
+        trimSpaceBorder($str);
+        #multipli spazi interni
+        $str=preg_replace('/\s+/', ' ',$str);
+        return $str;
     }
 
     function toUpperFirst($str){

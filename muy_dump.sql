@@ -37,8 +37,8 @@ CREATE TABLE canale(
 );
 
 CREATE TABLE oggettoMultimediale(
-    percorso VARCHAR(200)NOT NULL,
-    anteprima VARCHAR(200)DEFAULT'defaults/obj_logo.jpg'NOT NULL,
+    percorso VARCHAR(600)NOT NULL,
+    anteprima VARCHAR(600)DEFAULT'/defaults/default-obj-logo.png'NOT NULL,
     titolo VARCHAR(200)NOT NULL,
     descrizione MEDIUMTEXT,
     tipo ENUM('v','a','i')NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE oggettoMultimediale(
 
 CREATE TABLE valutazione(
     utente VARCHAR(200)NOT NULL,
-    relativoA VARCHAR(200)NOT NULL,
+    relativoA VARCHAR(600)NOT NULL,
     voto ENUM('0','1','2','3','4','5')NOT NULL,
     CONSTRAINT valutazione_pk PRIMARY KEY(utente,relativoA),
     CONSTRAINT valutazione_utente_fk FOREIGN KEY (utente) REFERENCES utente(email) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -63,7 +63,7 @@ CREATE TABLE valutazione(
 CREATE TABLE commento(
     id BIGINT NOT NULL,
     utente VARCHAR(200)NOT NULL,
-    contenuto VARCHAR(200)NOT NULL,
+    contenuto VARCHAR(600)NOT NULL,
     testo MEDIUMTEXT NOT NULL,
     dataRilascio DATE NOT NULL,
     ora TIME NOT NULL,
@@ -80,7 +80,8 @@ CREATE TABLE categoria(
 
 CREATE TABLE contenutoTaggato(
     tag VARCHAR(200)NOT NULL,
-    oggetto VARCHAR(200)NOT NULL,
+    oggetto VARCHAR(600)NOT NULL,
+    dataAssegnamento DATETIME NOT NULL,
     CONSTRAINT categoria_pk PRIMARY KEY(tag,oggetto),
     CONSTRAINT oggetto_fk FOREIGN KEY (oggetto) REFERENCES oggettoMultimediale(percorso) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT categoria_fk FOREIGN KEY (tag) REFERENCES categoria(tag) ON UPDATE CASCADE ON DELETE CASCADE

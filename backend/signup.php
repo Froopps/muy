@@ -39,11 +39,19 @@
         $redirect_with_error.=urlencode("Inserire un nome vero");
         goto error;
     }
+    if(strlen($_POST["nom"])>200){
+        $redirect_with_error.=urlencode("Nome troppo lungo");
+        goto error;
+    }
     $query_values.="'".escape($_POST["nom"],$connected_db)."',";
     $query_columns.="nome,";
     #lastname check
     if(!preg_match('/^[A-Za-z\'èéàòù ]+$/',$_POST["cog"])){
         $redirect_with_error.=urlencode("Inserire un cognome vero");
+        goto error;
+    }
+    if(strlen($_POST["cog"])>200){
+        $redirect_with_error.=urlencode("Cognome troppo lungo");
         goto error;
     }
     $query_values.="'".escape($_POST["cog"],$connected_db)."',";
@@ -81,6 +89,10 @@
             $redirect_with_error.=urlencode("Inserire un nome di città valido");
             goto error;     
         }
+        if(strlen($_POST["cit"])>200){
+            $redirect_with_error.=urlencode("Nome città troppo lungo");
+            goto error;
+        }
         $query_values.="'".escape($_POST["cit"],$connected_db)."',";
         $query_columns.="citta,";
     }
@@ -93,6 +105,7 @@
         $query_columns.="visibilita";
     }
     #checking profile pic finire sta roba
+    #propic da mettere in $new_user_dir
 
     $query="INSERT INTO utente (".$query_columns.") VALUES (".$query_values.")";
     $res=$connected_db->query($query);
@@ -110,9 +123,9 @@
     #just for developement test, in login-check.php too
 
     if($_POST["sex"]=="Femmina")
-        $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=".urlencode("Sei registrata, ".$_SESSION["nome"]."! Benvenuta su myUNIMIyoutube");
+        $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=".urlencode("Sei registrata, ".$_SESSION["nome"]."! Benvenuta su MUY");
     if($_POST["sex"]=="Maschio")
-        $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=".urlencode("Sei registrato, ".$_SESSION["nome"]."! Benvenuto su myUNIMIyoutube");
+        $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=".urlencode("Sei registrato, ".$_SESSION["nome"]."! Benvenuto su MUY");
 
     header($redirect_with_msg);
     $connected_db->close();

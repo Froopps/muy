@@ -43,7 +43,7 @@
                 <h2>Aggiorna</h2>
             </div>
             <div class="user_impo_container">
-            <table class="signup-table impo_table">
+                <table class="signup-table impo_table">
                     <?php
                         
                         $res=get_user_by_email($_SESSION["email"],$connected_db);
@@ -58,19 +58,19 @@
                         //echo "<tr><td><input type='file' accept='image/png,image/jpeg' onchange=\"crop_image(this,document.getElementById('croppie_box'),'".$_SESSION["email"]."',document.getElementById('crop_button'))\"></td><td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td><td><button type='button' class='in_notext' onclick=\"set_def_foto('".$_SESSION["email"]."',this)\">Elimina</button></td></tr>";
                     
                     ?>
-                    <tr class='heading_in_table'><td><h4>Email</h4></td></td></tr>
+                    <tr class='heading_in_table'><td><h4>Email</h4></td></tr>
                     <tr>
-                        <td><input class='in_email_up' type="text" name='email' value='<?php echo $row['email'];?>'></td>
+                        <td><input class='in_email_up' type="text" name='email' value="<?php echo $row['email'];?>"></td>
                         <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_email_up')[0],this)">Aggiorna</button></td>
                     </tr>
-                    <tr class='heading_in_table'><td><h4>Nome</h4></td></td>
+                    <tr class='heading_in_table'><td><h4>Nome</h4></td></tr>
                     <tr>
                         <td><input class='in_nome_up' type="text" name='nome' value='<?php echo $row['nome'];?>'></td>
                         <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_nome_up')[0],this)">Aggiorna</button></td>
                     </tr>
-                    <tr class='heading_in_table'><td><h4>Cognome</h4></td></td>
+                    <tr class='heading_in_table'><td><h4>Cognome</h4></td></tr>
                     <tr>
                         <td><input class='in_cognome_up' type="text" name='cognome' value='<?php echo $row['cognome'];?>'></td>
                         <td></td>
@@ -115,3 +115,4 @@
     <script type="text/javascript" src="../node_modules/croppie/croppie.js"></script>
 </body>
 </html>
+

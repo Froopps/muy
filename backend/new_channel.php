@@ -31,6 +31,10 @@
         $redirect_with_error.=urlencode("Hai già un canale con questo nome");
         goto error;
     }
+    if(strlen($_POST["channel_name"])>200){
+        $redirect_with_error.=urlencode("Nome canale troppo lungo");
+        goto error;
+    }
     $query_columns.="proprietario,nome";
     $query_values.="'".escape($_POST["owner"],$connected_db)."','".escape($_POST["channel_name"],$connected_db)."'";
 

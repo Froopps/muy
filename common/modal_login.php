@@ -16,6 +16,7 @@
             </style>";
     }
 ?>
+
 <div id="modal_bg_1" class="modal_bg">
     <div class="modal_wrapper">
         <div class="closure_cross_container" >
