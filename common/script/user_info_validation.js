@@ -61,3 +61,18 @@ function check_date(input,logoy,logon,logony){
         document.getElementById(logony).setAttribute('style','display: none')
     }
 }
+function old_pwd_check(input){
+        var par="attribute=old_pwd&value="+input
+        console.log('ya')
+        xhr=open_xml_post("http://localhost/muy/backend/validate_new_info.php")
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                var error=xhr.responseXML.getElementsByTagName('error')[0]
+                document.getElementById('modal_bg_3').style.display='none'
+                if(error.getAttribute('triggered')=='true')
+                    append_error_atop(error.childNodes[0].childNodes[0].nodeValue)
+            }
+        }
+        xhr.send(par)
+}
+

@@ -4,7 +4,9 @@
     function display_user_info($info,$connected_db){
         $written_key=array("dataNascita"=>"compleanno","citta"=>"città");
         echo "<table class='user_info'><tr>";
-        $pub=get_visible_list($info["visibilita"]);
+        $pub=array('email');
+        foreach(get_visible_list($info["visibilita"]) as $p)
+            array_push($pub,$p);
         #change in /default/logo.jpg
         #can't link by url something outside webroot directory for security constraints. So we need to embedd
         #the URI urlencoding file_get_contents() return value
@@ -88,16 +90,15 @@
 
     function display_friendslist_rows($res,$next,$action,$connected_db){
         $no_more=false;
-        $count=0;
         for($j=0;$j<2&&!$no_more;$j++){
             echo "<div class='friend_list_row'>";
             for($i=0;$i<2;$i++){
-                if($count>=count($res)){
+                $row=$res->fetch_assoc();
+                if(!$row){
                     $no_more=true;
                     break;
                 }
-                display_friendslist_entry($res[$count],$action);
-                $count++;
+                display_friendslist_entry($row,$action);
             }
             echo "</div>";
         }
@@ -124,13 +125,19 @@
             echo "<div class='friend_list_entry_half'>";
                 echo "<div><a href='http://localhost/muy/frontend/user.php?user=".urlencode($info['email'])."'><h4 class='nick_in_link'>".stripslashes($info['nickname'])."</h4></a></div>";
                 echo "<div class='action_div'>";
-                    if($action=='pending'){
+                switch($action){
+                    case 'pending':
                         echo "<button class='in_notext' type='button' onclick=\"up_status('accept','".$info['email']."',this)\">Conferma</button>";
                         echo "<button class='in_notext' style='background-color: #837d7d' type='button' onclick=\"up_status('deny','".$info['email']."',this)\">Rifiuta</button>";
-                    }
-                    if($action=='friends'){
+                        break;
+                    
+                    case 'friends':
                         echo "<button class='in_notext' style='background-color: #837d7d' type='button' onclick=\"up_status('erase','".$info['email']."',this)\">Elimina</button>";
-                    }
+                        break;
+                    case 'suggest':
+                        echo "<button class='in_notext' type='button' onclick=\"request_fr(this,'".$info['email']."')\">Invia richiesta";
+                        break;
+                }
                 echo "</div>";
             echo "</div>";
         echo "</div>";

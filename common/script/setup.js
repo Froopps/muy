@@ -23,6 +23,8 @@ function open_xml_post(script){
 function append_error_atop(value){
     var newErSpan=document.createElement('span')
     var container=document.getElementsByClassName('content')[0]
+    if(container.firstChild.className=='error_span')
+        document.getElementsByClassName('error_span')[0].remove()
     newErSpan.setAttribute('class','error_span')
     newErSpan.appendChild(document.createTextNode(value))
     container.insertBefore(newErSpan,container.firstChild)

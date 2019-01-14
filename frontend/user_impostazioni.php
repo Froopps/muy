@@ -28,6 +28,7 @@
     <?php
         include "../common/header_logged.php";
         include "../common/sidebar_logged.php";
+        include "../common/modal_pwd_change.php"
     ?>
     <main>
         <div class="content">
@@ -60,25 +61,52 @@
                     ?>
                     <tr class='heading_in_table'><td><h4>Email</h4></td></tr>
                     <tr>
-                        <td><input class='in_email_up' type="text" name='email' value="<?php echo $row['email'];?>"></td>
+                        <td><input class='in_email_up' type="text" name='email' value="<?php echo $row['email'];?>" onkeyup="pattern_validation(this,0,'mail-y','mail-n','mail-ny')"></td>
+                        <td>
+                            <img id='mail-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                            <img id='mail-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                            <img id='mail-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                        </td>
+                        <td></td>
+                        <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_email_up')[0],this)">Aggiorna</button></td>
+                    </tr>
+                    <tr class='heading_in_table'><td><h4>Password:</h4></td></tr>
+                    <tr>
+                        <td><input class='in_email_up' type="password" name='pwd' onfocus="document.getElementById('modal_bg_3').style.display='flex'"></td>
+                        <td>
+                            <img id='mail-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                            <img id='mail-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                            <img id='mail-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                        </td>
                         <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_email_up')[0],this)">Aggiorna</button></td>
                     </tr>
                     <tr class='heading_in_table'><td><h4>Nome</h4></td></tr>
                     <tr>
-                        <td><input class='in_nome_up' type="text" name='nome' value='<?php echo $row['nome'];?>'></td>
+                        <td><input class='in_nome_up' type="text" name='nome' value='<?php echo $row['nome'];?>' onkeyup="pattern_validation(this,1,'nom-y','nom-n','nom-ny')"></td>
+                        <td>
+                            <img id='nom-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                            <img id='nom-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                            <img id='nom-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                        </td>
                         <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_nome_up')[0],this)">Aggiorna</button></td>
                     </tr>
                     <tr class='heading_in_table'><td><h4>Cognome</h4></td></tr>
                     <tr>
-                        <td><input class='in_cognome_up' type="text" name='cognome' value='<?php echo $row['cognome'];?>'></td>
+                        <td><input class='in_cognome_up' type="text" name='cognome' value='<?php echo $row['cognome'];?>' onkeyup="pattern_validation(this,1,'cog-y','cog-n','cog-ny')"></td>
+                        <td>
+                            <img id='cog-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                            <img id='cog-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                            <img id='cog-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                        </td>
                         <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_cognome_up')[0],this)">Aggiorna</button></td>
                     </tr>
                     <tr class='heading_in_table'><td><h4>Nickname</h4><td></tr>
                     <tr>
                         <td><input class='in_nickname_up' type="text" name='nickname' value='<?php echo $row['nickname'];?>'></td>
+                        <td></td>
                         <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_nickname_up')[0],this)">Aggiorna</button></td>
                     </tr>
@@ -91,17 +119,24 @@
                             </select>
                         </td>
                         <td></td>
+                        <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_sex_up')[0],this)">Aggiorna</button></td>
                     </tr>
                     <tr class='heading_in_table'><td><h4>Città</h4><td></tr>
                     <tr>
-                        <td><input class='in_citta_up' type="text" name='citta' value='<?php echo $row['citta'];?>'></td>
+                        <td><input class='in_citta_up' type="text" name='citta' value='<?php echo $row['citta'];?>' onkeyup="pattern_validation(this,1,'cit-y','cit-n','cit-ny')"></td>
+                        <td>
+                            <img id='cit-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                            <img id='cit-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                            <img id='cit-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                        </td>
                         <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_citta_up')[0],this)">Aggiorna</button></td>
                     </tr>
                     <tr class='heading_in_table'><td><h4>Foto profilo</h2><td></tr>
                     <tr>
                         <td><input type='file' accept='image/png,image/jpeg' onchange="crop_image(this,document.getElementById('croppie_box'),document.getElementById('crop_button'),'pro')"></td>
+                        <td></td>
                         <td><button type='button' class='in_notext' onclick="set_def_foto('<?php echo $_SESSION['email'];?>',this)">Elimina</button></td>
                         <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
                     </tr>
@@ -110,6 +145,7 @@
             </div>
         </div>
     </main>
+    <script type="text/javascript" src="../common/script/user_info_validation.js"></script>
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
     <script type="text/javascript" src="../node_modules/croppie/croppie.js"></script>

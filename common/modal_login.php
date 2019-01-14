@@ -22,7 +22,7 @@
         <div class="closure_cross_container" >
             <span class="closure_cross" onclick="document.getElementById('modal_bg_1').style.display='none'">&times</span>
         </div>
-        <form id="modal_login" method="post" action="../backend/login-check.php">
+        <form class="modal_login" method="post" action="../backend/login-check.php">
             <label for="login">Username:</label>
             <input type="text" name="login" required>
             <label for="pwd">Password:</label>

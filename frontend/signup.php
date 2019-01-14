@@ -42,7 +42,6 @@
                                 <img id='mail-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
                                 <img id='mail-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
                             </td>
-                            <td><input type="checkbox" name="check_list[]" value="email"></td>
                         </tr>
                         <tr>
                             <td>Password*:</td>

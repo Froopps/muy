@@ -23,7 +23,7 @@
     }
     #set the value for visibility of a user
     function set_visibility($arr){
-        $info=array("email"=>0,"nome"=>1,"cognome"=>2,"dataNascita"=>3,"sesso"=>4,"città"=>5);
+        $info=array("nome"=>0,"cognome"=>1,"dataNascita"=>2,"sesso"=>3,"città"=>4);
         $visibility_mask=0;
         foreach($arr as $key){
             $visibility_mask+=pow(2,$info[$key]);
@@ -32,7 +32,7 @@
     }
     #get the list of visible info for a user
     function get_visible_list($vis){
-        $info=array("email","nome","cognome","dataNascita","sesso","citta");
+        $info=array("nome","cognome","dataNascita","sesso","citta");
         $public_list=array();
         foreach($info as $a){
             if($vis%2==0){

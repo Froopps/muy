@@ -3,7 +3,7 @@
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
     #avoid http proxy intrusion and any other homemad request
-    $valid_attributes=array('email','passwd','nome','cognome','nickname','sesso','citta');
+    $valid_attributes=array('email','passwd','nome','cognome','nickname','sesso','citta','old_pwd');
     echo "<?xml version='1.0' encoding='UTF-8'?>";
     header("Content-type: text/xml; charset=utf-8");
 
@@ -22,6 +22,23 @@
             $res=valid_new_email($_POST['value'],$connected_db);
             $value=($res['error']) ? $res["msg"] : 1;
             break;
+        case 'old_pwd':
+            $query="SELECT passwd FROM utente WHERE email='".$_SESSION['email']."'";
+            $res=$connected_db->query($query);
+            if(!$res)
+                goto error;
+            if(!hash_match($_POST['value'],$res->fetch_assoc()['passwd'])){
+                $value='Utente non identificato';
+                goto error;
+            }
+            else{
+                #per garantire l'effettiva consequenzialità delle operazioni di inserimento della nuova password 
+                #solo dopo l'inserimento della precedente (rendendo la modifica della password sicura rispetto a richieste http
+                #inviate al server per vie traverse o fatte da un utente maligno
+                #in possesso del dispositivo dell'utente reale) si introduce un flag di sessione.
+                $_SESSION['true_user']=1;
+                exit();
+            }
         case 'passwd':
             $value=(strlen($_POST['value'])<8) ? 'La password deve essere di almeno otto caratteri' : 1;
             break;

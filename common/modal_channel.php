@@ -3,7 +3,7 @@
         <div class="closure_cross_container" >
             <span class="closure_cross" onclick="document.getElementById('modal_bg_2').style.display='none'">&times</span>
         </div>
-        <form id="modal_login" method="post" action="../backend/new_channel.php">
+        <form class="modal_login" method="post" action="../backend/new_channel.php">
             <?php
                 echo "<input type='hidden' name='owner' value=\"".escape($_SESSION["email"],$connected_db)."\">";
             ?>

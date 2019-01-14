@@ -622,7 +622,7 @@ hr{border: 1px solid #848484}
     to{-o-transform:scale(1);}
 }
 
-#modal_login{
+.modal_login{
     display:flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -632,7 +632,7 @@ hr{border: 1px solid #848484}
     margin-bottom:5%;
 }
 
-#modal_login input,#modal_login label{
+.modal_login input,.modal_login label{
     width:100%;
 }
 

@@ -35,7 +35,7 @@ function get_relationship($subject,$object,$connected_db){
 
 function get_pending_request($mail,$offset,$connected_db){
     $offset=4*$offset;
-    $query="SELECT  * FROM amicizia WHERE receiver='".$mail."' AND stato is NULL LIMIT 4 OFFSET $offset";
+    $query="SELECT  email,foto,nickname FROM utente JOIN amicizia ON email=sender WHERE receiver='$mail' AND stato IS NULL LIMIT 4 OFFSET $offset";
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
@@ -45,7 +45,7 @@ function get_pending_request($mail,$offset,$connected_db){
 
 function get_friends($mail,$offset,$connected_db){
     $offset=4*$offset;
-    $query="SELECT  * FROM amicizia WHERE receiver='".$mail."' AND stato='a' OR sender='".$mail."' AND stato='a' LIMIT 4 OFFSET $offset";
+    $query="SELECT  email,foto,nickname FROM utente JOIN amicizia ON sender=email WHERE receiver='$mail' AND stato='a' UNION SELECT email,foto,nickname FROM utente JOIN amicizia ON receiver=email WHERE sender='$mail' AND stato='a'LIMIT 4 OFFSET $offset";
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
@@ -53,8 +53,13 @@ function get_friends($mail,$offset,$connected_db){
 
 }
 
-function get_suggestions_by_city($city,$offset,$connected_db){
+function get_suggestions_by_city($mail,$offset,$connected_db){
     $offset=4*$offset;
+    $query="SELECT t.email AS email,t.foto AS foto,t.nickname AS nickname FROM utente t JOIN utente AS r on t.citta=r.citta WHERE t.email!='$mail' AND r.email='$mail' AND t.email NOT IN (SELECT email FROM utente JOIN amicizia ON sender=email WHERE receiver='$mail' UNION SELECT email FROM utente JOIN amicizia ON receiver=email WHERE sender='$mail')LIMIT 4 OFFSET $offset";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
 }
 
 ?>

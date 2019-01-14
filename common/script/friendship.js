@@ -21,7 +21,7 @@ function request_fr(button,user){
 }
 
 function refresh_friendslist(action,button){
-    var table={'pending':'pending_view','friends':'friends_view'}
+    var table={'pending':'pending_view','friends':'friends_view','suggest':'suggestions_view'}
     xhr=ajaxRequest()
     xhr.open("GET","http://localhost/muy/common/refresh_fr_list.php?action="+action+"&next="+button.value)
     xhr.responseType='text'
@@ -47,12 +47,14 @@ function up_status(action,object,button){
     var cons={'accept':'Amici','deny':'Bloccato','erase':'Bloccato'}
     var par='action='+action+"&object="+object
     xhr=open_xml_post("http://localhost/muy/backend/up_status.php")
-    button.style.display='none'
-    button.disabled=true
     if(action=='accept')
         button.nextSibling.remove()
     if(action=='deny')
         button.previousSibling.remove();
+    if(action=='deny'||action=='erase'&&!confirm("Una volta effettuata la cancellazione o il rifiuto, tu e "+object+" non potrete più essere amici"))
+        return
+    button.style.display='none'
+    button.disabled=true
     xhr.onreadystatechange=function(){
         if(xhr.readyState==4 && xhr.status==200){
             
