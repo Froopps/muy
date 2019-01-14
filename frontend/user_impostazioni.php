@@ -133,9 +133,9 @@
                         <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_citta_up')[0],this)">Aggiorna</button></td>
                     </tr>
-                    <tr class='heading_in_table'><td><h4>Foto profilo</h2><td></tr>
+                    <tr class='heading_in_table'><td><h4>Foto profilo</h4><td></tr>
                     <tr>
-                        <td><input type='file' accept='image/png,image/jpeg' onchange="crop_image(this,document.getElementById('croppie_box'),document.getElementById('crop_button'),'pro')"></td>
+                        <td><input type='file' accept='image/*' onchange="crop_image(this,document.getElementById('croppie_box'),document.getElementById('crop_button'),'pro')"></td>
                         <td></td>
                         <td><button type='button' class='in_notext' onclick="set_def_foto('<?php echo $_SESSION['email'];?>',this)">Elimina</button></td>
                         <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
@@ -149,6 +149,7 @@
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
     <script type="text/javascript" src="../node_modules/croppie/croppie.js"></script>
+    <script type="text/javascript" src="../common/script/user_info_validation.js"></script>
 </body>
 </html>
 

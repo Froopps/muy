@@ -7,6 +7,7 @@
 
 <head>
 	<title>MyUNIMIYoutube | Base</title>
+    <link rel="stylesheet" href="../node_modules/croppie/croppie.css">
     
     <?php include "../common/head.php"; ?>
 </head>
@@ -33,6 +34,8 @@
                         echo "<span class='message_span'>".$_GET["msg"]."</span>";
                     }
                 ?>
+                
+                <img src="../sources/images/cover.jpg">
             </div>
         </main>
 

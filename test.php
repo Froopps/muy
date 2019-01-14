@@ -3,16 +3,29 @@
     <title>TEST</title>
     </head>
 <body>
-    <script>
-        var a=""
-        if(a=="")
-            alert("si")
-        else
-            alert("no")
-    </script>
     
-    
+    <button id="init">INIT</button>
+    <button id="destroy">DESTROY</button>
+    <div id="demo"></div>
     <br>
+    <script>
+        let instance;
+        
+        alert(document.getElementById("destroy"))
+        document.getElementById('destroy').onclick = () => {
+            if (!instance) return;
+            instance.destroy();
+          instance = null;
+        };
+
+        document.getElementById('init').onclick = () => {
+            if (instance) return;
+
+          instance = new Croppie(document.getElementById('demo'), {
+                url: 'http://foliotek.github.io/Croppie/demo/demo-2.jpg'
+            });
+        };
+    </script>
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");

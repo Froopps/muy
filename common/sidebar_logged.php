@@ -4,16 +4,18 @@
 <nav>
     <input type="checkbox" id="nav-toggle" hidden>
     <label for="nav-toggle" class="burger">
+    <!--<label class="burger" onclick="hide()" style="display: block">-->
         <!-- logo hamburger -->
         <div class="ham"></div>
         <div class="ham"></div>
         <div class="ham"></div>
     </label>
     <span id="nasc">
+    <!--<span id="nasc" style="left: -300px">-->
     <ul>
         <li><a href="../frontend/home.php">Home</a></li>
         <li class="no_link">Display<hr></li>
-        <li><a href="../frontend/home.php">Top visited</a></li><!--QUESTIONE HOME-->
+        <li><a href="../frontend/home.php">Top visited</a></li>
         <li><a href="../frontend/top-users.php">Top users</a></li>
         <li><a href="../frontend/top-categories.php">Top categories</a></li>
         <li><a href="../frontend/etichette.php">Etichette</a></li>
@@ -28,3 +30,18 @@
     </ul>
     </span>
 </nav>
+
+<script>
+    function hide() {
+        var bar = document.getElementById("nasc")
+        var cont = document.getElementsByClassName("content")[0]
+        
+        if (bar.style.left=="0px") {
+            bar.style.left = "-300px"
+            cont.style.transform = "translateX(-200px)"
+        }else{
+            bar.style.left = "0"
+            cont.style.transform = "translateX(0px)"
+        }
+    }
+</script>
