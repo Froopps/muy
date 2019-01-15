@@ -47,6 +47,7 @@
             break;
         case 'nickname':
             $_POST['value']=$_POST['value']=="" ? "User" : $_POST['value'];
+            $_SESSION['nome']=$_POST['value'];
             $value=1;
             break;
         case 'citta':

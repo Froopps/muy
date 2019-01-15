@@ -27,17 +27,17 @@
             echo "<button class='in_notext' type='button' ";
             switch($status){
                 case 'a':
-                    echo "disabled>Amico";
+                    echo "id='disabled' class='disabled' disabled>Amico";
                     break;
                 #restituito da get_relationship in caso di nessuna relazione ne presente ne passata
                 case "no":
                     echo "onclick=\"request_fr(this,'".$info['email']."')\">Invia richiesta";
                     break;
                 case 'pending':
-                    echo "disabled>In attesa di conferma";
+                    echo "id='disabled' disabled>In attesa di conferma";
                     break;
                 default:
-                    echo "style='background-color: #837d7d' disabled>Bloccato";
+                    echo "id='disabled' style='background-color: #837d7d' disabled>Bloccato";
                     break;
 
 

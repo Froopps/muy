@@ -28,7 +28,7 @@
     #percorso
     $dir="/content/".$_SESSION["email"]."/".$_POST["channel"]."/".$_FILES["file"]["name"];
     $path=$dir."/".$_FILES["file"]["name"];
-    $path_anteprima=$dir."/anteprima";
+    $path_anteprima=$dir."/anteprima.png";
     if(strlen($path>600)){
         $redirect_with_error.=urlencode("Nome file troppo lungo");
         goto error;
@@ -152,9 +152,8 @@
             #get frame
             $cmd=$ffmpeg." -i ".$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path." -an -ss ".rand(0,getDuration($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path,$ffmpeg))." ".$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima.".png";
             exec($cmd);
-            #rename ha dato un problema 1 volta, non rinomina file
-            rename($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima.".png",$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
-            ritaglia($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima,$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
+            ritaglia($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima.".png",$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
+            unlink($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima.".png");
             break;
         case "image/":
             if(!$antdef)
@@ -172,6 +171,10 @@
             if(!($tag=="")){
                 trimSpace($tag);
                 $tag=strtolower($tag);
+                if(!preg_match('/^[A-Za-z0-9\'èéàòùì!? ]+$/',$_POST["desc"])){
+                    $redirect_with_msg.=urlencode(", ma uno o più tag non accettabili");
+                    goto error;
+                }
 
                 $query="SELECT * FROM `categoria` WHERE tag='#".escape($tag,$connected_db)."'";
                 $res=$connected_db->query($query);

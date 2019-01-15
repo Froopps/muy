@@ -4,7 +4,7 @@
 <nav>
     <input type="checkbox" id="nav-toggle" hidden>
     <label for="nav-toggle" class="burger">
-    <!--<label class="burger" onclick="hide()" style="display: block">-->
+    <!--<label class="burger" onclick="hide()">-->
         <!-- logo hamburger -->
         <div class="ham"></div>
         <div class="ham"></div>
@@ -33,9 +33,24 @@
 
 <script>
     function hide() {
+        /*
         var bar = document.getElementById("nasc")
         var cont = document.getElementsByClassName("content")[0]
-        
+        var style = getComputedStyle(bar)
+        */
+        var s = document.styleSheets[0]
+
+        for(var i = 0; i < s.cssRules.length; i++) {
+            var rule = s.cssRules[i];
+            if(rule.selectorText === "#nasc") {
+                if(rule.style.display!="none")
+                    rule.style.display = "none"
+                else
+                    rule.style.display = "block"
+                return;
+            }
+        }
+        /*
         if (bar.style.left=="0px") {
             bar.style.left = "-300px"
             cont.style.transform = "translateX(-200px)"
@@ -43,5 +58,6 @@
             bar.style.left = "0"
             cont.style.transform = "translateX(0px)"
         }
+        */
     }
 </script>

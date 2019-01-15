@@ -38,6 +38,11 @@
                 include "../common/header_unlogged.php";
                 include "../common/sidebar_unlogged.html";
             }
+
+            #controllo se è canale dell'utente loggato
+            $self=false;
+            if(isset($_SESSION["email"])&&$_SESSION["email"]==$_GET["user"])
+                $self=true;
         ?>
 
         <main>
@@ -54,7 +59,6 @@
                 
                 <div id="testa-user">
                     <?php
-                        
                         display_user_info($row,$connected_db);
                     ?>
                 </div>
@@ -88,7 +92,7 @@
                                     }
                             echo "</div>";
                             echo "<div class=\"scrollbar\">";
-                                $query="SELECT * FROM oggettomultimediale WHERE canale='".escape($row["nome"],$connected_db)."'";
+                                $query="SELECT * FROM oggettomultimediale WHERE canale='".escape($row["nome"],$connected_db)."' AND proprietario='".escape($row["proprietario"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
                                 $res_ogg=$connected_db->query($query);
                                 if(!$res_ogg){
                                     $redirect_with_error.=urlencode("Errore nella connessione con il database");
@@ -100,7 +104,14 @@
                                 $no_content=1;
                                 while($row_ogg=$res_ogg->fetch_assoc()){
                                     $no_content=0;
+                                    if($self)
+                                        echo "<span class=\"obj_mod\">";
                                     display_multimedia_object($row_ogg,$connected_db);
+                                    if($self){
+                                        echo "<div class=\"obj_mod_button\"><button class=\"delete_button\" onclick=\"delete_content(this,'".escape($row_ogg["percorso"],$connected_db)."')\"></button></div>";
+                                        #echo "<div class=\"obj_mod_button\"><button class=\"delete_button\" onclick=\"deleteTemp(this)\"></button></div>";
+                                        echo "</span>";
+                                    }
                                 }
                                 if($no_content)
                                     echo "<span class='message_span'>Non c'è nessun elemento da mostrare</span>";
@@ -117,6 +128,7 @@
         </main>
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/friendship.js"></script>
+    <script type="text/javascript" src="../common/script/_aux.js"></script>
 
 </body>
 

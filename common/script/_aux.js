@@ -47,21 +47,6 @@ function crop_image(in_file,image,button){
             }
         }
         reader.readAsDataURL(in_file.files[0])
-        //console.log(in_file.files[0])
-    }else{
-        var reader=new FileReader()
-        //reader.onload=function(event){
-            var box=new Croppie(image,{
-                viewport:{width:100, height:100, type: 'circle'},
-                boundary: {width:200, height:200}
-            })
-            //console.log(in_file.toDataURL())
-            //var url_read=event.target.result
-            box.bind({
-                url: in_file.toDataURL()
-            })
-        //}
-        //reader.readAsArrayBuffer(in_file)
     }
 }
 
@@ -97,31 +82,45 @@ function set_def_foto(button){
 
 function update_user_info(attribute,button){
 
-        var par="attribute="+attribute.name+"&value="+attribute.value
-         console.log(attribute.name,' ',attribute.value)
-        xhr=ajaxRequest()
-        xhr=open_xml_post("http://localhost/muy/backend/validate_new_info.php")
-        button.style.display='none'
-        button.disabled=true
-        xhr.onreadystatechange=function(){
-            if(xhr.readyState==4 && xhr.status==200){
-                
-                console.log(xhr.response)
-                var error=xhr.responseXML.getElementsByTagName('error')[0]
-                
-                if(error.getAttribute('triggered')=='true')
-                    append_error_atop(error.childNodes[0].childNodes[0].nodeValue)
-                else{
-                    button.innerHTML="ok"
-                    button.style.display='inline-block'
-                }
+    var par="attribute="+attribute.name+"&value="+attribute.value
+     console.log(attribute.name,' ',attribute.value)
+    xhr=ajaxRequest()
+    xhr=open_xml_post("http://localhost/muy/backend/validate_new_info.php")
+    button.style.display='none'
+    button.disabled=true
+    xhr.onreadystatechange=function(){
+        if(xhr.readyState==4 && xhr.status==200){
+
+            console.log(xhr.response)
+            var error=xhr.responseXML.getElementsByTagName('error')[0]
+
+            if(error.getAttribute('triggered')=='true')
+                append_error_atop(error.childNodes[0].childNodes[0].nodeValue)
+            else{
+                button.innerHTML="ok"
+                button.style.display='inline-block'
             }
         }
-        xhr.send(par)
+    }
+    xhr.send(par)
 
 }
 
-function removeCroppie(cont){
-    while (cont.firstChild)
-    cont.removeChild(cont.firstChild)
- }
+function delete_content(element,content){
+    var par = "path="+content
+
+    if(confirm("Conferma eliminazione")){
+        xhr = ajaxRequest()
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                var response = xhr.responseText
+                console.log(response)
+                element.parentElement.parentElement.style.display = "none"
+            }
+        }
+        //xhr=open_xml_post("http://localhost/muy/backend/test.php")
+        xhr.open("POST","http://localhost/muy/backend/delete_content.php",true)
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xhr.send(par)
+    }
+}

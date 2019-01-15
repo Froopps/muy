@@ -44,7 +44,7 @@
                     exit();
                 }
                 if($res->num_rows==0)
-                    echo "<div class='error_div'><span class='message_span'>Nessuna richiesta in attesa di conferma</span></div>";
+                    echo "<div class='error_div'><span class='message_span'>Nessuna richiesta per te in attesa di conferma</span></div>";
                 #stampo la tabella,vedi la funzione in display functions
                 display_friendslist_rows($res,1,'pending',$connected_db);
         ?>

@@ -6,63 +6,57 @@
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
-    
-    $image = imagecreatefromstring(file_get_contents("1.0.PNG"));
-        $size = min($x=imagesx($image),$y=imagesy($image));
-        #riaglia un quadrato al centro dell'immagine
-        if($size<164){
-            $size=164;
-            if($x==$y)
-                $image2 = imagecrop($image,["x"=>0,"y"=>0,"width"=>$size,"height"=>$size]);
-            else if($x>$y){
-                $image2 = imagecrop($image,["x"=>($x-$y)/2,"y"=>0,"width"=>$size,"height"=>$size]);
-                #$image2 = imagecrop($image,["x"=>($x-$y)/2,"y"=>($y-$size)/2 ,"width"=>$size,"height"=>$size]);
-                echo "si";
-            }else
-                $image2 = imagecrop($image,["x"=>0,"y"=>($y-$x)/2,"width"=>$size,"height"=>$size]);
-        }else{
-            if($x==$y)
-                $image2 = imagecrop($image,["x"=>0,"y"=>0,"width"=>$size,"height"=>$size]);
-            else if($x>$y)
-                $image2 = imagecrop($image,["x"=>($x-$y)/2,"y"=>0,"width"=>$size,"height"=>$size]);
-            else
-                $image2 = imagecrop($image,["x"=>0,"y"=>($y-$x)/2,"width"=>$size,"height"=>$size]);
-        }
-        imagepng($image2,"test.jpg");
-        imagedestroy($image);
-        imagedestroy($image2);
-    
-    echo "<br>";
+
     $a=null;
     if(isset($a))
         echo "yes";
     else
         echo "no";
     echo "<br>";
+    echo "<br>";
 
-    $query="SELECT voto FROM valutazione WHERE voto='2'";
+    $pippo="";
+
+    $query="SELECT * FROM `contenutotaggato`";
     $res=$connected_db->query($query);
     if(!$res){
         $connected_db->close();
         exit();
     }
-    $row=$res->fetch_assoc();
     print_r($res);
-    if(empty($row)){
-        echo "yws";
+    echo "<br>";
+    echo "<br>";
+    while($row=$res->fetch_assoc()){
+        echo $pippo=$row["oggetto"];
+        echo "<br>";
     }
-    
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo $pippo;
     echo "<br>";
     
-    $query="SELECT * FROM `oggettomultimediale` WHERE tipo='a'";
+    $query="SELECT tag as cont FROM `contenutotaggato` WHERE tag='".escape($pippo,$connected_db)."'";
     $res=$connected_db->query($query);
     if(!$res){
         $connected_db->close();
         exit();
     }
+    print_r($res);
+    echo "<br>";
+    echo "<br>";
     while($row=$res->fetch_assoc()){
-        display_multimedia_object($row,$connected_db);
+        echo $row["cont"];
+        echo "<br>";
     }
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+    echo "<br>";
+#   if(empty($row)){
+#        echo "yws";
+#    }
+    
     $connected_db->close();
 ?>
 </body>

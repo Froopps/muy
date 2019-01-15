@@ -8,7 +8,6 @@
 
 <head>
 	<title>MyUNIMIYoutube | Upload</title>
-    <link rel="stylesheet" href="../node_modules/croppie/croppie.css">
 	
     <?php include "../common/head.php"; ?>
 </head>
@@ -93,13 +92,7 @@
 
                         <tr name="ante-line-img" style="display: none">
                             <td>Anteprima:</td>
-                            <td class="left" colspan="2"><input type="file" name="anteprima" accept="image/*" onchange="crop_image(this,document.getElementById('croppie-box-img'),'no');document.getElementsByName('ante-line-img')[1].setAttribute('style','display: auto')"></td>
-                        </tr>
-                        <tr name="ante-line-img" style="display: none"><td colspan="3" id="crop-td"><img id='croppie-box-img' src='#' alt=''></td></tr>
-
-                        <tr id="ante-line-auto" style="display: none">
-                            <td>Anteprima:</td>
-                            <td id="crop-td" colspan="2"><img id='croppie-box-auto' src='#' alt='Spiazènti'></td>
+                            <td class="left" colspan="2"><input type="file" name="anteprima" accept="image/*"></td>
                         </tr>
 
                         <tr><td colspan="3"><input type="submit"></td></tr>
@@ -145,13 +138,11 @@
                     </table>
                 </form>
             </span>
-            <canvas id="prevImgCanvas">Il tuo browser non supporta il tag canvas di HTML5</canvas>
         </div>
 
     </main>
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
-    <script type="text/javascript" src="../node_modules/croppie/croppie.js"></script>
     <script>
         function removeFile(){
             document.getElementsByName('file')[0].value=""
@@ -176,68 +167,14 @@
             switch (tipo){
                 case "audio/":
                     document.getElementsByName('ante-line-img')[0].setAttribute('style','display: auto')
-                    document.getElementById('ante-line-auto').setAttribute('style','display: none')
                     break
                 case "video/":
-                    document.getElementById('ante-line-auto').setAttribute('style','display: auto')
-                    //croppieAnteprima(document.getElementById('prevImgCanvas'),document.getElementById('croppie-box-auto'))
                     document.getElementsByName('ante-line-img')[0].setAttribute('style','display: none')
-                    document.getElementsByName('ante-line-img')[1].setAttribute('style','display: none')
                     break
                 case "image/":
-                    document.getElementById('ante-line-auto').setAttribute('style','display: auto')
-                    crop_image(document.getElementById('inputf'),document.getElementById('croppie-box-auto'),'no')
                     document.getElementsByName('ante-line-img')[0].setAttribute('style','display: none')
-                    document.getElementsByName('ante-line-img')[1].setAttribute('style','display: none')
                     break
             }
-        }
-        
-        
-        var video = document.createElement("video");
-
-        var canvas = document.getElementById("prevImgCanvas");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        video.addEventListener('loadeddata', function() {
-            reloadRandomFrame();
-        }, false);
-
-        video.addEventListener('seeked', function() {
-            var context = canvas.getContext('2d');
-            context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-            console.log(canvas)
-        }, false);
-
-        var playSelectedFile = function(event) {
-            var file = this.files[0];
-            var fileURL = URL.createObjectURL(file);
-            video.src = fileURL;
-            canvas.toBlob(function(blob) {
-              var newImg = document.createElement('img'),
-                  url = URL.createObjectURL(blob);
-
-              newImg.onload = function() {
-                // no longer need to read the blob so it's revoked
-                URL.revokeObjectURL(url);
-              };
-
-              newImg.src = url;
-              document.body.appendChild(newImg);
-                console.log(newImg)
-            });
-            //croppieAnteprima(newImg,document.getElementById('croppie-box-auto'))
-        }
-
-        var input = document.getElementById('inputf');
-        input.addEventListener('change', playSelectedFile, false);
-
-        function reloadRandomFrame() {
-          if (!isNaN(video.duration)) {
-            var rand = Math.round(Math.random() * video.duration * 1000) + 1;
-            video.currentTime = rand / 1000;
-          }
         }
     </script>
 
