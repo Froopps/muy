@@ -3,34 +3,35 @@
     <title>TEST</title>
     </head>
 <body>
-    
-    <button id="init">INIT</button>
-    <button id="destroy">DESTROY</button>
-    <div id="demo"></div>
-    <br>
-    <script>
-        let instance;
-        
-        alert(document.getElementById("destroy"))
-        document.getElementById('destroy').onclick = () => {
-            if (!instance) return;
-            instance.destroy();
-          instance = null;
-        };
-
-        document.getElementById('init').onclick = () => {
-            if (instance) return;
-
-          instance = new Croppie(document.getElementById('demo'), {
-                url: 'http://foliotek.github.io/Croppie/demo/demo-2.jpg'
-            });
-        };
-    </script>
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
     
-    echo substr("video/.mp4",0,6);
+    $image = imagecreatefromstring(file_get_contents("1.0.PNG"));
+        $size = min($x=imagesx($image),$y=imagesy($image));
+        #riaglia un quadrato al centro dell'immagine
+        if($size<164){
+            $size=164;
+            if($x==$y)
+                $image2 = imagecrop($image,["x"=>0,"y"=>0,"width"=>$size,"height"=>$size]);
+            else if($x>$y){
+                $image2 = imagecrop($image,["x"=>($x-$y)/2,"y"=>0,"width"=>$size,"height"=>$size]);
+                #$image2 = imagecrop($image,["x"=>($x-$y)/2,"y"=>($y-$size)/2 ,"width"=>$size,"height"=>$size]);
+                echo "si";
+            }else
+                $image2 = imagecrop($image,["x"=>0,"y"=>($y-$x)/2,"width"=>$size,"height"=>$size]);
+        }else{
+            if($x==$y)
+                $image2 = imagecrop($image,["x"=>0,"y"=>0,"width"=>$size,"height"=>$size]);
+            else if($x>$y)
+                $image2 = imagecrop($image,["x"=>($x-$y)/2,"y"=>0,"width"=>$size,"height"=>$size]);
+            else
+                $image2 = imagecrop($image,["x"=>0,"y"=>($y-$x)/2,"width"=>$size,"height"=>$size]);
+        }
+        imagepng($image2,"test.jpg");
+        imagedestroy($image);
+        imagedestroy($image2);
+    
     echo "<br>";
     $a=null;
     if(isset($a))

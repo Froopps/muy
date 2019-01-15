@@ -131,4 +131,48 @@
         $str=strtoupper($str[0]).substr($str,1);
         return $str;
     }
+
+    function ritaglia($input,$output){
+        $image = imagecreatefromstring(file_get_contents($input));
+        $size = min($x=imagesx($image),$y=imagesy($image));
+        #riaglia un quadrato al centro dell'immagine
+        if($size<164){
+            if($x==$y)
+                $image2 = imagecrop($image,["x"=>0,"y"=>0,"width"=>$size,"height"=>$size]);
+            else if($x>$y)
+                $image2 = imagecrop($image,["x"=>($x-$y)/2,"y"=>($y-$size)/2,"width"=>$size,"height"=>$size]);
+            else
+                $image2 = imagecrop($image,["x"=>0,"y"=>($y-$x)/2,"width"=>$size,"height"=>$size]);
+        }else{
+            if($x==$y)
+                $image2 = imagecrop($image,["x"=>0,"y"=>0,"width"=>$size,"height"=>$size]);
+            else if($x>$y)
+                $image2 = imagecrop($image,["x"=>($x-$y)/2,"y"=>0,"width"=>$size,"height"=>$size]);
+            else
+                $image2 = imagecrop($image,["x"=>0,"y"=>($y-$x)/2,"width"=>$size,"height"=>$size]);
+        }
+        imagepng($image2,$output);
+        imagedestroy($image);
+        imagedestroy($image2);
+    }
+
+    function getDuration($video,$ffmpeg){
+        #get video info
+        $cmd=$ffmpeg." -i ".$video." 2>&1";
+        exec($cmd,$vidinfo);
+        #find duration info
+        $cont=0;
+        foreach($vidinfo as $riga){
+            if(strrpos($riga,"Duration"))
+                break;
+            else
+                $cont++;
+        }
+        $riga=explode(":",$vidinfo[$cont]);
+        $hh=$riga[1];
+        $mm=$riga[2];
+        $ss=substr($riga[3],0,2);
+        $time=$hh*3600+$mm*60+$ss;
+        return $time;
+    }
 ?>

@@ -12,7 +12,7 @@
         goto error;
     }
     #checking anyone sending post without the signup form. We need all the required data
-    if(empty($_POST["MAX_FILE_SIZE"])||empty($_POST["channel"])||empty($_POST["title"])||empty($_FILES["file"])){
+    if(empty($_POST["MAX_FILE_SIZE"])||empty($_POST["channel"])||empty($_POST["title"])||empty($_FILES["file"]["tmp_name"])){
         $redirect_with_error.=urlencode("Invia tutti i dati richiesti");
         goto error;
     }
@@ -20,6 +20,10 @@
     if($_FILES["file"]["error"]>0){
         $redirect_with_error.=urlencode("Errore di upload: error: ".htmlentities(urlencode($_FILES["file"]["error"])));
         goto error;
+    }
+    if(!(substr($_FILES["file"]["type"],0,6)=="audio/"||substr($_FILES["file"]["type"],0,6)=="video/"||substr($_FILES["file"]["type"],0,6)=="image/")){
+            $redirect_with_error.=urlencode("Il tipo di file non è supportato");
+            goto error;
     }
     #percorso
     $dir="/content/".$_SESSION["email"]."/".$_POST["channel"]."/".$_FILES["file"]["name"];
@@ -38,27 +42,46 @@
     #anteprima
     #controlli sul tipo, anteprima dipenderà da essi
     #checking anyone sending post without the signup form
-    if(!(substr($_FILES["file"]["type"],0,6)=="audio/"||substr($_FILES["file"]["type"],0,6)=="video/"||substr($_FILES["file"]["type"],0,6)=="image/")){
-            $redirect_with_error.=urlencode("Il tipo di file non è supportato");
+    $antdef=false;
+    if(empty($_FILES["anteprima"]["tmp_name"])){
+        if(substr($_FILES["file"]["type"],0,6)=="audio/"){
+            #caso audio senza anteprima
+            $query_values.="'/defaults/default-audio.png',";
+            $antdef=true;
+            if($_FILES["anteprima"]["error"]>0&&$_FILES["anteprima"]["error"]!=4)
+                $redirect_with_msg.=urlencode(", ma a causa di un errore l'anteprima è quella di default");
+            goto fine_anteprima;
+        }else if(substr($_FILES["file"]["type"],0,6)=="image/"){
+            if(imagesx($pic=imagecreatefromstring(file_get_contents($_FILES["file"]["tmp_name"])))<164||imagesy($pic)<164){
+                #caso immagine troppo piccola
+                $query_values.="'/defaults/default-image.png',";
+                $antdef=true;
+                $redirect_with_msg.=urlencode(", ma l'immagine è troppo piccola, quindi è stata assegnata l'anteprima di default");
+                goto fine_anteprima;
+            }
+        }
+    }
+    #casi tentativi di upload anteprima, quindi solo di file audio
+    if(substr($_FILES["file"]["type"],0,6)=="audio/"){
+        if($_FILES["anteprima"]["error"]>0&&$_FILES["anteprima"]["error"]!=4){
+            #4 è il caso default
+            $query_values.="'/defaults/default-audio.png',";
+            $antdef=true;
+            $redirect_with_msg.=urlencode(", ma a causa di un errore l'anteprima è quella di default");
+            goto fine_anteprima;
+        }else if(substr($_FILES["anteprima"]["type"],0,6)!="image/"){
+            $redirect_with_error.=urlencode("Puoi inserire sono file di tipo immagine come anteprima");
             goto error;
+        }else if(imagesx($pic=imagecreatefromstring(file_get_contents($_FILES["anteprima"]["tmp_name"])))<164||imagesy($pic)<164){
+            $query_values.="'/defaults/default-audio.png',";
+            $antdef=true;
+            $redirect_with_msg.=urlencode(", ma l'anteprima è troppo piccola, quindi è stata assegnata quella di default");
+            goto fine_anteprima;
+        }
     }
-    switch (substr($_FILES["file"]["type"],0,6)){   #serve?
-        case "audio/":
-            break;
-        case "video/":
-            break;
-        case "image/":
-            break;
-    }
-    if($_FILES["anteprima"]["error"]==0&&substr($_FILES["anteprima"]["type"],0,6)=="image/"){
-        $query_values.="'".escape($path_anteprima,$connected_db)."',";
-        $query_columns.="anteprima,";
-    }
-    if($_FILES["anteprima"]["error"]>0&&$_FILES["anteprima"]["error"]!=4){
-        #4 è il caso default
-        #notificare che l'anteprima non è stata caricata correttamente ma l'upload non viene bloccato
-        #serve controllo che $_FILES["anteprima"]["type"] sia immagine
-    }
+    $query_values.="'".escape($path_anteprima,$connected_db)."',";
+    fine_anteprima:
+    $query_columns.="anteprima,";
     #titolo
     trimSpaceBorder($_POST["title"]);
     if(!preg_match('/^[A-Za-z0-9\'èéàòùì!? ]+$/',$_POST["title"])){
@@ -86,7 +109,7 @@
     $query_columns.="descrizione,";
     }
     #tipo
-    switch (substr($_FILES["file"]["type"],0,6)) {
+    switch(substr($_FILES["file"]["type"],0,6)){
         case "audio/":
             $query_values.="'a',";
             break;
@@ -119,8 +142,25 @@
     #move files
     mkdir($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir,0770);
     move_uploaded_file($_FILES["file"]["tmp_name"],$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path);
-    if($_FILES["anteprima"]["error"]==0)
-        move_uploaded_file($_FILES["anteprima"]["tmp_name"],$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
+    switch(substr($_FILES["file"]["type"],0,6)){
+        case "audio/":
+            if(!$antdef)
+                ritaglia($_FILES["anteprima"]["tmp_name"],$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
+            break;
+        case "video/":
+            $ffmpeg=$_SERVER["DOCUMENT_ROOT"]."/../ffmpeg.exe";
+            #get frame
+            $cmd=$ffmpeg." -i ".$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path." -an -ss ".rand(0,getDuration($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path,$ffmpeg))." ".$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima.".png";
+            exec($cmd);
+            #rename ha dato un problema 1 volta, non rinomina file
+            rename($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima.".png",$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
+            ritaglia($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima,$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
+            break;
+        case "image/":
+            if(!$antdef)
+                ritaglia($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path,$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
+            break;
+    }
 
     #etichette
     if(!(empty($_POST["tag"]))){

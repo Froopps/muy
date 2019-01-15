@@ -22,7 +22,7 @@
             exit();
         }
         
-        echo "<title>MyUNIMIYoutube | ".$row["nome"]."</title>";
+        echo "<title>MyUNIMIYoutube | ".$row["nickname"]."</title>";
         include "../common/head.php";
     ?>
 </head>
