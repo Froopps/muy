@@ -2,14 +2,16 @@
     <a id="logo" href="../frontend/home.php"></a>
     <form id="src_block" action="#src_results" method="get">
         <select name="src_type">
-            <option value="v">Video</option>
-            <option value="a">Audio</option>
-            <option value="i">Immagine</option>
-            <option value="u">Utente</option>
-            <option value="c">Canale</option>
+            <option value="oggettoMultimediale">Contenuto</option>
+            <option value="utente">Utente</option>
+            <option value="canale">Canale</option>
+            <option value="categoria">Tag</option>
         </select>
         <input id="srcbtn" type="submit">
-        <input id="src" type="text" name="src_txt" placeholder="Cerca...">
+        <div class='src_suggestion_container'>
+            <input id="src" type="text" name="src_txt" placeholder="Cerca...">
+            <div class='sug_list'></div>
+        </div>
         <a id="avanzata" href="#ricerca_avanzata">Avanzata</a>
     </form>
     <span>

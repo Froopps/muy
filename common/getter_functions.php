@@ -62,4 +62,11 @@ function get_suggestions_by_city($mail,$offset,$connected_db){
     return $res;
 }
 
+function get_content_by_id($id,$connected_db){
+    $query="SELECT percorso FROM oggettoMultimediale WHERE extID='$id'";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
 ?>

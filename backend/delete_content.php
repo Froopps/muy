@@ -2,13 +2,10 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
-    /*
-    echo "<?xml version='1.0' encoding='UTF-8'?>";
-    header("Content-type: text/xml; charset=utf-8");
-    */
-
-    $value="";
-    $path=$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$_POST["path"];
+    $res=get_content_by_id($_POST['id'],$connected_db);
+    if(!$res||$res->num_rows!=1)
+        exit();
+    $path=$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$res->fetch_assoc()['percorso'];
 
     if($error_connection["flag"]){
         $value=$error_connection["msg"];
@@ -21,13 +18,11 @@
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
         $connected_db->close();
-        goto error;
+        exit();
     }
     $row=$res->fetch_assoc();
-    if(!isset($_SESSION["email"])||$row["proprietario"]!=$_SESSION["email"]){
-        $value="Accesso negato";
-        goto error;
-    }
+    if($res->num_rows==0||!isset($_SESSION["email"])||$row["proprietario"]!=$_SESSION["email"])
+        exit();
 
     #delete content
     $query="DELETE FROM `oggettomultimediale` WHERE percorso='".escape($_POST["path"],$connected_db)."'";
@@ -51,10 +46,4 @@
         $connected_db->close();
         exit();
     }
-        
-    echo "<error triggered='false'><message></message></error>";
-    exit();
-
-    error:
-        echo "<error triggered='true'><message>".$value."</message></error>";
 ?>
