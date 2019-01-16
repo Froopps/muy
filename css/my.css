@@ -165,7 +165,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    overflow: auto;
+    overflow: visible;
     z-index: 2;
 	width: 100%;
     max-height: 60.4px;
@@ -424,17 +424,16 @@ nav hr{
     overflow-y: auto
 }
 
-[id='nav-toggle']:checked ~ main > article {
-    background-color: black;
-    transform: translateX(320px);
-    -webkit-transform: translateX(320px);
-    -moz-transform: translateX(320px);
-    -o-transform: translateX(320px);
-    -ms-transform: translateX(320px);
+.src_suggestion_container{
+    display:flex;
+    flex-direction:column
 }
 
-[id='nav-toggle']:not(:checked) ~ nav > .burger {
+.sug_list{
+    display:none;
+    background-color:white;
 }
+
 
 
 /* !!!!! sistema sta roba con javascript !!!!! */

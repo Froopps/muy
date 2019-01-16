@@ -38,7 +38,7 @@
                 <img src="../sources/images/cover.jpg">
             </div>
         </main>
-
+        <script type="text/javascript" src="../common/script/search.js"></script>
 </body>
 
 </html>

@@ -37,4 +37,5 @@
                 ?>
             </div>
         </main>
+        <script type="text/javascript" src="../common/script/search.js"></script>
 </body>
