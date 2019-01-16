@@ -50,6 +50,7 @@ button#disabled{
 }
 
 input[type=submit]{
+    width: 350px;
     border-style: solid;
     border-top-left-radius: 1em;
     border-bottom-left-radius: 1em
@@ -137,6 +138,11 @@ div.flex-space-between{
     align-items: center
 }
 
+center{
+    display: flex;
+    justify-content: center
+}
+
 
 
 
@@ -160,7 +166,7 @@ header {
     justify-content: space-between;
     align-items: center;
     overflow: auto;
-    z-index: 1001;
+    z-index: 2;
 	width: 100%;
     max-height: 60.4px;
     box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
@@ -360,7 +366,7 @@ nav a:hover{background-color: gray}
     left: 0;    /* per visualizzazione firefox */
     cursor: pointer;
     position: absolute;
-    z-index: 10;
+    z-index: 2;
     background-color:transparent;
     margin: 1.1em 0 0 0.7em;
     padding: 0 6px 6px 6px
@@ -441,7 +447,10 @@ nav hr{
 
 /* CONTENUTO PRINCIPALE HOME */
 
-main{}
+main{
+    display: flex;
+    justify-content: center
+}
 
 main a{
     margin: 0;
@@ -454,6 +463,11 @@ div.content{
     width: 85%;
     /*margin: 90px 0 0 15%*/
     margin: 90px 0 0 285.5px
+}
+
+div.content-centre{
+    float: left;
+    margin-top: 90px
 }
 
 div.categoria{
@@ -580,27 +594,27 @@ h3.rate{
     align-items: center;
     justify-content:center;
     position:fixed;
-    z-index: 2;
+    z-index: 3;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
-    background-color:rgba(0,0,0,0.4);
+    background-color:rgba(0,0,0,0.4)
 }
 
 .modal_wrapper{
-    display:flex;
+    display: flex;
     flex-direction: column;
-    justify-content:center;
-    align-items:center;
-    height:50%;
-    width:50%;
-    border-radius:10%;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 50%;
+    border-radius: 10%;
     background-color: #f2f2f2;
     animation: myzoom 0.7s ease-in-out;
     -webkit-animation: myzoom 0.7s ease-in-out;
     -moz-animation: myzoom 0.7s ease-in-out;
-    -o-animation: myzoom 0.7s ease-in-out;
+    -o-animation: myzoom 0.7s ease-in-out
 }
 
 @keyframes myzoom{
@@ -677,10 +691,11 @@ h3.rate{
 /* TABELLA SIGNUP */
 
 #signup-table{
-    margin-left: 17%;
+    /*margin-left: 17%;*/
     align-content: center;
     text-align: center;
-    color: #717171
+    color: #717171;
+    width: 100%
 }
 
 #signup-table td{
@@ -776,7 +791,6 @@ button.delete_button:hover{
 
 /*IMPOSTAZIONI UTENTE*/
 
-
 #croppie_box{
     display:none;
 }
@@ -797,7 +811,8 @@ h4{
 }
 
 .in_notext{
-    width:auto;
+    width: auto;
+    padding: 0.1em 0.5em 0.1em 0.5em;
     border-style: solid;
     border-radius:1em;
     font-family: Raleway, serif;
@@ -840,13 +855,9 @@ h4{
     border-radius: 0.5em
 }
 
-.mosaico:hover{
-    border-color: rgba(22, 160, 133, 0.3)
-}
+.mosaico:hover{border-color: rgba(22, 160, 133, 0.3)}
 
-#bottom-layer:hover > .mos_cel{
-    opacity: 0.7
-}
+#bottom-layer:hover > .mos_cel{opacity: 0.7}
 
 .mosaico:hover .etichetta{
     background-color: #0effd2;

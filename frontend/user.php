@@ -79,10 +79,12 @@
                         echo "<div class=\"categoria\">";
                             echo "<div class=\"categoria_user_nome\">";
                                 echo "<a class=\"categoria_titolo\" href=\"categoria.php?tag=".htmlentities(urlencode($row["nome"]))."&s=c&user=".htmlentities(urlencode($_GET["user"]))."\">".stripslashes($row["nome"])."</a>";
-                                echo "<div>";
-                                    echo "<a class=\"glyph-button\" href=\"channel_mod.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/pencil.png\" width=\"30px\" alt=\"Modifica\"></a>";
-                                    echo "<a class=\"glyph-button\" href=\"upload.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/plus.png\" width=\"30px\" alt=\"Aggiungi\"></a>";
-                                echo "</div>";
+                                if($self){
+                                    echo "<div>";
+                                        echo "<a class=\"glyph-button\" href=\"channel_mod.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/pencil.png\" width=\"30px\" alt=\"Modifica\"></a>";
+                                        echo "<a class=\"glyph-button\" href=\"upload.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/plus.png\" width=\"30px\" alt=\"Aggiungi\"></a>";
+                                    echo "</div>";
+                                }
                             echo "</div>";
                             echo "<hr align=\"left\">";
                             echo "<div class=\"eticanale\">";
@@ -108,8 +110,7 @@
                                         echo "<span class=\"obj_mod\">";
                                     display_multimedia_object($row_ogg,$connected_db);
                                     if($self){
-                                        echo "<div class=\"obj_mod_button\"><button class=\"delete_button\" onclick=\"delete_content(this,'".escape($row_ogg["percorso"],$connected_db)."')\"></button></div>";
-                                        #echo "<div class=\"obj_mod_button\"><button class=\"delete_button\" onclick=\"deleteTemp(this)\"></button></div>";
+                                        echo "<div class=\"obj_mod_button\"><button class=\"delete_button\" onclick=\"delete_content(this,'".$row_ogg["extID"]."')\"></button></div>";
                                         echo "</span>";
                                     }
                                 }

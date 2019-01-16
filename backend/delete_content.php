@@ -2,11 +2,6 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
-    /*
-    echo "<?xml version='1.0' encoding='UTF-8'?>";
-    header("Content-type: text/xml; charset=utf-8");
-    */
-
     $value="";
     $path=$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$_POST["path"];
 
@@ -52,9 +47,9 @@
         exit();
     }
         
-    echo "<error triggered='false'><message></message></error>";
+    #echo "no error";
     exit();
 
     error:
-        echo "<error triggered='true'><message>".$value."</message></error>";
+        #echo "error";
 ?>

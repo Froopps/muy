@@ -83,8 +83,7 @@
     fine_anteprima:
     $query_columns.="anteprima,";
     #titolo
-    trimSpaceBorder($_POST["title"]);
-    if(!preg_match('/^[A-Za-z0-9\'èéàòùì!? ]+$/',$_POST["title"])){
+    if(!preg_match('/^[A-Za-z0-9\'èéàòùì!?-_.:,; ]+$/',$_POST["title"])){
         $redirect_with_error.=urlencode("Titolo non accettabile");
         goto error;
     }
@@ -96,7 +95,6 @@
     $query_columns.="titolo,";
     #descrizione
     if(!empty($_POST["desc"])){
-        trimSpaceBorder($_POST["desc"]);
         if(!preg_match('/^[A-Za-z0-9\'èéàòùì!? ]+$/',$_POST["desc"])){
             $redirect_with_error.=urlencode("Descrizione non accettabile");
             goto error;

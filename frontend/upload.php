@@ -19,7 +19,31 @@
         include "../common/sidebar_logged.php";
     ?>
     <main>
-        <div class="content">
+        <div class="content-centre">
+        <?php
+            $redirect_with_error="Location: http://localhost/muy/home.php?error=";
+            if($error_connection["flag"]){
+            $redirect_with_error.=urlencode($error_connection["msg"]);
+                header($redirect_with_error);
+                exit();
+            }
+            $query="SELECT nome FROM canale WHERE proprietario='".escape($_SESSION["email"],$connected_db);
+            $query.="'";
+            $res=$connected_db->query($query);
+            if(!$res){
+                $redirect_with_error.="Errore nella connessione con il database";
+                log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                header($redirect_with_error);
+                $connected_db->close();
+                exit();
+            }
+            $no_channel=0;
+            if($res->num_rows==0){
+                $no_channel=1;
+                echo "<span class='error_span'><button class=\"in_notext\" type=\"button\" onclick=\"document.getElementById('modal_bg_2').style.display='flex'\">Prima crea un canale</button></span></div>";
+                echo "<div class=\"content-centre\" style=\"display: none\">";
+            }
+        ?>
         <?php
             if(isset($_GET["error"])){
                 echo "<span class='error_span'>".$_GET["error"]."</span>";
@@ -28,7 +52,7 @@
                 echo "<span class='message_span'>".$_GET["msg"]."</span>";
             }
             ?>
-            <div>
+            <div class="center">
                 <table id="signup-table">
                     <tr>
                         <td>Cosa devi caricare?</td>
@@ -41,7 +65,7 @@
                     </tr>
                 </table>
             </div>
-            <span>
+            <div>
                 <form enctype="multipart/form-data" action="../backend/upload.php" method="post" id="up-file" style="display: block">
                     <table id="signup-table">
                         <tr><th colspan="3">Upload File</th></tr>
@@ -58,22 +82,6 @@
                             <td class="left" colspan="2">
                                 <select name="channel" required>
                                     <?php
-                                        $redirect_with_error="Location: http://localhost/muy/home.php?error=";
-                                        if($error_connection["flag"]){
-                                            $redirect_with_error.=urlencode($error_connection["msg"]);
-                                            header($redirect_with_error);
-                                            exit();
-                                        }
-                                        $query="SELECT nome FROM canale WHERE proprietario='".escape($_SESSION["email"],$connected_db);
-                                        $query.="'";
-                                        $res=$connected_db->query($query);
-                                        if(!$res){
-                                            $redirect_with_error.="Errore nella connessione con il database";
-                                            log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                            header($redirect_with_error);
-                                            $connected_db->close();
-                                            exit();
-                                        }
                                         while($row=$res->fetch_assoc()){
                                             echo "<option value=\"".$row["nome"]."\"";
                                             // se arrivi da user seleziona automaticamente il canale
@@ -98,8 +106,8 @@
                         <tr><td colspan="3"><input type="submit"></td></tr>
                     </table>
                 </form>
-            </span>
-            <span>
+            </div>
+            <div>
                 <form enctype="multipart/form-data" action="../backend/upload_yt.php" method="post" id="up-youtube" style="display: none">
                     <table id="signup-table">
                         <tr><th colspan="2">Upload Youtube</th></tr>
@@ -137,8 +145,12 @@
                         <tr><td colspan="2"><input type="submit"></td></tr>
                     </table>
                 </form>
-            </span>
+            </div>
         </div>
+        <?php
+            if($no_channel)
+                echo "</div>";
+        ?>
 
     </main>
     <script type="text/javascript" src="../common/script/setup.js"></script>
