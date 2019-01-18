@@ -11,7 +11,7 @@
         goto error;
     }
     #checking anyone sending post without the signup form. We need all the required data
-    if(empty($_POST["mail"])|| empty($_POST["pwd"])||empty($_POST["pwd-c"])||empty($_POST["nom"])||empty($_POST["cog"])||empty($_POST["dataNa"])){
+    if(empty($_POST["mail"])|| empty($_POST["pwd"])||empty($_POST["pwd-c"])||empty($_POST["dataNa"])){
         $redirect_with_error.=urlencode("Invia tutti i dati richiesti");
         goto error;
     }
@@ -35,27 +35,31 @@
     $query_values.="'".blowhash($_POST["pwd"])."',";
     $query_columns.="passwd,";
     #name check
-    if(!preg_match('/^[A-Za-z\'èéàòù ]+$/',$_POST["nom"])){
-        $redirect_with_error.=urlencode("Inserire un nome vero");
-        goto error;
+    if(!empty($_POST["nom"])){
+        if(!preg_match('/^[A-Za-z\'èéàìòù ]+$/',$_POST["nom"])){
+            $redirect_with_error.=urlencode("Inserire un nome vero");
+            goto error;
+        }
+        if(strlen($_POST["nom"])>200){
+            $redirect_with_error.=urlencode("Nome troppo lungo");
+            goto error;
+        }
+        $query_values.="'".escape($_POST["nom"],$connected_db)."',";
+        $query_columns.="nome,";
     }
-    if(strlen($_POST["nom"])>200){
-        $redirect_with_error.=urlencode("Nome troppo lungo");
-        goto error;
-    }
-    $query_values.="'".escape($_POST["nom"],$connected_db)."',";
-    $query_columns.="nome,";
     #lastname check
-    if(!preg_match('/^[A-Za-z\'èéàòù ]+$/',$_POST["cog"])){
-        $redirect_with_error.=urlencode("Inserire un cognome vero");
-        goto error;
+    if(!empty($_POST["cog"])){
+        if(!preg_match('/^[A-Za-z\'èéàìòù ]+$/',$_POST["cog"])){
+            $redirect_with_error.=urlencode("Inserire un cognome vero");
+            goto error;
+        }
+        if(strlen($_POST["cog"])>200){
+            $redirect_with_error.=urlencode("Cognome troppo lungo");
+            goto error;
+        }
+        $query_values.="'".escape($_POST["cog"],$connected_db)."',";
+        $query_columns.="cognome,";
     }
-    if(strlen($_POST["cog"])>200){
-        $redirect_with_error.=urlencode("Cognome troppo lungo");
-        goto error;
-    }
-    $query_values.="'".escape($_POST["cog"],$connected_db)."',";
-    $query_columns.="cognome,";
     #checking anyone sending post without the signup form
     $birthday=strtotime($_POST["dataNa"]);
     if(!$birthday){
@@ -71,6 +75,14 @@
     $query_columns.="dataNascita,";
     #nickname check
     if(!empty($_POST["nick"])){
+        if(!preg_match('/^[A-Za-z\'èéàìòù ]+$/',$_POST["nick"])){
+                $redirect_with_error.=urlencode("Nickname non valido");
+                goto error;
+            }
+        if(strlen($_POST["nick"])>200){
+                $redirect_with_error.=urlencode("Nickname troppo lungo");
+                goto error;
+            }
         $query_values.="'".escape($_POST["nick"],$connected_db)."',";
         $query_columns.="nickname,";
     }
@@ -85,7 +97,7 @@
     }
     #city check
     if(!empty($_POST["cit"])){
-        if(!preg_match('/^[A-Za-zèéàòù ]+$/',$_POST["cit"])){
+        if(!preg_match('/^[A-Za-zèéàòùì ]+$/',$_POST["cit"])){
             $redirect_with_error.=urlencode("Inserire un nome di città valido");
             goto error;     
         }
@@ -96,6 +108,19 @@
         $query_values.="'".escape($_POST["cit"],$connected_db)."',";
         $query_columns.="citta,";
     }
+    #city check
+    if(!empty($_POST["citNa"])){
+        if(!preg_match('/^[A-Za-zèéàòùì ]+$/',$_POST["cit"])){
+            $redirect_with_error.=urlencode("Inserire un luogo di nascita valido");
+            goto error;     
+        }
+        if(strlen($_POST["citNa"])>200){
+            $redirect_with_error.=urlencode("Nome città troppo lungo");
+            goto error;
+        }
+        $query_values.="'".escape($_POST["citNa"],$connected_db)."',";
+        $query_columns.="cittaNascita,";
+    }
     if(empty($_POST["check_list"])){
         $query_values.="0";
         $query_columns.="visibilita";
@@ -105,7 +130,6 @@
         $query_columns.="visibilita";
     }
     #checking profile pic finire sta roba
-    #propic da mettere in $new_user_dir
 
     $query="INSERT INTO utente (".$query_columns.") VALUES (".$query_values.")";
     $res=$connected_db->query($query);
@@ -118,7 +142,10 @@
     mkdir($new_user_dir,0770);
 
     $_SESSION["email"]=stripslashes($resm["result"]);
-    $_SESSION["nome"]=$_POST["nick"];
+    if(!empty($_POST["nick"]))
+        $_SESSION["nome"]=$_POST["nick"];
+    else
+        $_SESSION["nome"]="User";
     $_SESSION["foto"]="defaults/default-profile-pic.png";   #temporaneo
     #just for developement test, in login-check.php too
 

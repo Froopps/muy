@@ -20,9 +20,12 @@
         <li><a href="../frontend/top-categories.php">Top categories</a></li>
         <li><a href="../frontend/etichette.php">Etichette</a></li>
         <li class="no_link">Account<hr></li>
+        <?php
+            echo "<li><a href='../frontend/user.php?user=".htmlentities(urlencode($_SESSION["email"]))."'>".$_SESSION["nome"]."</a></li>";
+        ?>
         <li><a href="../frontend/friends_list.php">Amici</a></li>
         <!-- return required. If the function return false the onclick event will be aborted. Deafault <a> behaviour -->
-        <li><a href="#nuovo" onclick="document.getElementById('modal_bg_2').style.display='flex'">Nuovo Canale</a></li>
+        <li><a href="#newchannel" onclick="document.getElementById('modal_bg_2').style.display='flex'">Nuovo Canale</a></li>
         <li><a href="#stats">Statistiche</a></li>
         <li><a href="../frontend/user_impostazioni.php">Impostazioni</a></li>
         <li class="no_link">About<hr></li>

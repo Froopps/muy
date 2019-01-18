@@ -2,7 +2,7 @@
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
     function display_user_info($info,$connected_db){
-        $written_key=array("dataNascita"=>"compleanno","citta"=>"città");
+        $written_key=array("dataNascita"=>"compleanno","citta"=>"città","cittaNascita"=>"luogo di nascita");
         echo "<table class='user_info'><tr>";
         $pub=array('email');
         foreach(get_visible_list($info["visibilita"]) as $p)
@@ -27,7 +27,7 @@
             echo "<button class='in_notext' type='button' ";
             switch($status){
                 case 'a':
-                    echo "id='disabled' class='disabled' disabled>Amico";
+                    echo "id='disabled' disabled>Amico";
                     break;
                 #restituito da get_relationship in caso di nessuna relazione ne presente ne passata
                 case "no":

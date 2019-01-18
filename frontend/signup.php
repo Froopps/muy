@@ -19,7 +19,7 @@
         ?>
 
         <main>
-            <div class="content">
+            <div class="content-centre">
                 <?php
                     if(isset($_GET["error"])){
                         echo "<span class='error_span'>".$_GET["error"]."</span>";
@@ -31,8 +31,14 @@
                 <form id="sign_up_form" enctype="multipart/form-data" action="../backend/signup.php" method="post">
                     <table id="signup-table">
                         <tr>
+                            <th colspan="4">Benvenuto su MUY, registrati</th>
+                        </tr>
+                        <tr>
+                            <td colspan="4">e accedi a un mondo di contenuti incredibili</td>
+                        </tr>
+                        <tr>
                             <td colspan="3"></td>
-                            <td>Nascondi</td>
+                            <td>Privato</td>
                         </tr>
                         <tr>
                             <td>e-Mail*:</td>
@@ -62,8 +68,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Nome*:</td>
-                            <td><input type="text" name="nom" placeholder="Nome" required onkeyup="pattern_validation(this,1,'nom-y','nom-n','nom-ny')"></td>
+                            <td>Nome:</td>
+                            <td><input type="text" name="nom" placeholder="Nome" onkeyup="pattern_validation(this,1,'nom-y','nom-n','nom-ny')"></td>
                             <td>
                                 <img id='nom-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
                                 <img id='nom-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
@@ -72,7 +78,7 @@
                             <td><input type="checkbox" name="check_list[]" value="nome"></td>
                         </tr>
                         <tr>
-                            <td>Cognome*:</td><td><input type="text" name="cog" placeholder="Cognome" required onkeyup="pattern_validation(this,1,'cog-y','cog-n','cog-ny')"></td>
+                            <td>Cognome:</td><td><input type="text" name="cog" placeholder="Cognome" onkeyup="pattern_validation(this,1,'cog-y','cog-n','cog-ny')"></td>
                             <td>
                                 <img id='cog-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
                                 <img id='cog-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
@@ -82,7 +88,7 @@
                         </tr>
                         <tr>
                             <td>Nickname:</td>
-                            <td><input type="text" name="nick" placeholder="Nickname" required></td>
+                            <td><input type="text" name="nick" placeholder="Nickname"></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -113,6 +119,16 @@
                                 <img id='cit-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
                                 <img id='cit-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
                                 <img id='cit-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                            </td>
+                            <td><input type="checkbox" name="check_list[]" value="città"></td>
+                        </tr>
+                        <tr>
+                            <td>Luogo di nascita:</td>
+                            <td><input type="text" name="citNa" placeholder="Luogo di nascita" onkeyup="pattern_validation(this,1,'citn-y','citn-n','citn-ny')"></td>
+                            <td>
+                                <img id='citn-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                                <img id='citn-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                                <img id='citn-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
                             </td>
                             <td><input type="checkbox" name="check_list[]" value="città"></td>
                         </tr>

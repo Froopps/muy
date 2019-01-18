@@ -6,11 +6,12 @@ CREATE TABLE utente(
     passwd VARCHAR(200)NOT NULL,
     nickname VARCHAR(200)DEFAULT'User'NOT NULL,
     foto VARCHAR(200)DEFAULT'defaults/default-profile-pic.png'NOT NULL,
-    nome VARCHAR(200)NOT NULL,
-    cognome VARCHAR(200)NOT NULL,
+    nome VARCHAR(200),
+    cognome VARCHAR(200),
     dataNascita DATE NOT NULL,
     sesso ENUM('Maschio','Femmina'),
     citta VARCHAR(200),
+    cittaNascita VARCHAR(200),
     visibilita INT UNSIGNED NOT NULL,
     CONSTRAINT utente_pk PRIMARY KEY(email)
 );
@@ -37,6 +38,7 @@ CREATE TABLE canale(
 );
 
 CREATE TABLE oggettoMultimediale(
+    extID INT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     percorso VARCHAR(600)NOT NULL,
     anteprima VARCHAR(600)DEFAULT'/defaults/default-obj-logo.png'NOT NULL,
     titolo VARCHAR(200)NOT NULL,
@@ -48,6 +50,7 @@ CREATE TABLE oggettoMultimediale(
     canale VARCHAR(200)NOT NULL,
     proprietario VARCHAR(200)NOT NULL,
     CONSTRAINT oggettoMultimediale_pk PRIMARY KEY (percorso),
+    UNIQUE KEY (extID),
     CONSTRAINT oggettoMultimediale_fk FOREIGN KEY (canale,proprietario) REFERENCES canale(nome,proprietario) ON UPDATE CASCADE ON DELETE CASCADE
 );
 

@@ -107,7 +107,7 @@ function update_user_info(attribute,button){
 }
 
 function delete_content(element,content){
-    var par = "path="+content
+    var par = "id="+content
 
     if(confirm("Conferma eliminazione")){
         xhr = ajaxRequest()
