@@ -1,23 +1,28 @@
 <div id="modal_bg_2" class="modal_bg">
     <div class="modal_wrapper">
-        <div class="closure_cross_container" >
+        <div class="closure_cross_container">
             <span class="closure_cross" onclick="document.getElementById('modal_bg_2').style.display='none'">&times</span>
         </div>
         <form class="modal_login" method="post" action="../backend/new_channel.php">
             <?php
                 echo "<input type='hidden' name='owner' value=\"".escape($_SESSION["email"],$connected_db)."\">";
             ?>
-            <label for="channel_name">Nome Canale:</label>
-            <input type="text" name="channel_name" required>
-            <label for="label">Etichetta:</label>
-            <input type="text" name="label" required>
+            <div class="modal_group">
+                <label for="channel_name">Nome Canale:</label>
+                <input type="text" class="modal_text" name="channel_name" required>
+            </div>
+            <div class="modal_group">
+                <label for="label">Etichetta:</label>
+                <input type="text" class="modal_text" name="label">
+            </div>
             <select class="src_type sel_channel_vis" name="channel_type">
                 <option value="public">Pubblico</option>
                 <option value="private">Social</option>
                 <option value="social">Privato</option>
             </select>
-            <input type="submit" class="button_text" value="Crea">
+            <div class="modal_group"><input class="modal_button"  type="submit" value="Crea"></div>
         </form>
+        <div class="closure_cross_container"></div>
     </div>
 </div>
 <script>

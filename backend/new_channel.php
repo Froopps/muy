@@ -46,7 +46,7 @@
     $query_columns.=",visibilita";
     $query_values.=",'".$_POST["channel_type"]."'";
 
-    if(isset($_POST["label"])){
+    if(!empty($_POST["label"])){
         $query_columns.=",etichetta";
         $query_values.=",'".escape($_POST["label"],$connected_db)."'";
     }

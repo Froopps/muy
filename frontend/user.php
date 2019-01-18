@@ -57,9 +57,14 @@
                     }
                 ?>
                 
-                <div id="testa-user">
+                <div id="testa-user" class="flex-space-between">
                     <?php
                         display_user_info($row,$connected_db);
+                        if($self)
+                            echo "<div class=\"flex-col\">";
+                            echo "<div><button class=\"in_notext\" type=\"button\" onclick=\"document.getElementById('modal_bg_2').style.display='flex'\">Nuovo canale</button></div>";
+                            echo "<div><button class=\"in_notext\" id=\"delete\" type=\"button\">Elimina utente</button></div>";
+                            echo "</div>";
                     ?>
                 </div>
                 
@@ -87,12 +92,14 @@
                                 }
                             echo "</div>";
                             echo "<hr align=\"left\">";
-                            echo "<div class=\"eticanale\">";
+                            if(!empty($row["etichetta"])){
+                                echo "<div class=\"eticanale\">";
                                     $eti=explode(",",$row["etichetta"]);
                                     foreach($eti as $et){
                                         echo "<a class='etichetta' href='#etichetta'>#".stripslashes($et)."</a>";
                                     }
-                            echo "</div>";
+                                echo "</div>";
+                            }
                             echo "<div class=\"scrollbar\">";
                                 $query="SELECT * FROM oggettomultimediale WHERE canale='".escape($row["nome"],$connected_db)."' AND proprietario='".escape($row["proprietario"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
                                 $res_ogg=$connected_db->query($query);
@@ -128,8 +135,8 @@
 
         </main>
     <script type="text/javascript" src="../common/script/setup.js"></script>
-    <script type="text/javascript" src="../common/script/friendship.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
+    <script type="text/javascript" src="../common/script/friendship.js"></script>
     <script type="text/javascript" src="../common/script/search.js"></script>
 
 </body>

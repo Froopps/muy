@@ -190,13 +190,13 @@
                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                         goto error;
                     }
-                }
-                $query="INSERT INTO contenutotaggato (tag,oggetto,dataAssegnamento) VALUES ('#".escape($tag,$connected_db)."','".escape($path,$connected_db)."','".date('Y-m-d H:i:s')."')";
-                $res=$connected_db->query($query);
-                if(!$res){
-                    $redirect_with_error.=urlencode("Errore nella connessione con il database 4");
-                    log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                    goto error;
+                    $query="INSERT INTO contenutotaggato (tag,oggetto,dataAssegnamento) VALUES ('#".escape($tag,$connected_db)."','".escape($path,$connected_db)."','".date('Y-m-d H:i:s')."')";
+                    $res=$connected_db->query($query);
+                    if(!$res){
+                        $redirect_with_error.=urlencode("Errore nella connessione con il database 4");
+                        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                        goto error;
+                    }
                 }
             }
         }

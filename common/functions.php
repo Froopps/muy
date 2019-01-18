@@ -144,7 +144,7 @@
             else
                 $image2 = imagecrop($image,["x"=>0,"y"=>($y-$x)/2,"width"=>$size,"height"=>$size]);
         }else{
-            if($x==$y)
+            if($x==$y) 
                 $image2 = imagecrop($image,["x"=>0,"y"=>0,"width"=>$size,"height"=>$size]);
             else if($x>$y)
                 $image2 = imagecrop($image,["x"=>($x-$y)/2,"y"=>0,"width"=>$size,"height"=>$size]);

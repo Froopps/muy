@@ -34,6 +34,7 @@
                         echo "<span class='message_span'>".$_GET["msg"]."</span>";
                     }
                 ?>
+                <div class="categoria">
                 <div class="flex-space-between">
                     <span><h2><?php echo $tag; ?></h2></span>
                     <span>
@@ -79,7 +80,7 @@
                             }else
                                 echo "yes ".$_GET["s"];
                         }else{
-                            $query="SELECT percorso, anteprima, titolo, descrizione, tipo, dataCaricamento, visualizzazioni, canale, proprietario FROM contenutotaggato JOIN oggettomultimediale ON (contenutotaggato.oggetto = oggettomultimediale.percorso) WHERE tag='".escape($tag,$connected_db)."'";
+                            $query="SELECT * FROM contenutotaggato JOIN oggettomultimediale ON (contenutotaggato.oggetto = oggettomultimediale.percorso) WHERE tag='".escape($tag,$connected_db)."'";
                             $res=$connected_db->query($query);
                             if(!$res){
                                 $redirect_with_error.=urlencode("Errore nella connessione con il database");
@@ -94,6 +95,7 @@
                         }
                         $connected_db->close();
                     ?>
+                </div>
                 </div>
             </div>
         </main>
