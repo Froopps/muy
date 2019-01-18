@@ -11,10 +11,7 @@
             <option value="categoria">Tag</option>
         </select>
         <input id="srcbtn" type="submit">
-        <div class='src_suggestion_container'>
-            <input id="src" type="text" name="src_txt" placeholder="Cerca..." onchange="suggestions_search()">
-            <div class='sug_list'></div>
-        </div>
+        <input id="src" type="text" name="src_txt" placeholder="Cerca..." onkeydown="suggestions_search()">
         <a id="avanzata" href="#ricerca_avanzata">Avanzata</a>
     </form>
     <span>

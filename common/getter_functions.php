@@ -69,4 +69,13 @@ function get_content_by_id($id,$connected_db){
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;
 }
+
+function get_search_suggestion($table,$pattern,$connected_db){
+    $mapping=array("utente"=>"nickname");
+    $query="SELECT ".$mapping[$table]." FROM $table WHERE ".$mapping[$table]." LIKE '$pattern%' ORDER BY ".$mapping[$table]." LIMIT 6 OFFSET 0";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
 ?>

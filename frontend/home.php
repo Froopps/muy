@@ -148,28 +148,13 @@
                 <div class="categoria">
                     <div><a class="categoria_titolo" href="#seeee">Procedurali</a></div>
                     <div class="scrollbar">
-                        <?php
-                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='i' ORDER BY visualizzazioni DESC LIMIT 10";
-                        ?>
-                        <?php
-                            $query="SELECT * FROM `oggettomultimediale` WHERE 1";
-                            $res=$connected_db->query($query);
-                            if(!$res){
-                                $connected_db->close();
-                                exit();
-                            }
-                            while($row=$res->fetch_assoc()){
-                                display_multimedia_object($row,$connected_db);
-                            }
-                            $connected_db->close();
-                        ?>
                     </div>
                 </div>
                 
             </div>
-
         </main>
         <script type="text/javascript" src="../common/script/search.js"></script>
+        <script type="text/javascript" src="../common/script/setup.js"></script>
 </body>
 
 </html>

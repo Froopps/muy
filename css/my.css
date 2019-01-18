@@ -159,8 +159,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    overflow: visible;
-    z-index: 1001;
+    z-index: 2;
 	width: 100%;
     max-height: 60.4px;
     box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
@@ -366,7 +365,7 @@ nav a:hover{background-color: gray}
     padding: 0 6px 6px 6px
 }
 
-nav ul{
+ul{
     list-style-type: none;
     margin: 0;
     padding: 0.8em 0 0 4em;
@@ -418,21 +417,23 @@ nav hr{
     overflow-y: auto
 }
 
-.src_suggestion_container{
-    display:flex;
-    flex-direction:column
-}
-
-.sug_list{
-    display:none;
-    background-color:white;
-}
 
 
 
 /* !!!!! sistema sta roba con javascript !!!!! */
 
+.sug_block{
+    width:100%;
+    z-index:10;
+    position: fixed;
+    margin-top:3.8em;
+    display:flex;
+    justify-content:center;
+}
 
+.sug_list{
+    background-color:rgb(224, 224, 224);
+}
 
 
 
