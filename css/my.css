@@ -13,7 +13,13 @@ body{
     background-color: #f7faff
 }
 
-div#container{display: inline}
+.content{
+    padding:8em;
+}
+
+div#container{
+    display: inline;
+}
 
 div.ham{
     width: 30px;
@@ -446,8 +452,8 @@ nav hr{
 }
 
 .sug_list{
-    padding:0 0 0 0;
     display:none;
+    padding:0 0 0 0;
     background-color:rgb(224, 224, 224);
 }
 

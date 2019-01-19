@@ -9,14 +9,13 @@ function suggestions_search(){
     }
     else{
         var xhr=ajaxRequest()
-        xhr.open("GET","http://localhost/muy/backend/test.php?pattern="+bar.value+"&table="+type)
+        xhr.open("GET","http://localhost/muy/backend/get_suggestions.php?pattern="+bar.value+"&table="+type)
         xhr.responseType='text'
         block.style.display='flex'
         list.style.display='block'
         xhr.onreadystatechange=function(){
             if(xhr.readyState==4 && xhr.status==200){
                 document.getElementsByClassName('sug_list')[0].innerHTML=xhr.responseText
-                console.log(xhr.responseText)
             }
         }
         xhr.send()
