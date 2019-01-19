@@ -107,6 +107,7 @@ function update_user_info(attribute,button){
 }
 
 function delete_content(element,content){
+    
     var par = "id="+content
 
     if(confirm("Conferma eliminazione")){
@@ -118,9 +119,79 @@ function delete_content(element,content){
                 element.parentElement.parentElement.style.display = "none"
             }
         }
-        //xhr=open_xml_post("http://localhost/muy/backend/test.php")
         xhr.open("POST","http://localhost/muy/backend/delete_content.php",true)
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
         xhr.send(par)
     }
+    
+}
+
+function comment(comment,content,list,author,pic,email){
+    xhr = ajaxRequest()
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            var response = xhr.responseText
+            if(response=="sign in")
+                alert("Registrati per commentare")
+            if(response=="denied")
+                alert("Accesso negato")
+            if(response=="no comment")
+                alert("Scrivi un commento prima")
+            if(response=="too many")
+                alert("Puoi commentare al massimo 3 volte!")
+            if(response=="ok"){
+                addComment(list,author,comment.value,pic,email)
+                comment.value = ""
+                list.scrollTop = list.scrollHeight
+                //list.animate({
+                //   list.scrollTop = list.scrollHeight
+                //}, 300)
+                if(document.getElementById("no-comment")!=undefined)
+                    document.getElementById("no-comment").style.display = "none"
+                    
+            }
+        }
+    }
+    xhr.open("POST","http://localhost/muy/backend/comment_script.php",true)
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    xhr.send("commento="+comment.value+"&id="+content)
+    
+}
+
+function addComment(lista,autore,commento,pic,email){
+    
+    var com = document.createElement("div")
+    com.classList.add("commento")
+    lista.appendChild(com)
+    
+    var testa = document.createElement("div")
+    testa.classList.add("comm-head")
+    com.appendChild(testa)
+    
+    var node1 = document.createElement("a")
+    node1.href = "user.php?user="+email
+    testa.appendChild(node1)
+    
+    var node2 = document.createElement("img")
+    node2.classList.add("comm-img")
+    node2.src = pic
+    node1.appendChild(node2)
+    
+    node2 = document.createElement("a")
+    node2.classList.add("comm-aut")
+    node2.href = "user.php?user="+email
+    testa.appendChild(node2)
+    
+    node1 = node2
+    node2 = document.createElement("b")
+    var textnode = document.createTextNode(autore)
+    node2.appendChild(textnode)
+    node1.appendChild(node2)
+    
+    node2 = document.createElement("div")
+    node2.classList.add("comm-text")
+    textnode = document.createTextNode(commento)
+    node2.appendChild(textnode)
+    com.appendChild(node2)
+    
 }

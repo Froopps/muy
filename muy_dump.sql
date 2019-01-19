@@ -64,12 +64,11 @@ CREATE TABLE valutazione(
 );
 
 CREATE TABLE commento(
-    id BIGINT NOT NULL,
+    id INT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     utente VARCHAR(200)NOT NULL,
     contenuto VARCHAR(600)NOT NULL,
     testo MEDIUMTEXT NOT NULL,
-    dataRilascio DATE NOT NULL,
-    ora TIME NOT NULL,
+    dataRilascio DATETIME NOT NULL,
     CONSTRAINT commento_pk PRIMARY KEY(id,contenuto),
     CONSTRAINT commento_contenuto_fk FOREIGN KEY (contenuto) REFERENCES oggettoMultimediale(percorso) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT commento_utente_fk FOREIGN KEY (utente) REFERENCES utente(email) ON UPDATE CASCADE ON DELETE CASCADE

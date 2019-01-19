@@ -46,7 +46,7 @@ button:hover{cursor: pointer}
 
 button#disabled{
     cursor: not-allowed;
-    opacity: 0.6
+    opacity: 0.7
 }
 
 input[type=submit]{
@@ -63,8 +63,9 @@ input[type=submit]:hover{
 }
 
 input[type=file]{
-    width: auto;
-    border-style: none
+    width: 350px;
+    border-style: none;
+    overflow: hidden
 }
 
 textarea{
@@ -88,11 +89,18 @@ textarea{
     color: black
 }
 
-h1{
+h1, a.utente{
     font-size: 2rem;
     font-weight: 1;
     color: black;
-    margin: 0
+    margin: 0;
+    position: relative;
+    left: 0;
+    transition: left 0.3s ease-in-out;
+    -webkit-transition: left 0.3s ease-in-out;
+    -moz-transition: left 0.3s ease-in-out;
+    -o-transition: left 0.3s ease-in-out;
+    -ms-transition: left 0.3s ease-in-out
 }
 
 hr{border: 1px solid #848484}
@@ -132,13 +140,18 @@ th{
 td.error{color: #d82323}
 
 div.flex-space-between{
-    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center
 }
 
-center{
+.flex-col{
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+.center{
     display: flex;
     justify-content: center
 }
@@ -412,7 +425,7 @@ nav hr{
     -ms-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5)
 }
 
-[id='nav-toggle']:checked ~ #nasc {
+[id='nav-toggle']:checked ~ #nasc{
     left: 0;
     opacity: 1;
     /*box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
@@ -423,22 +436,27 @@ nav hr{
     overflow-y: auto
 }
 
-
-
-
-/* !!!!! sistema sta roba con javascript !!!!! */
-
 .sug_block{
+    display:none;
     width:100%;
     z-index:10;
     position: fixed;
     margin-top:3.8em;
-    display:flex;
     justify-content:center;
 }
 
 .sug_list{
+    padding:0 0 0 0;
+    display:none;
     background-color:rgb(224, 224, 224);
+}
+
+.entry_sug{
+    padding: 0.5em 5em 0.5em 1.5em;
+}
+
+.entry_sug:hover{
+    background-color: rgb(117, 220, 238);
 }
 
 
@@ -447,9 +465,11 @@ nav hr{
 
 /* CONTENUTO PRINCIPALE HOME */
 
+
 main{
     display: flex;
-    justify-content: center
+    justify-content: center;
+    height: inherit
 }
 
 main a{
@@ -459,10 +479,18 @@ main a{
 }
 
 div.content{
+    /*margin: 90px 0 0 15%*/
+    /*
     float: left;
     width: 85%;
-    /*margin: 90px 0 0 15%*/
     margin: 90px 0 0 285.5px
+    
+    padding: 90px 285.5px 0 285.5px;
+    */
+    min-width: 50%;
+    padding-top: 80px;
+    width: 85%;
+    max-width: 85%
 }
 
 div.content-centre{
@@ -472,7 +500,7 @@ div.content-centre{
 
 div.categoria{
     float: left;
-    width: 95%;
+    width: 100%;
     padding-bottom: 1em
 }
 
@@ -562,12 +590,12 @@ h3{
 
 .oggetto-titolo:hover, .oggetto-canale:hover{
     left: 10px;
-    color:#388baf
+    color: #388baf
 }
 
 .categoria_titolo:hover{
     left: 1em;
-    color:#388baf
+    color: #388baf
 }
 
 h3.rate{
@@ -590,31 +618,56 @@ h3.rate{
 /*LOGIN MODAL*/
 
 .modal_bg{
-    display:none;
+    display: none;
     align-items: center;
-    justify-content:center;
-    position:fixed;
+    justify-content: center;
+    position: fixed;
     z-index: 3;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
-    background-color:rgba(0,0,0,0.4)
+    background-color: rgba(0,0,0,0.4);
+    animation: mydiss 0.3s ease-in-out;
+    -webkit-animation: mydiss 0.3s ease-in-out;
+    -moz-animation: mydiss 0.3s ease-in-out;
+    -o-animation: mydiss 0.3s ease-in-out;
+    -ms-animation: mydiss 0.3s ease-in-out
+}
+
+#modal_bg_img{
+    background-color: rgba(0,0,0,0.9);
+    overflow-y: scroll;
+    cursor: zoom-out
+}
+
+#modal_bg_img img{
+    min-width: 30%;
+    max-width: 98%;
+    max-height: 98%;
+    border-radius: 2em;
+    animation: myzoom 0.7s ease-in-out;
+    -webkit-animation: myzoom 0.7s ease-in-out;
+    -moz-animation: myzoom 0.7s ease-in-out;
+    -o-animation: myzoom 0.7s ease-in-out;
+    -ms-animation: myzoom 0.7s ease-in-out
 }
 
 .modal_wrapper{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     height: 50%;
     width: 50%;
-    border-radius: 10%;
+    border-radius: 2em;
     background-color: #f2f2f2;
+    overflow: hidden;
     animation: myzoom 0.7s ease-in-out;
     -webkit-animation: myzoom 0.7s ease-in-out;
     -moz-animation: myzoom 0.7s ease-in-out;
-    -o-animation: myzoom 0.7s ease-in-out
+    -o-animation: myzoom 0.7s ease-in-out;
+    -ms-animation: myzoom 0.7s ease-in-out
 }
 
 @keyframes myzoom{
@@ -637,43 +690,96 @@ h3.rate{
     to{-o-transform:scale(1);}
 }
 
+@-ms-keyframes myzoom{
+    from{-ms-transform:scale(0);}
+    to{-ms-transform:scale(1);}
+}
+
+@keyframes mydiss{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
+@-webkit-keyframes mydiss{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
+@-moz-keyframes mydiss{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
+@-o-keyframes mydiss{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
+@-ms-keyframes mydiss{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
 .modal_login{
     display:flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items:center;
-    height:70%;
-    width:70%;
-    margin-bottom:5%;
+    justify-content: space-between;
+    align-items: center;
+    height: 70%;
+    width: 70%
 }
 
-.modal_login input,.modal_login label{width:100%}
-
-.modal_login_footer_bar{
-    margin-bottom:5%;
-    max-height:7%;
+.modal_login input, .modal_login label{
+    width:100%;
+    text-align: center
 }
 
-.modal_login_footer_bar a{
-    font-size:120%;
-    color:rgb(0,0,0);
-    margin-bottom:5%;
+.modal_text{
+    border-radius: 1em;
+    font-size: 70%
 }
 
-.modal_login_footer_bar a:hover{
-    font-size:140%;
-    color:grey;
+.modal_group{
+    font-size: 140%;
+    width: 100%;
+    height: 33.3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly
+}
+
+.modal_button{
+    font-family: Raleway, serif;
+    color: #f2f2f2;
+    background-color: #16A085;
+    font-size: 100%;
+    border: none;
+    border-style: solid;
+    border-radius: 1em;
+    padding: 0.3em;
+    width: 100%;
+    text-align: center;
+}
+
+.modal_group a{background-color: #16a056}
+
+.modal_group a:hover{
+    color: black;
+    background-color: #d0d0d0
 }
 
 .closure_cross_container{
-    align-self:flex-start;
-    margin-left:5%
+    width: 100%;
+    height: 15%;
+    align-self: flex-start;
+    padding: 5% 0 0 5%
 }
 .closure_cross{font-size: 200%}
 
 .closure_cross:hover{
-    color:red;
-    cursor:pointer
+    color: red;
+    cursor: pointer
 }
 
 /*SELECT IN MODAL CHANNEL*/
@@ -721,7 +827,10 @@ input[type=checkbox]{
 
 /* USER PAGE */
 
-#testa-user{margin-bottom: 1em}
+#testa-user{
+    margin-bottom: 1em;
+    width: 95%
+}
 
 table.user_info{}
 
@@ -746,7 +855,10 @@ table.user_info ul{
     /*border-color: rgba(218, 165, 32, 0.7)*/
 }
 
-a.utente h1:hover{color:#388baf}
+a.utente:hover{
+    left: 0.5em;
+    color: #388baf
+}
 
 #top-propic{border: solid goldenrod 5px}
 
@@ -822,9 +934,12 @@ h4{
     animation: myzoom 0.7s ease-in-out;
     -webkit-animation: myzoom 0.7s ease-in-out;
     -moz-animation: myzoom 0.7s ease-in-out;
-    -o-animation: myzoom 0.7s ease-in-out;
+    -o-animation: myzoom 0.7s ease-in-out
 }
 
+.in_notext:hover{opacity: 0.7}
+
+#delete:hover{background-color: #a01616}
 
 /* PAGINA TOP USERS */
 
@@ -953,4 +1068,138 @@ div.obj_mod{
 div.obj_mod_button{
     text-align: center;
     padding-bottom: 1em
+}
+
+
+/* PAGINA WATCH */
+
+div.show-obj{
+    float: left;
+    width: 70%;
+    height: 100%
+}
+
+div.show{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #2c2727;
+    background: linear-gradient(#2c2727, #f7faff);
+    -webkit-background: linear-gradient(#2c2727, #f7faff);
+    -moz-background: linear-gradient(#2c2727, #f7faff);
+    -o-background: linear-gradient(#2c2727, #f7faff);
+    -ms-background: linear-gradient(#2c2727, #f7faff);
+    width: 100%;
+    height: 75%
+}
+
+div.infobox{height: 25%}
+
+div.info-head{
+    width: 100%;
+    height: 45%;
+    padding: 0.5em;
+    display: flex;
+    justify-content: space-between
+}
+
+div.info-titolo{
+    max-width: 70%;
+    height: 100%;
+    overflow-y: scroll;
+    word-wrap: break-word
+}
+
+div#info-eti{
+    height: 13.5%;
+    overflow-y: scroll
+}
+
+div.info-descrizione{
+    word-wrap: break-word;
+    height: 34%;
+    margin: 0.5em 0.5em 0.5em 0;
+    overflow-y: scroll
+}
+
+div.commentbox{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    width: 30%;
+    height: 100%
+}
+
+div#lista-commenti{
+    height: 80%;
+    overflow-y: scroll
+}
+
+div#no-comment{
+    padding-top: 1em;
+    font-size: 120%;
+    font-style: italic;
+    color: #848484;
+    text-align: center
+}
+
+div.commento{padding-bottom: 0.5em}
+
+div.comm-head{
+    display: flex;
+    align-items: center
+}
+
+.comm-img{
+    margin-right: 0.5em;
+    width: 2em;
+    border-radius: 100em
+}
+
+.comm-img:hover{opacity: 0.7}
+
+.comm-aut{color: black}
+
+.comm-aut:hover{color: #388baf}
+
+.comm-text{word-wrap: break-word}
+
+.input-comment{
+    height: 20%;
+    padding-top: 1em
+}
+
+.in_comment{
+    width:100%;
+    font-size: 100%
+}
+
+div.com-button{
+    float: right;
+    padding: 0.5em 0.5em 0 0
+}
+
+.oggetto{
+    max-width: 100%;
+    max-height: 100%
+}
+
+div.show .oggetto:hover{cursor: zoom-in}
+
+.audio-cover{
+    display: flex;
+    align-items: center;
+    height: 90%
+}
+
+.audio-ctrl-bar{
+    width: 100%;
+    height: 10%
+}
+
+audio{
+    width: 100%;
+    height: 100%
 }

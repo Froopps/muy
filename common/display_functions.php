@@ -17,7 +17,7 @@
 
         $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".stripslashes($info["foto"])));
 
-        echo "<td class='pic_and_but' rowspan='2'><a href='#user'><img class='propic' src=$pro_pic alt=$pro_pic_alt></a><div>";
+        echo "<td class='pic_and_but' rowspan='2'><a href='user.php?user=".$info["email"]."'><img class='propic' src=$pro_pic alt=$pro_pic_alt></a><div>";
         if(isset($_SESSION["email"])&&$_SESSION["email"]!=$info["email"]){
             $status=get_relationship($_SESSION["email"],$info["email"],$connected_db);
             if(!$status){
@@ -46,7 +46,7 @@
             echo "</button></div></td>";
         }
         
-        echo "<td class='info'><a class='utente' href='#user'><h1>".$info["nickname"]."</h1></a></td>";
+        echo "<td class='info'><a class='utente' href='user.php?user=".$info["email"]."'>".$info["nickname"]."</a></td>";
         echo "</tr><tr><td class='info'><ul>";
         foreach($pub as $key){
             if(isset($written_key[$key])){
@@ -70,8 +70,8 @@
             $cover="data:image/png;base64,".base64_encode(file_get_contents("../sources/images/cover.png"));
         else
             $cover="data:image/png;base64,".base64_encode(file_get_contents($path.$info["anteprima"]));
-        echo "<a class=\"oggetto\" href=\"#link\"><img class=\"imgobj\" src=\"".$cover."\" alt=\"cover\"></a>";
-        echo "<div class=\"ohidden\"><a class=\"oggetto-titolo\" href=\"#link\">".$info["titolo"]."</a></div>";
+        echo "<a class=\"oggetto\" href=\"watch.php?id=".$info["extID"]."\"><img class=\"imgobj\" src=\"".$cover."\" alt=\"cover\"></a>";
+        echo "<div class=\"ohidden\"><a class=\"oggetto-titolo\" href=\"watch.php?id=".$info["extID"]."\">".$info["titolo"]."</a></div>";
         $res=get_user_by_email($info["proprietario"],$connected_db);
         
         if(!$res){
@@ -82,7 +82,7 @@
         }
         $row=$res->fetch_assoc();
         echo "<div class=\"ohidden\"><a class=\"oggetto-canale\" href=\"user.php?user=".htmlentities(urlencode(stripslashes($info["proprietario"])))."\">".$row["nickname"]."</a></div>";
-        echo "<div class=\"ohidden\"><a class=\"oggetto-canale\" href=\"#channel\">".$info["canale"]."</a></div>";
+        echo "<div class=\"ohidden\"><a class=\"oggetto-canale\" href=\"categoria.php?tag=".htmlentities(urlencode($info["canale"]))."&s=c&user=".htmlentities(urlencode($info["proprietario"]))."\">".$info["canale"]."</a></div>";
         echo "<h3>Visual: ".$info["visualizzazioni"]."</h3>";
         echo "<h3 class=\"rate\">".valutazione($info["percorso"],$connected_db)."</h3>";
         echo "</span>";

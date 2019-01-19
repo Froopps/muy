@@ -4,19 +4,30 @@ function suggestions_search(){
     var list=document.getElementsByClassName('sug_list')[0]
     var block=document.getElementsByClassName('sug_block')[0]
     if(bar.value.length<=1){
-        list.style.display='none'
+        block.style.display='none'
         list.style.display='none'
     }
     else{
         var xhr=ajaxRequest()
         xhr.open("GET","http://localhost/muy/backend/test.php?pattern="+bar.value+"&table="+type)
         xhr.responseType='text'
-        list.style.display='flex'
+        block.style.display='flex'
+        list.style.display='block'
         xhr.onreadystatechange=function(){
             if(xhr.readyState==4 && xhr.status==200){
                 document.getElementsByClassName('sug_list')[0].innerHTML=xhr.responseText
+                console.log(xhr.responseText)
             }
         }
         xhr.send()
     }
+}
+
+function autocomp(value){
+    var list=document.getElementsByClassName('sug_list')[0]
+    var block=document.getElementsByClassName('sug_block')[0]
+    document.getElementById('src').value=value
+    block.style.display='none'
+    list.style.display='none'
+
 }
