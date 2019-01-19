@@ -13,10 +13,6 @@ body{
     background-color: #f7faff
 }
 
-.content{
-    padding:8em;
-}
-
 div#container{
     display: inline;
 }
@@ -929,7 +925,6 @@ h4{
 }
 
 .in_notext{
-    width: auto;
     padding: 0.1em 0.5em 0.1em 0.5em;
     border-style: solid;
     border-radius:1em;

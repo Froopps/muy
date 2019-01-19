@@ -87,4 +87,14 @@ function get_search_suggestion($table,$pattern,$connected_db){
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;
 }
+
+function get_search_result($table,$pattern,$connected_db,$offset){
+    $offset=$offset*8;
+    $mapping=array("utente"=>"nickname","oggettoMultimediale"=>"titolo","canale"=>"nome","categoria"=>"tag");
+    $query="SELECT * FROM $table WHERE ".$mapping[$table]."='$pattern' UNION SELECT * FROM $table WHERE ".$mapping[$table]." LIKE '%$pattern%' LIMIT 8 OFFSET $offset";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
 ?>
