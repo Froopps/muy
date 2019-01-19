@@ -47,10 +47,9 @@ function up_status(action,object,button){
     var cons={'accept':'Amici','deny':'Bloccato','erase':'Bloccato'}
     var par='action='+action+"&object="+object
     xhr=open_xml_post("http://localhost/muy/backend/up_status.php")
-    if((action=='deny'||action=='erase')&&!confirm("Una volta effettuata la cancellazione o il rifiuto, tu e "+object+" non potrete più essere amici")){
-        console.log("yayayayayyayay")
+    if((action=='deny'||action=='erase')&&!confirm("Una volta effettuata la cancellazione o il rifiuto, tu e "+object+" non potrete più essere amici"))
         return
-    }
+    
     if(action=='accept')
         button.nextSibling.remove()
     if(action=='deny')
