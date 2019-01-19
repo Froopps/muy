@@ -13,7 +13,9 @@ body{
     background-color: #f7faff
 }
 
-div#container{display: inline}
+div#container{
+    display: inline;
+}
 
 div.ham{
     width: 30px;
@@ -179,7 +181,6 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    overflow: visible;
     z-index: 2;
 	width: 100%;
     max-height: 60.4px;
@@ -438,21 +439,28 @@ nav hr{
     overflow-y: auto
 }
 
-.src_suggestion_container{
-    display: flex;
-    flex-direction: column
+.sug_block{
+    display:none;
+    width:100%;
+    z-index:10;
+    position: fixed;
+    margin-top:3.8em;
+    justify-content:center;
 }
 
 .sug_list{
-    display: none;
-    background-color: white;
+    display:none;
+    padding:0 0 0 0;
+    background-color:rgb(224, 224, 224);
 }
 
+.entry_sug{
+    padding: 0.5em 5em 0.5em 1.5em;
+}
 
-
-/* !!!!! sistema sta roba con javascript !!!!! */
-
-
+.entry_sug:hover{
+    background-color: rgb(117, 220, 238);
+}
 
 
 
@@ -692,27 +700,27 @@ h3.rate{
 
 @keyframes mydiss{
     from{opacity: 0;}
-    to{opacity 1;}
+    to{opacity: 1;}
 }
 
 @-webkit-keyframes mydiss{
     from{opacity: 0;}
-    to{opacity 1;}
+    to{opacity: 1;}
 }
 
 @-moz-keyframes mydiss{
     from{opacity: 0;}
-    to{opacity 1;}
+    to{opacity: 1;}
 }
 
 @-o-keyframes mydiss{
     from{opacity: 0;}
-    to{opacity 1;}
+    to{opacity: 1;}
 }
 
 @-ms-keyframes mydiss{
     from{opacity: 0;}
-    to{opacity 1;}
+    to{opacity: 1;}
 }
 
 .modal_login{
@@ -918,7 +926,6 @@ h4{
 }
 
 .in_notext{
-    width: auto;
     padding: 0.1em 0.5em 0.1em 0.5em;
     border-style: solid;
     border-radius:1em;

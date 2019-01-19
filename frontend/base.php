@@ -34,11 +34,13 @@
                         echo "<span class='message_span'>".$_GET["msg"]."</span>";
                     }
                 ?>
-                
-                <img src="../sources/images/cover.jpg">
+                <video width="400" controls>
+                    <source src="../video/my_god.mp4" type="video/mp4">
+                </video>
             </div>
         </main>
         <script type="text/javascript" src="../common/script/search.js"></script>
+        <script type="text/javascript" src="../common/script/setup.js"></script>
 </body>
 
 </html>
