@@ -29,67 +29,69 @@
         include "../common/header_logged.php";
         include "../common/sidebar_logged.php";
     ?>
-    <div class="content">
-        <div class="headingArea">
-            <h2>Richieste</h2>
-        </div>
-        <div class="friend_list_tb pending_view">
-        <?php
-                #la funzione in getter_functions prende i dati di tutti gli utenti che hanno inviato una richiesta
-                #all'utente loggato
-                $res=get_pending_request($_SESSION['email'],0,$connected_db);
+    <main>
+        <div class="content">
+            <div class="headingArea">
+                <h2>Richieste</h2>
+            </div>
+            <div class="friend_list_tb pending_view">
+            <?php
+                    #la funzione in getter_functions prende i dati di tutti gli utenti che hanno inviato una richiesta
+                    #all'utente loggato
+                    $res=get_pending_request($_SESSION['email'],0,$connected_db);
+                    if(!$res){
+                        $redirect_with_error.="Errore nella connessione con il server";
+                        header($redirect_with_error);
+                        exit();
+                    }
+                    if($res->num_rows==0)
+                        echo "<div class='error_div'><span class='message_span'>Nessuna richiesta per te in attesa di conferma</span></div>";
+                    #stampo la tabella,vedi la funzione in display functions
+                    display_friendslist_rows($res,1,'pending',$connected_db);
+            ?>
+            </div>
+            <div class="headingArea">
+                <h2 style='margin-top:30px;'>Suggeriti per città</h2>
+            </div>
+            <div class="friend_list_tb suggestions_view">
+            <?php
+                #prendo le amicizie correnti dalla tabella amicizia, vedi query in getter functions
+                $res=get_suggestions_by_city($_SESSION['email'],0,$connected_db);
+                #se la query fallisce log e redirect con segnalazione
                 if(!$res){
                     $redirect_with_error.="Errore nella connessione con il server";
                     header($redirect_with_error);
                     exit();
                 }
+                #verifico che effettivamente l'utente abbia ramicizie correnti
                 if($res->num_rows==0)
-                    echo "<div class='error_div'><span class='message_span'>Nessuna richiesta per te in attesa di conferma</span></div>";
+                    echo "<div class='error_div'><span class='message_span'>Nessun suggerimento per te</span></div>";
                 #stampo la tabella,vedi la funzione in display functions
-                display_friendslist_rows($res,1,'pending',$connected_db);
-        ?>
+                display_friendslist_rows($res,1,'suggest',$connected_db);
+            ?>
+            </div>
+            <div class="headingArea">
+                <h2 style='margin-top:30px;'>Amici</h2>
+            </div>
+            <div class="friend_list_tb friends_view">
+            <?php
+                #prendo le amicizie correnti dalla tabella amicizia, vedi query in getter functions
+                $res=get_friends($_SESSION['email'],0,$connected_db);
+                #se la query fallisce log e redirect con segnalazione
+                if(!$res){
+                    $redirect_with_error.="Errore nella connessione con il server";
+                    header($redirect_with_error);
+                    exit();
+                }
+                #verifico che effettivamente l'utente abbia ramicizie correnti
+                if($res->num_rows==0)
+                    echo "<div class='error_div'><span class='message_span'>Nessuna amicizia</span></div>";
+                #stampo la tabella,vedi la funzione in display functions
+                display_friendslist_rows($res,1,'friends',$connected_db);
+            ?>
+            </div>
         </div>
-        <div class="headingArea">
-            <h2 style='margin-top:30px;'>Suggeriti per città</h2>
-        </div>
-        <div class="friend_list_tb suggestions_view">
-        <?php
-            #prendo le amicizie correnti dalla tabella amicizia, vedi query in getter functions
-            $res=get_suggestions_by_city($_SESSION['email'],0,$connected_db);
-            #se la query fallisce log e redirect con segnalazione
-            if(!$res){
-                $redirect_with_error.="Errore nella connessione con il server";
-                header($redirect_with_error);
-                exit();
-            }
-            #verifico che effettivamente l'utente abbia ramicizie correnti
-            if($res->num_rows==0)
-                echo "<div class='error_div'><span class='message_span'>Nessun suggerimento per te</span></div>";
-            #stampo la tabella,vedi la funzione in display functions
-            display_friendslist_rows($res,1,'suggest',$connected_db);
-        ?>
-        </div>
-        <div class="headingArea">
-            <h2 style='margin-top:30px;'>Amici</h2>
-        </div>
-        <div class="friend_list_tb friends_view">
-        <?php
-            #prendo le amicizie correnti dalla tabella amicizia, vedi query in getter functions
-            $res=get_friends($_SESSION['email'],0,$connected_db);
-            #se la query fallisce log e redirect con segnalazione
-            if(!$res){
-                $redirect_with_error.="Errore nella connessione con il server";
-                header($redirect_with_error);
-                exit();
-            }
-            #verifico che effettivamente l'utente abbia ramicizie correnti
-            if($res->num_rows==0)
-                echo "<div class='error_div'><span class='message_span'>Nessuna amicizia</span></div>";
-            #stampo la tabella,vedi la funzione in display functions
-            display_friendslist_rows($res,1,'friends',$connected_db);
-        ?>
-        </div>
-    </div>
+    </main>
     <script type='text/javascript' src='../common/script/friendship.js'></script>
     <script type='text/javascript' src='../common/script/setup.js'></script>
     <script type="text/javascript" src="../common/script/search.js"></script> 

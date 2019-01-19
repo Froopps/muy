@@ -31,7 +31,7 @@
         include "../common/modal_pwd_change.php"
     ?>
     <main>
-        <div class="content">
+        <div class="content-centre">
             <?php
                 if(isset($_GET["error"])){
                     echo "<span class='error_span'>".$_GET["error"]."</span>";

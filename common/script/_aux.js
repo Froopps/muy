@@ -127,6 +127,7 @@ function delete_content(element,content){
 }
 
 function comment(comment,content,list,author,pic,email){
+    
     xhr = ajaxRequest()
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
@@ -139,8 +140,8 @@ function comment(comment,content,list,author,pic,email){
                 alert("Scrivi un commento prima")
             if(response=="too many")
                 alert("Puoi commentare al massimo 3 volte!")
-            if(response=="ok"){
-                addComment(list,author,comment.value,pic,email)
+            if(Number.isInteger(response)){
+                addComment(list,author,comment.value,pic,email,response)
                 comment.value = ""
                 list.scrollTop = list.scrollHeight
                 //list.animate({
@@ -148,7 +149,6 @@ function comment(comment,content,list,author,pic,email){
                 //}, 300)
                 if(document.getElementById("no-comment")!=undefined)
                     document.getElementById("no-comment").style.display = "none"
-                    
             }
         }
     }
@@ -158,7 +158,7 @@ function comment(comment,content,list,author,pic,email){
     
 }
 
-function addComment(lista,autore,commento,pic,email){
+function addComment(lista,autore,commento,pic,email,id){
     
     var com = document.createElement("div")
     com.classList.add("commento")
@@ -168,9 +168,13 @@ function addComment(lista,autore,commento,pic,email){
     testa.classList.add("comm-head")
     com.appendChild(testa)
     
+    var tesx = document.createElement("div")
+    tesx.classList.add("flex-center")
+    testa.appendChild(tesx)
+    
     var node1 = document.createElement("a")
     node1.href = "user.php?user="+email
-    testa.appendChild(node1)
+    tesx.appendChild(node1)
     
     var node2 = document.createElement("img")
     node2.classList.add("comm-img")
@@ -180,11 +184,24 @@ function addComment(lista,autore,commento,pic,email){
     node2 = document.createElement("a")
     node2.classList.add("comm-aut")
     node2.href = "user.php?user="+email
-    testa.appendChild(node2)
+    tesx.appendChild(node2)
     
     node1 = node2
     node2 = document.createElement("b")
     var textnode = document.createTextNode(autore)
+    node2.appendChild(textnode)
+    node1.appendChild(node2)
+    
+    
+    node2 = document.createElement("div")
+    testa.appendChild(node2)
+    
+    node1 = node2
+    node2 = document.createElement("button")
+    node2.classList.add("delete-cross")
+    node2.type = "button"
+    node2.addEventListener("click",function(){delete_comment(id,email)})
+    textnode = document.createTextNode("x")
     node2.appendChild(textnode)
     node1.appendChild(node2)
     
@@ -195,3 +212,20 @@ function addComment(lista,autore,commento,pic,email){
     com.appendChild(node2)
     
 }
+
+function delete_comment(id,email){
+    
+    xhr = ajaxRequest()
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            var response = xhr.responseText
+            console.log(response)
+        }
+    }
+    xhr.open("POST","http://localhost/muy/backend/comment_delete.php",true)
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    xhr.send("id="+id+"&email="+email)
+    
+}
+
+//qualcosa incastra l'inserisci commento, forse il fatto del controllo per avere id in ritorno

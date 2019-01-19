@@ -2,6 +2,8 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
+    print_r($_POST);
+/*
     $res=get_content_by_id($_POST["id"],$connected_db);
     if(!$res||$res->num_rows!=1)
         exit();
@@ -86,4 +88,5 @@
     }
     $row=$res->fetch_assoc();
     echo $row["id"];
+*/
 ?>
