@@ -127,20 +127,20 @@ function delete_content(element,content){
 }
 
 function comment(comment,content,list,author,pic,email){
-    
+
     xhr = ajaxRequest()
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
             var response = xhr.responseText
             if(response=="sign in")
                 alert("Registrati per commentare")
-            if(response=="denied")
+            else if(response=="denied")
                 alert("Accesso negato")
-            if(response=="no comment")
+            else if(response=="no comment")
                 alert("Scrivi un commento prima")
-            if(response=="too many")
+            else if(response=="too many")
                 alert("Puoi commentare al massimo 3 volte!")
-            if(Number.isInteger(response)){
+            else{
                 addComment(list,author,comment.value,pic,email,response)
                 comment.value = ""
                 list.scrollTop = list.scrollHeight
@@ -159,7 +159,7 @@ function comment(comment,content,list,author,pic,email){
 }
 
 function addComment(lista,autore,commento,pic,email,id){
-    
+
     var com = document.createElement("div")
     com.classList.add("commento")
     lista.appendChild(com)
@@ -200,7 +200,7 @@ function addComment(lista,autore,commento,pic,email,id){
     node2 = document.createElement("button")
     node2.classList.add("delete-cross")
     node2.type = "button"
-    node2.addEventListener("click",function(){delete_comment(id,email)})
+    node2.addEventListener("click",function(){delete_comment(id,email,this)})
     textnode = document.createTextNode("x")
     node2.appendChild(textnode)
     node1.appendChild(node2)
@@ -210,22 +210,34 @@ function addComment(lista,autore,commento,pic,email,id){
     textnode = document.createTextNode(commento)
     node2.appendChild(textnode)
     com.appendChild(node2)
-    
+
 }
 
-function delete_comment(id,email){
-    
+function delete_comment(id,email,commento){
+        
     xhr = ajaxRequest()
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
             var response = xhr.responseText
-            console.log(response)
+            if(response=="denied")
+                alert("Accesso negato")
+            if(response=="ok"){
+                commento = commento.parentElement.parentElement.parentElement
+                commento.style.display = "none"
+                if(commento.previousElementSibling==null){
+                    var div = document.createElement("div")
+                    div.id = "no-comment"
+                    var textnode = document.createTextNode("Nessun commento")
+                    div.appendChild(textnode)
+                    commento.parentElement.appendChild(div)
+                }
+                else if(commento.previousSibling.previousSibling==document.getElementById("no-comment"))
+                    document.getElementById("no-comment").style.display = "block"
+            }
         }
     }
     xhr.open("POST","http://localhost/muy/backend/comment_delete.php",true)
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     xhr.send("id="+id+"&email="+email)
-    
-}
 
-//qualcosa incastra l'inserisci commento, forse il fatto del controllo per avere id in ritorno
+}

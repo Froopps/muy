@@ -2,15 +2,14 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
+
     $res=get_content_by_id($_POST["id"],$connected_db);
     if(!$res||$res->num_rows!=1)
         exit();
     $path=$res->fetch_assoc()["percorso"];
 
-    if($error_connection["flag"]){
-        $value=$error_connection["msg"];
+    if($error_connection["flag"])
         exit();
-    }
 
     #controllo se altro utente o utente non iscritto sta cercando di commmentare
     $query="SELECT proprietario FROM `oggettomultimediale` WHERE percorso='".escape($path,$connected_db)."'";

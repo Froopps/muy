@@ -60,4 +60,8 @@
     $connected_db->close();
 ?>
 </body>
+    <script>
+        if(Number.isInteger(5))
+            alert("si")
+    </script>
 </html>
