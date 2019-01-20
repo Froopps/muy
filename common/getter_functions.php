@@ -88,10 +88,26 @@ function get_search_suggestion($table,$pattern,$connected_db){
     return $res;
 }
 
-function get_search_result($table,$pattern,$connected_db,$offset){
+function get_not_private_search_result($table,$pattern,$connected_db,$offset){
+    #per categoria e utente non c'è bisogno di verificare nessuna relzione di amicizia
     $offset=$offset*8;
-    $mapping=array("utente"=>"nickname","oggettoMultimediale"=>"titolo","canale"=>"nome","categoria"=>"tag");
+    $mapping=array("utente"=>"nickname","categoria"=>"tag");
     $query="SELECT * FROM $table WHERE ".$mapping[$table]."='$pattern' UNION SELECT * FROM $table WHERE ".$mapping[$table]." LIKE '%$pattern%' LIMIT 8 OFFSET $offset";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
+
+function get__search_result($subject,$table,$pattern,$connected_db,$offset){
+    #per contenuto e canale c'è bisogno di verificare nessuna relzione di amicizia
+    #subject sarebbe il richiedente
+    $offset=$offset*8;
+    $mapping=array("oggettoMultimediale"=>"titolo","canale"=>"nome");
+    #query per prelevare tutti gli dell'utente che ricerca
+    $friends="SELECT  email FROM utente JOIN amicizia ON sender=email WHERE receiver='".escape($who,$connected_db)."' AND stato='a' UNION SELECT email FROM utente JOIN amicizia ON receiver=email WHERE sender='".escape($who,$connected_db)."' AND stato='a'";
+    $query="SELECT * FROM $table WHERE ".$mapping[$table]."='$pattern' AND proprietario IN (".$friends.")";
+    $query2="UNION SELECT * FROM $table WHERE ".$mapping[$table]." LIKE '%$pattern% AND ' LIMIT 8 OFFSET $offset";
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
