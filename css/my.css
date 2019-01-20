@@ -439,6 +439,7 @@ nav hr{
     overflow-y: auto
 }
 
+/*LISTA CONSIGLI NELLE RICERCHE*/
 .sug_block{
     display:none;
     width:100%;
@@ -450,11 +451,14 @@ nav hr{
 
 .sug_list{
     display:none;
+    width:22%;
+    margin-left:6%;
     padding:0 0 0 0;
     background-color:rgb(224, 224, 224);
 }
 
 .entry_sug{
+    width:100%;
     padding: 0.5em 5em 0.5em 1.5em;
 }
 
@@ -462,7 +466,19 @@ nav hr{
     background-color: rgb(117, 220, 238);
 }
 
+/*PAGINA RISULTATI DELLE RICERCHE*/
 
+.search_page .content{
+    width:85%;
+}
+.search_results{
+    width:100%;
+}
+
+.search_results_entry{
+    width:100%;
+    background-color:yellow;
+}
 
 
 
