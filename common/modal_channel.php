@@ -17,8 +17,8 @@
             </div>
             <select class="src_type sel_channel_vis" name="channel_type">
                 <option value="public">Pubblico</option>
-                <option value="private">Social</option>
-                <option value="social">Privato</option>
+                <option value="social">Social</option>
+                <option value="private">Privato</option>
             </select>
             <div class="modal_group"><input class="modal_button"  type="submit" value="Crea"></div>
         </form>

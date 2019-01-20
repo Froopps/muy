@@ -39,11 +39,14 @@
                 include "../common/sidebar_unlogged.html";
             }
 
-            #controllo se è canale dell'utente loggato
+            #controllo se è canale dell'utente loggato e eventualmente l'amicizia
             $self=false;
-            if(isset($_SESSION["email"])&&$_SESSION["email"]==$_GET["user"]){
+            if(isset($_SESSION["email"])&&$_SESSION["email"]==$_GET["user"])
                 $self=true;
-        }?>
+            $relationship="a";
+            if(!$self)
+                $relationship=get_relationship($_SESSION["email"],$_GET["user"],$connected_db);
+        ?>
 
         <main>
 
@@ -81,51 +84,57 @@
                     $no_channel=1;
                     $no_content=1;
                     while($row=$res->fetch_assoc()){
-                        $no_channel=0;
-                        echo "<div class=\"categoria\">";
-                            echo "<div class=\"categoria_user_nome\">";
-                                echo "<a class=\"categoria_titolo\" href=\"categoria.php?tag=".htmlentities(urlencode($row["nome"]))."&s=c&user=".htmlentities(urlencode($_GET["user"]))."\">".stripslashes($row["nome"])."</a>";
-                                if($self){
-                                    echo "<div>";
-                                        echo "<a class=\"glyph-button\" href=\"channel_mod.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/pencil.png\" width=\"30px\" alt=\"Modifica\"></a>";
-                                        echo "<a class=\"glyph-button\" href=\"upload.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/plus.png\" width=\"30px\" alt=\"Aggiungi\"></a>";
-                                    echo "</div>";
-                                }
-                            echo "</div>";
-                            echo "<hr align=\"left\">";
-                            if(!empty($row["etichetta"])){
-                                echo "<div class=\"eticanale\">";
-                                    $eti=explode(",",$row["etichetta"]);
-                                    foreach($eti as $et){
-                                        echo "<a class='etichetta' href='#etichetta'>#".stripslashes($et)."</a>";
+                        if($self||$row["visibilita"]!="private"){
+                            $no_channel=0;
+                            echo "<div class=\"categoria\">";
+                                echo "<div class=\"categoria_user_nome\">";
+                                    echo "<a class=\"categoria_titolo\" href=\"categoria.php?tag=".htmlentities(urlencode($row["nome"]))."&s=c&user=".htmlentities(urlencode($_GET["user"]))."\">".stripslashes($row["nome"])."</a>";
+                                    if($self){
+                                        echo "<div>";
+                                            echo "<a class=\"glyph-button\" href=\"channel_mod.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/pencil.png\" width=\"30px\" alt=\"Modifica\"></a>";
+                                            echo "<a class=\"glyph-button\" href=\"upload.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/plus.png\" width=\"30px\" alt=\"Aggiungi\"></a>";
+                                        echo "</div>";
                                     }
                                 echo "</div>";
-                            }
-                            echo "<div class=\"scrollbar\">";
-                                $query="SELECT * FROM oggettomultimediale WHERE canale='".escape($row["nome"],$connected_db)."' AND proprietario='".escape($row["proprietario"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
-                                $res_ogg=$connected_db->query($query);
-                                if(!$res_ogg){
-                                    $redirect_with_error.=urlencode("Errore nella connessione con il database");
-                                    log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                    header($redirect_with_error);
-                                    $connected_db->close();
-                                    exit();
+                                echo "<hr align=\"left\">";
+                                echo "<div class=\"eticanale\">";
+                                echo "<div class='can-vis'>#".toUpperFirst($row["visibilita"])."</div>";
+                                if(!empty($row["etichetta"])){
+                                        $eti=explode(",",$row["etichetta"]);
+                                        foreach($eti as $et){
+                                            echo "<a class='etichetta' href='#etichetta'>#".stripslashes($et)."</a>";
+                                        }
                                 }
-                                $no_content=1;
-                                while($row_ogg=$res_ogg->fetch_assoc()){
-                                    $no_content=0;
-                                    if($self)
-                                        echo "<span class=\"obj_mod\">";
-                                    display_multimedia_object($row_ogg,$connected_db);
-                                    if($self){
-                                        echo "<div class=\"obj_mod_button\"><button class=\"delete_button\" onclick=\"delete_content(this,'".$row_ogg["extID"]."')\"></button></div>";
-                                        echo "</span>";
-                                    }
-                                }
-                                if($no_content)
-                                    echo "<span class='message_span'>Non c'è nessun elemento da mostrare</span>";
+                                echo "</div>";
+                                echo "<div class=\"scrollbar\">";
+                                    if($self||$row["visibilita"]=="public"||$relationship=="a"){
+                                        $query="SELECT * FROM oggettomultimediale WHERE canale='".escape($row["nome"],$connected_db)."' AND proprietario='".escape($row["proprietario"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
+                                        $res_ogg=$connected_db->query($query);
+                                        if(!$res_ogg){
+                                            $redirect_with_error.=urlencode("Errore nella connessione con il database");
+                                            log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                                            header($redirect_with_error);
+                                            $connected_db->close();
+                                            exit();
+                                        }
+                                        $no_content=1;
+                                        while($row_ogg=$res_ogg->fetch_assoc()){
+                                            $no_content=0;
+                                            if($self)
+                                                echo "<span class=\"obj_mod\">";
+                                            display_multimedia_object($row_ogg,$connected_db);
+                                            if($self){
+                                                echo "<div class=\"obj_mod_button\"><button class=\"delete_button\" onclick=\"delete_content(this,'".$row_ogg["extID"]."')\"></button></div>";
+                                                echo "</span>";
+                                            }
+                                        }
+                                        if($no_content)
+                                            echo "<span class='message_span'>Non c'è nessun elemento da mostrare</span>";
+                                    }else
+                                        echo "<span class='message_span'>Questo canale è social</span>";
+                                echo "</div>";
                             echo "</div>";
-                        echo "</div>";                    
+                        }
                     }
                     if($no_channel)
                         echo "<span class='message_span'>Non c'è nessun canale da mostrare</span>";

@@ -92,7 +92,38 @@
                     <div class="infobox">
                         <div class="info-head">
                             <div class="info-titolo"><h1><?php echo $row["titolo"]; ?></h1></div>
-                            <div><h1><?php echo $row["visualizzazioni"]; ?></h1></div>
+                            
+                            
+                            <div><h1 id="visual">
+                                
+                                <?php //echo $row["visualizzazioni"]; --visual con ajax-- ?>
+                            
+                                <?php
+                                    $query="SELECT visualizzazioni FROM `oggettomultimediale` WHERE extID='".$_GET["id"]."'";
+                                    $res=$connected_db->query($query);
+                                    if(!$res){
+                                        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                                        $connected_db->close();
+                                        exit();
+                                    }
+                                    $num=$res->fetch_assoc();
+
+                                    $num=$num["visualizzazioni"]+1;
+
+                                    $query="UPDATE `oggettomultimediale` SET visualizzazioni='".$num."' WHERE extID='".$_GET["id"]."'";
+                                    $res=$connected_db->query($query);
+                                    if(!$res){
+                                        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                                        $connected_db->close();
+                                        exit();
+                                    }
+
+                                    echo $num;
+                                ?>
+                            
+                            </h1></div>
+                            
+                            
                         </div>
                         <?php
                             if($error_connection["flag"]){
@@ -101,12 +132,18 @@
                                 exit();
                             }
                             $res=get_content_tag($row["percorso"],$connected_db);
+                            echo "<div class=\"eticanale\" id=\"info-eti\">";
                             if($res->num_rows>0){
-                                echo "<div class=\"eticanale\" id=\"info-eti\">";
                                 while($row_tag=$res->fetch_assoc())
                                     echo "<a class=\"etichetta\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($row_tag["tag"])))."\">".stripslashes($row_tag["tag"])."</a>";
-                                echo "</div>";
                             }
+                                #echo "<button class=\"add_button\" type=\"button\" onclick=\"add_eti('".$_GET["id"]."',this)\"></button>";
+                            if($self){
+                                echo "<input type=\"hidden\" name=\"newtag\" placeholder=\"#...\"/>";
+                                echo "<button class=\"add_button\" type=\"button\" onclick=\"add_eti('".$_GET["id"]."',this)\"></button>";
+                                echo "<button class=\"cross_button\" type=\"button\" style=\"display: none\" onclick=\"close_eti(this)\"></button>";
+                            }
+                            echo "</div>";
                         if(!empty($row["descrizione"]))
                             echo "<div class=\"info-descrizione\">".$row["descrizione"]."</div>";
                         else
@@ -151,6 +188,7 @@
                                 echo "<div class=\"com-button\"><button class=\"in_notext\" type=\"button\" onclick=\"comment(document.getElementById('comm'),'".$_GET['id']."',document.getElementById('lista-commenti'),'".$_SESSION['nome']."','".$pro_pic."','".$_SESSION['email']."')\">Commenta</button></div>";
                             }else
                                 echo "<div class=\"com-button\"><button class=\"in_notext\" type=\"button\" onclick=\"comment(document.getElementById('comm'),'".$_GET['id']."',document.getElementById('lista-commenti'),'no','no')\">Commenta</button></div>";
+                            $connected_db->close();
                         ?>
                     </div>
                 </div>
@@ -166,6 +204,15 @@
         el.onclick=function(event){
                 el.style.display='none'
         }
+        
+        function close_eti(button){
+            button.style.display = "none"
+            document.getElementsByName("newtag")[0].value = ""
+            document.getElementsByName("newtag")[0].type = "hidden"
+        }
+        
+        //visual con ajax, se togli togli sopra e la funzione in _aux.js
+        //window.onload = function(){visual(<?php echo $_GET["id"]; ?>)}
     </script>
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>

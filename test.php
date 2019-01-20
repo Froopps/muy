@@ -7,12 +7,27 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
+    $a=12345;
+    echo substr($a,0,2).substr($a,3);
+    
+    echo "<br>";
+    
     $a=null;
     if(isset($a))
         echo "yes";
     else
         echo "no";
+    
     echo "<br>";
+    
+    $a=",,,1,,,,,2,3,,,";
+    while($a[0]==",")
+        $a=substr($a,1);
+    while($a[strlen($a)-1]==",")
+        $a=substr($a,0,-1);
+    $a=preg_replace('/,+/', ',', $a);
+    echo $a;
+    
     echo "<br>";
 
     $pippo="";

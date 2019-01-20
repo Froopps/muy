@@ -241,3 +241,63 @@ function delete_comment(id,email,commento){
     xhr.send("id="+id+"&email="+email)
 
 }
+
+function visual(id){
+//leva se togli visual ajax
+    console.log(id)
+    xhr = ajaxRequest()
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+                var response = xhr.responseText
+                document.getElementById("visual")
+                document.getElementById("visual").innerHTML=response
+        }
+    }
+    xhr.open("GET","http://localhost/muy/backend/visual.php?id="+id,true)
+    xhr.send()
+
+}
+
+function add_eti(id,button){
+    
+    var in_text = document.getElementsByName("newtag")[0]
+    console.log(in_text)
+    if(in_text.type == "hidden"){
+        in_text.type = "text"
+        document.getElementsByClassName("cross_button")[0].style.display = "block"
+    }else if(in_text.type == "text"){
+        xhr = ajaxRequest()
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                var response = xhr.responseText
+                if(response=="denied")
+                    alert("Accesso negato")
+                else if(response=="no_tag")
+                    alert("Inserisci almeno un'etichetta")
+                else if(response=="err_tag")
+                    alert("Uno o più tag non accettabili")
+                else if(response=="err_db")
+                    alert("Errore nella connessione con il database")
+                else{
+                    document.getElementsByClassName("cross_button")[0].style.display = "none"
+                    in_text.value = ""
+                    in_text.type = "hidden"
+                    
+                    var node = document.createElement("a")
+                    node.classList.add("etichetta")
+                    node.href = "categoria.php?tag="+response
+                    var textnode = document.createTextNode("#"+response)
+                    node.appendChild(textnode)
+                        console.log(button.previousSibling.previousSibling)
+                    if(button.previousSibling.previousSibling==null)
+                        button.parentElement.insertBefore(node,button.parentElement.firstChild)
+                    else
+                        button.parentElement.insertBefore(node,in_text)
+                }
+            }
+        }
+        xhr.open("POST","http://localhost/muy/backend/add_tag.php",true)
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xhr.send("id="+id+"&tag="+in_text.value)
+    }
+}

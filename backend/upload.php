@@ -3,7 +3,7 @@
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
     $redirect_with_error="Location: http://localhost/muy/frontend/upload.php?error=";
-    $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=".urlencode("Upload avvenuto con successo");
+    $redirect_with_msg="Location: http://localhost/muy/frontend/user.php?user=".urlencode($_SESSION["email"])."&msg=".urlencode("Upload avvenuto con successo");
     $query_columns="";
     $query_values="";
     #exit() is used after redirect to avoid further statements execution after redirecting with error
@@ -169,7 +169,7 @@
             if(!($tag=="")){
                 trimSpace($tag);
                 $tag=strtolower($tag);
-                if(!preg_match('/^[A-Za-z0-9\'èéàòùì!? ]+$/',$_POST["desc"])){
+                if(!preg_match('/^[A-Za-z0-9\'èéàòùì!? ]+$/',$tag)){
                     $redirect_with_msg.=urlencode(", ma uno o più tag non accettabili");
                     goto error;
                 }

@@ -47,6 +47,11 @@
     $query_values.=",'".$_POST["channel_type"]."'";
 
     if(!empty($_POST["label"])){
+        while($_POST["label"][0]==",")
+            $_POST["label"]=substr($_POST["label"],1);
+        while($_POST["label"][strlen($_POST["label"])-1]==",")
+            $_POST["label"]=substr($_POST["label"],0,-1);
+        $_POST["label"]=preg_replace('/,+/',',',$_POST["label"]);
         $query_columns.=",etichetta";
         $query_values.=",'".escape($_POST["label"],$connected_db)."'";
     }
