@@ -41,9 +41,9 @@
 
             #controllo se è canale dell'utente loggato
             $self=false;
-            if(isset($_SESSION["email"])&&$_SESSION["email"]==$_GET["user"])
+            if(isset($_SESSION["email"])&&$_SESSION["email"]==$_GET["user"]){
                 $self=true;
-        ?>
+        }?>
 
         <main>
 
@@ -60,11 +60,12 @@
                 <div id="testa-user" class="flex-space-between">
                     <?php
                         display_user_info($row,$connected_db);
-                        if($self)
+                        if($self){
                             echo "<div class=\"flex-col\">";
                             echo "<div><button class=\"in_notext\" type=\"button\" onclick=\"document.getElementById('modal_bg_2').style.display='flex'\">Nuovo canale</button></div>";
                             echo "<div><button class=\"in_notext\" id=\"delete\" type=\"button\">Elimina utente</button></div>";
                             echo "</div>";
+                        }
                     ?>
                 </div>
                 

@@ -147,15 +147,16 @@ div.flex-space-between{
     align-items: center
 }
 
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
 .flex-col{
     display: flex;
     flex-direction: column;
     align-items: center
-}
-
-.center{
-    display: flex;
-    justify-content: center
 }
 
 
@@ -491,7 +492,7 @@ div.content{
     */
     min-width: 50%;
     padding-top: 80px;
-    width: 85%;
+    /*width: 85%;*/
     max-width: 85%
 }
 
@@ -998,9 +999,10 @@ h4{
 
 .friend_list_tb{
     margin-top:30px;
-    width:80%;
+    /*width:80%;*/
     display:flex;
     flex-direction:column;
+    justify-content: center
 }
 
 .friend_list_row{
@@ -1008,17 +1010,18 @@ h4{
     width:100%;
     display:flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .friend_list_entry{
-    width:45%;
+    /*width:45%;*/
+    width: auto;
     display:flex;
     flex-direction:row;
     justify-content:space-between;
 }
 .friend_list_entry_half{
-    width:50%;
+    /*width:50%;*/
     display:flex;
     flex-direction:column;
     justify-content:space-between;
@@ -1150,7 +1153,9 @@ div.commento{padding-bottom: 0.5em}
 
 div.comm-head{
     display: flex;
-    align-items: center
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 0.5em
 }
 
 .comm-img{
@@ -1164,6 +1169,17 @@ div.comm-head{
 .comm-aut{color: black}
 
 .comm-aut:hover{color: #388baf}
+
+button.delete-cross{
+    margin-right: 0.5em;
+    padding: 0;
+    border: none;
+    font-size: 90%;
+    color: #848484;
+    background-color: transparent
+}
+
+button.delete-cross:hover{color: red}
 
 .comm-text{word-wrap: break-word}
 

@@ -117,154 +117,28 @@
                 <div class="commentbox">
                     <div id="lista-commenti">
                         <?php
-                            $query="SELECT * FROM commento JOIN utente WHERE contenuto='".escape($row["percorso"],$connected_db)."' ORDER BY dataRilascio ASC";
+                            $query="SELECT * FROM commento JOIN utente ON commento.utente=utente.email WHERE contenuto='".escape($row["percorso"],$connected_db)."' ORDER BY dataRilascio ASC";
                             $res=$connected_db->query($query);
                             if($res->num_rows>0){
                                 while($row=$res->fetch_assoc()){
                                     echo "<div class=\"commento\">";
                                         echo "<div class=\"comm-head\">";
-                                            #$pro_pic="data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res/".stripslashes($row["foto"])));
-                                            $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res/".$row["foto"]));
-                                            echo "<a href=\"user.php?user=".$row["email"]."\"><img class=\"comm-img\" src=\"".$pro_pic."\"></a>";
-                                            echo "<a class=\"comm-aut\" href=\"user.php?user=".$row["email"]."\"><b>".$row["nickname"]."</b></a>";
+                                            echo "<div class=\"flex-center\">";
+                                                $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res/".$row["foto"]));
+                                                echo "<a href=\"user.php?user=".$row["email"]."\"><img class=\"comm-img\" src=\"".$pro_pic."\"></a>";
+                                                echo "<a class=\"comm-aut\" href=\"user.php?user=".$row["email"]."\"><b>".$row["nickname"]."</b></a>";
+                                            echo "</div>";
+                                            echo "<div>";
+                                            if($_SESSION["email"]==$row["email"])
+                                                echo "<button class=\"delete-cross\" type=\"button\" onclick=\"delete_comment('".$row["id"]."','".$row["utente"]."',this)\">x</button>";
+                                            echo "</div>";
                                         echo "</div>";
                                         echo "<div class=\"comm-text\">".$row["testo"]."</div>";
                                     echo "</div>";
                                 }
                             }else
                                 echo "<div id=\"no-comment\">Nessun commento</div>";
-                        ?>
-                        
-                        <!--
-                        <div class="commento">
-                            <div class="comm-head">
-                                <img class="comm-img" src="../sources/images/cover.png">
-                                <b>Autore</b>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        
-                        <div class="commento">
-                            <div class="comm-head">
-                                <span class="comm-img-box"><img class="comm-img" src="../sources/images/cover.png"></span>
-                                <span class="comm-autore"><b>Autore</b></span>
-                            </div>
-                            <div class="comm-text">commentooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooiiiiiooo</div>
-                        </div>
-                        -->
-                        
+                        ?>                        
                     </div>
                     <div class="input-comment">
                         <textarea class="in_comment" id="comm" rows="3" placeholder="Commenta..."></textarea>

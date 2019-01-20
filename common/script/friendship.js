@@ -13,6 +13,8 @@ function request_fr(button,user){
                 append_error_atop(error.childNodes[0].childNodes[0].nodeValue)
             else{
                 button.innerHTML='In attesa di conferma'
+                button.id='disabled'
+                button.disabled=true
                 button.style.display='inline-block'
             }
         }
@@ -55,6 +57,7 @@ function up_status(action,object,button){
     if(action=='deny')
         button.previousSibling.remove();
     button.style.display='none'
+    button.id='disabled'
     button.disabled=true
     xhr.onreadystatechange=function(){
         if(xhr.readyState==4 && xhr.status==200){

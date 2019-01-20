@@ -2,15 +2,14 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
+
     $res=get_content_by_id($_POST["id"],$connected_db);
     if(!$res||$res->num_rows!=1)
         exit();
     $path=$res->fetch_assoc()["percorso"];
 
-    if($error_connection["flag"]){
-        $value=$error_connection["msg"];
+    if($error_connection["flag"])
         exit();
-    }
 
     #controllo se altro utente o utente non iscritto sta cercando di commmentare
     $query="SELECT proprietario FROM `oggettomultimediale` WHERE percorso='".escape($path,$connected_db)."'";
@@ -75,5 +74,15 @@
         $connected_db->close();
         exit();
     }
-    echo "ok";
+
+    #get new comment id for celete script
+    $query="SELECT id FROM `commento` WHERE utente='".escape($_SESSION["email"],$connected_db)."' AND contenuto='".escape($path,$connected_db)."' AND dataRilascio='".date('Y-m-d H:i:s')."'";
+    $res=$connected_db->query($query);
+    if(!$res){
+        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+        $connected_db->close();
+        exit();
+    }
+    $row=$res->fetch_assoc();
+    echo $row["id"];
 ?>
