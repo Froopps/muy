@@ -28,6 +28,11 @@
             include "../common/header_unlogged.php";
             include "../common/sidebar_unlogged.html";
         }
+        $mvvideo=get_most_visited('v',$connected_db);
+        $mvaudio=get_most_visited('a',$connected_db);
+        $mvimages=get_most_visited('i',$connected_db);
+        if(!(isset($mvvideo)&&isset($mvaudio)&&isset($mvimages)))
+            $_GET['error']='Errore nella connessione col server';
     ?>
 
         <main>
@@ -37,6 +42,7 @@
                     if(isset($_GET["error"])){
                         #edit span to achieve a fashion error displaying
                         echo "<span class='error_span'>".$_GET["error"]."</span>";
+                        exit();
                     }
                     if(isset($_GET["msg"])){
                         #edit span to achieve a fashion message displaying
@@ -45,70 +51,24 @@
                 ?>
                 <div class="categoria">
                     <?php
-                        echo "<div><a class='categoria_titolo' href='categoria.php?tag=".htmlentities(urlencode("Most visited videos")."&s=true")."'>Most visited videos</a></div>"
+                        echo "<div><h2>Most visited videos</h2></div>";
                     ?>
                     <div class="scrollbar">
                         <?php
-                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='v' ORDER BY visualizzazioni DESC LIMIT 10";
+                           while($row=$mvvideo->fetch_assoc())
+                                display_multimedia_object($row,$connected_db); 
                         ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <div id="arrowbox">
-                            <p class=arrow_txt>Mostra altro</p>
-                            <button id="arrow"><img src="../sources/images/arrow.png" width="100px" alt="Mostra altro"></button>
-                        </div>
                     </div>
                 </div>
                 <div class="categoria">
                     <?php
-                        echo "<div><a class='categoria_titolo' href='categoria.php?tag=".htmlentities(urlencode("Most visited audios")."&s=true")."'>Most visited audios</a></div>"
+                        echo "<div><h2>Most visited audios</h2></div>"
                     ?>
                     <div class="scrollbar">
                         <?php
-                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='a' ORDER BY visualizzazioni DESC LIMIT 10";
+                            while($row=$mvaudio->fetch_assoc())
+                                display_multimedia_object($row,$connected_db);
                         ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <div id="arrowbox">
-                            <p class=arrow_txt>Mostra altro</p>
-                            <button id="arrow"><img src="../sources/images/arrow.png" width="100px" alt="Mostra altro"></button>
-                        </div>
                     </div>
                 </div>
                 <div class="categoria">
@@ -116,41 +76,12 @@
                         echo "<div><a class='categoria_titolo' href='categoria.php?tag=".htmlentities(urlencode("Most visited images")."&s=true")."'>Most visited images</a></div>"
                     ?>
                     <div class="scrollbar">
-                        <?php
-                            $query="SELECT * FROM oggettoMultimediale WHERE tipo='i' ORDER BY visualizzazioni DESC LIMIT 10";
-                        ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <?php include "../common/multimedia_object.html"; ?>
-                        <div id="arrowbox">
-                            <p class=arrow_txt>Mostra altro</p>
-                            <button id="arrow"><img src="../sources/images/arrow.png" width="100px" alt="Mostra altro"></button>
-                        </div>
+                    <?php
+                    while($row=$mvimages->fetch_assoc())
+                        display_multimedia_object($row,$connected_db);
+                    ?>
                     </div>
                 </div>
-                <div class="categoria">
-                    <div><a class="categoria_titolo" href="#seeee">Procedurali</a></div>
-                    <div class="scrollbar">
-                    </div>
-                </div>
-                
             </div>
         </main>
         <script type="text/javascript" src="../common/script/search.js"></script>

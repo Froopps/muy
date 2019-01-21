@@ -142,4 +142,12 @@ function get_today_friends_content($who,$connected,$offset){
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;
 }
+
+function get_most_visited($type,$connected_db){
+    $query="SELECT * FROM oggettoMultimediale WHERE tipo='$type' ORDER BY visualizzazioni DESC LIMIT 10 OFFSET 0";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
 ?>
