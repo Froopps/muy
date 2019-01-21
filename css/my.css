@@ -461,6 +461,7 @@ nav hr{
     overflow-y: auto
 }
 
+/*LISTA CONSIGLI NELLE RICERCHE*/
 .sug_block{
     display:none;
     width:100%;
@@ -472,11 +473,14 @@ nav hr{
 
 .sug_list{
     display:none;
+    width:22%;
+    margin-left:6%;
     padding:0 0 0 0;
     background-color:rgb(224, 224, 224);
 }
 
 .entry_sug{
+    width:100%;
     padding: 0.5em 5em 0.5em 1.5em;
 }
 
@@ -484,8 +488,30 @@ nav hr{
     background-color: rgb(117, 220, 238);
 }
 
+/*PAGINA RISULTATI DELLE RICERCHE*/
 
+.search_page .content{
+    width:85%;
+}
 
+.search_results{
+    width:100%;
+}
+
+.search_results_entry{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    margin-top:5%;
+}
+
+.search_results_entry div{
+    margin-left:10%
+}
+
+.search_info{
+    padding-top:3%;
+}
 
 
 /* CONTENUTO PRINCIPALE HOME */
@@ -1027,7 +1053,6 @@ h4{
 
 .friend_list_tb{
     margin-top:30px;
-    /*width:80%;*/
     display:flex;
     flex-direction:column;
     justify-content: center
@@ -1038,18 +1063,17 @@ h4{
     width:100%;
     display:flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content:space-between;
 }
 
 .friend_list_entry{
-    /*width:45%;*/
-    width: auto;
+    width:45%;
     display:flex;
     flex-direction:row;
     justify-content:space-between;
 }
 .friend_list_entry_half{
-    /*width:50%;*/
+    width:50%;
     display:flex;
     flex-direction:column;
     justify-content:space-between;

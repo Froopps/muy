@@ -61,22 +61,6 @@
                         if(isset($_GET["s"])){
                             #casi speciali
                             if($_GET["s"]=="c"){
-                                $query="SELECT * FROM oggettomultimediale WHERE canale='".escape($_GET["tag"],$connected_db)."' AND proprietario='".escape($_GET["user"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
-                                $res=$connected_db->query($query);
-                                if(!$res){
-                                    $redirect_with_error.=urlencode("Errore nella connessione con il database");
-                                    log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                    header($redirect_with_error);
-                                    $connected_db->close();
-                                    exit();
-                                }
-                                $no_content=1;
-                                while($row=$res->fetch_assoc()){
-                                    display_multimedia_object($row,$connected_db);
-                                    $no_content=0;
-                                }
-                                if($no_content)
-                                    echo "<span class='message_span'>Non c'è nessun elemento da mostrare</span>";
                             }else
                                 echo "yes ".$_GET["s"];
                         }else{

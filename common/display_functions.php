@@ -114,7 +114,7 @@
     function display_friendslist_entry($info,$action){
         $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
         $pro_pic_alt="Spiacenti foto non trovata";
-        if(!file_exists($pro_pic."/".$info["foto"]))
+        if(!file_exists($pro_pic."/".stripslashes($info["foto"])))
             log_into("Can't find profile pic at ".$pro_pic."/".$info["foto"]);
         $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".stripslashes($info["foto"])));
 
@@ -173,5 +173,73 @@
                 echo "<tr><td><a class=\"etichetta\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($tag)))."\">".$tag."</a></td></tr>";
             echo "</table>";
         echo "</a>";
+    }
+
+    #logica simile a quella utilizzata per il refreshing della lista degli amici, ma questo stampa
+    #stampa un blocco della pagina delle ricerche o dei video caricati nell'ultima giornata
+    #query si riferisce al tipo della ricerca (canale,utente, ecc...)
+    function display_refreshing_block($query,$pattern,$res,$next){
+        #mapping è un array indicizzato utile a costruire la vista con  i link nella pagina dei risultati
+        #delle ricerche a seconda del fatto che sia cercato un canale, un utente, un oggetto multimediale
+        #o una categoria. A ogni selettore corrisponde un array che contiene valori per selezionare, dato
+        # il risultato di una query $res, valori per il la foto, il testo del link, i nomi dei parametri della
+        #get per costruire il link, i valori di tali parametri e due campi per costruire le informazioni
+        #aggiuntive presenti nella vista
+        $mapping=array("utente"=>array("foto","nickname","user.php?",array("user"),array("email"),"email","Account: "),
+                        "canale"=>array("foto","nome","canale.php?",array("nome","proprietario"),array("nome","proprietario"),"proprietario","Proprietario: "),
+                        "oggettoMultimediale"=>array("anteprima","titolo","watch.php?",array("id"),array("extID"),"tipo","Tipologia: "),
+                        #utilizzata la stessa logica anche per fare il refresh della lista dei contenuti caricati nell'ultima giornata
+                        #vedi ultima_giornata.php
+                        "todayContent"=>array("anteprima","titolo","watch.php?",array("id"),array("extID"),"tipo","Tipologia: ")
+        );
+        $content_type=array("v"=>"Video","a"=>"Audio","i"=>"Immagine");
+        $no_more=false;
+        for($i=0;$i<3;$i++){
+            $row=$res->fetch_assoc();
+            if(!$row){
+                $no_more=true;
+                break;
+            }
+            $link_id="";
+            for($j=0;$j<count($mapping[$query][3]);$j++)
+                $link_id.=$mapping[$query][3][$j]."=".$row[$mapping[$query][4][$j]]."&";
+            $link_id=substr($link_id,0,strlen($link_id)-1);
+            if($query=='oggettoMultimediale')
+                $value=$content_type[$row[$mapping[$query][5]]];
+            else
+                $value=$row[$mapping[$query][5]];
+            $side_info=$mapping[$query][6].$value;
+            display_search_entry($row[$mapping[$query][0]],$row[$mapping[$query][1]],$mapping[$query][2],$link_id,$side_info);
+        }
+        if(!$no_more){
+            #se possono esserci risultati successivi, inserisci nel DOM un elemento in cui inserirli tramite chiamata AJAX
+            echo "<div class='wrapper_block'></div>";
+            #e un bottone 'altro' dal cui valore dipenderà l'offset con cui fare la query per mostrare altri risultati
+            echo "<div class='error_div'><span><button class='in_notext show_more' style='background-color:#837d7d' value='$next' type='button' onclick=\"refresh_search_res('$query',this,'$pattern')\">Altro</button></span></div>";
+        }
+    }
+    
+    #$link_id=parametri get della pagina
+    function display_search_entry($foto,$link_text,$link_page,$link_id,$side_info){
+        if($link_page=='watch.php?')
+            $img_class="imgobj";
+        else
+            $img_class="propic";
+        $link_page.=$link_id;
+        $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
+        $pro_pic_alt="Spiacenti foto non trovata";
+        if(!file_exists(stripslashes($pro_pic."/".$foto)))
+            log_into("Can't find profile pic at ".$pro_pic."/".$foto);
+        $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".stripslashes($foto)));
+
+        echo "<li class='search_results_entry'>";
+            echo "<div class='search_foto'>";
+                echo "<img class='$img_class' src='$pro_pic' alt='Spiacenti contenuto non disponibile'>";
+            echo "</div>";
+            echo "<div class='search_info'>";
+                echo "<a class='categoria_titolo' href='$link_page'>$link_text</a>";
+                echo "<p>$side_info</p>";
+            echo "</div>";
+        echo "</li>";
     }
 ?>

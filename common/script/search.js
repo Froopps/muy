@@ -30,3 +30,19 @@ function autocomp(value){
     list.style.display='none'
 
 }
+
+//molto simile alla funzione per fare il refresh della lista degli amici riscritta per evitare di aggiungere
+//per mantenere concettualmente separate
+function refresh_search_res(action,button,pattern){
+    xhr=ajaxRequest()
+    xhr.open("GET","http://localhost/muy/common/refresh_search_list.php?action="+action+"&next="+button.value+"&pattern="+pattern)
+    xhr.responseType='text'
+    button.remove()
+    xhr.onreadystatechange=function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            //cercare l'ultimo elemento di blocco con classe four_more per inserire i nuovi risultati
+            search_the_last(document.getElementsByClassName('search_results')[0].lastChild,'wrapper_block').innerHTML=xhr.responseText
+        }
+    }
+    xhr.send()
+}

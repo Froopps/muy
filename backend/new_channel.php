@@ -68,8 +68,6 @@
     }
     mkdir($_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_POST["owner"]."/".$_POST["channel_name"],0770);
     header($redirect_with_msg);
-
-    $connected_db->close();
     exit();
 
     error:

@@ -13,7 +13,7 @@
     }
 
     #controllo se altro utente sta cercando di eliminare
-    $query="SELECT proprietario FROM `oggettomultimediale` WHERE percorso='".escape($path,$connected_db)."'";
+    $query="SELECT proprietario FROM `oggettoMultimediale` WHERE percorso='".escape($path,$connected_db)."'";
     $res=$connected_db->query($query);
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
@@ -26,7 +26,7 @@
         exit();
 }
     #delete content
-    $query="DELETE FROM `oggettomultimediale` WHERE percorso='".escape($path,$connected_db)."'";
+    $query="DELETE FROM `oggettoMultimediale` WHERE percorso='".escape($path,$connected_db)."'";
     $res=$connected_db->query($query);
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
@@ -41,7 +41,7 @@
     #delete in contenutotaggato is on cascade so nothing here
 
     #check and delete unassigned tags
-    $query="DELETE FROM `categoria` WHERE tag NOT IN (SELECT tag FROM contenutotaggato)";
+    $query="DELETE FROM `categoria` WHERE tag NOT IN (SELECT tag FROM contenutoTaggato)";
     $res=$connected_db->query($query);
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);

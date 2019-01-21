@@ -38,13 +38,6 @@ function refresh_friendslist(action,button){
     
 }
 
-function search_the_last(el,cl){
-    if(el.className==cl)
-        return el
-    else
-        return search_the_last(el.previousSibling,cl)
-}
-
 function up_status(action,object,button){
     var cons={'accept':'Amici','deny':'Bloccato','erase':'Bloccato'}
     var par='action='+action+"&object="+object

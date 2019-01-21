@@ -79,20 +79,65 @@ function get_content_tag($path,$connected_db){
     return $res;
 }
 
-function get_search_suggestion($table,$pattern,$connected_db){
-    $mapping=array("utente"=>"nickname","oggettoMultimediale"=>"titolo","canale"=>"nome","categoria"=>"tag");
-    $query="SELECT ".$mapping[$table]." FROM $table WHERE ".$mapping[$table]." LIKE '$pattern%' ORDER BY ".$mapping[$table]." LIMIT 6 OFFSET 0";
-    $res=$connected_db->query($query);
+#LE SEGUENTI TRE QUERY SONO UTILIZZATE SIA PER MOSTRARE I RISULTATI DELLA RICERCA CHE PER ELEBORARE I SUGGERIMENTI
+#per ottenere risultati dalla ricerca di utente e categoria che sono sempre pubblici
+function get_public_result($table,$pattern,$connected_db,$offset,$limit=3,$suggestion=false){
+    #per categoria e utente non c'è bisogno di verificare nessuna relzione di amicizia
+    $offset=$offset*3;
+    $mapping=array("utente"=>"nickname","categoria"=>"tag");
+    #mostra prima le tuple che hanno valore completamente uguale al pattern per quell'attributo, poi quelle che iniziano
+    $query="SELECT * FROM $table WHERE ".$mapping[$table]."='$pattern' UNION ";
+    $query2="SELECT * FROM $table WHERE ".$mapping[$table]." LIKE '$pattern%' ORDER BY ".$mapping[$table];
+    $limit=" LIMIT $limit OFFSET $offset";
+    if($suggestion)
+        $res=$connected_db->query($query2.$limit);
+    else
+        $res=$connected_db->query($query.$query2.$limit);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;
 }
 
-function get_search_result($table,$pattern,$connected_db,$offset){
-    $offset=$offset*8;
-    $mapping=array("utente"=>"nickname","oggettoMultimediale"=>"titolo","canale"=>"nome","categoria"=>"tag");
-    $query="SELECT * FROM $table WHERE ".$mapping[$table]."='$pattern' UNION SELECT * FROM $table WHERE ".$mapping[$table]." LIKE '%$pattern%' LIMIT 8 OFFSET $offset";
-    $res=$connected_db->query($query);
+function get_searched_channel($who,$pattern,$connected_db,$offset,$limit=3,$suggestion=false){
+    #per contenuto e canale c'è bisogno di verificare nessuna relzione di amicizia
+    #subject sarebbe il richiedente
+    $offset=$offset*3;
+    #query per prelevare tutti gli amici dell'utente che ricerca
+    $friends="SELECT  email FROM utente JOIN amicizia ON sender=email WHERE receiver='".escape($who,$connected_db)."' AND stato='a' UNION SELECT email FROM utente JOIN amicizia ON receiver=email WHERE sender='".escape($who,$connected_db)."' AND stato='a'";
+    #se il nome corrisponde al pattern e se il canale è pubblico, social+richiedente amico del proprietario, o proprietario stesso
+    $query="SELECT foto,proprietario,canale.nome AS nome FROM canale JOIN utente ON proprietario=email WHERE canale.nome='$pattern' AND (canale.visibilita='public' OR proprietario='$who' OR (canale.visibilita='social' AND proprietario IN ($friends))) UNION ";
+    $query2="SELECT foto,email,canale.nome AS nome FROM canale JOIN utente ON proprietario=email WHERE canale.nome LIKE '$pattern%' AND (canale.visibilita='public' OR proprietario='$who' OR (canale.visibilita='social' AND proprietario IN ($friends))) ORDER BY nome";
+    $limit=" LIMIT $limit OFFSET $offset";
+    if($suggestion)
+        $res=$connected_db->query($query2.$limit);
+    else
+        $res=$connected_db->query($query.$query2.$limit);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
+
+function get_searched_content($who,$pattern,$connected_db,$offset,$limit=3,$suggestion=false){
+    $offset=$offset*3;
+    $friends="SELECT  email FROM utente JOIN amicizia ON sender=email WHERE receiver='".escape($who,$connected_db)."' AND stato='a' UNION SELECT email FROM utente JOIN amicizia ON receiver=email WHERE sender='".escape($who,$connected_db)."' AND stato='a'";
+    $query="SELECT extID,anteprima,titolo,tipo FROM oggettoMultimediale JOIN canale ON canale.proprietario=oggettoMultimediale.proprietario AND canale.nome=oggettoMultimediale.canale WHERE titolo='$pattern' AND (canale.visibilita='public' OR canale.proprietario='$who' OR (canale.visibilita='social' AND canale.proprietario IN ($friends))) UNION ";
+    $query2="SELECT extID,anteprima,titolo,tipo FROM oggettoMultimediale JOIN canale ON canale.proprietario=oggettoMultimediale.proprietario AND canale.nome=oggettoMultimediale.canale WHERE titolo LIKE '$pattern%' AND (canale.visibilita='public' OR canale.proprietario='$who' OR (canale.visibilita='social' AND canale.proprietario IN ($friends))) ORDER BY titolo";
+    $limit=" LIMIT $limit OFFSET $offset";
+    if($suggestion)
+        $res=$connected_db->query($query2.$limit);
+    else
+        $res=$connected_db->query($query.$query2.$limit);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
+
+#query per reperire i contenuti caricati dai propri amici nella giornata corrente
+function get_today_friends_content($who,$connected,$offset){
+    $offset=$offset*3;
+    $today=date('Y-m-d',time());
+    $friends="SELECT  email FROM utente JOIN amicizia ON sender=email WHERE receiver='".escape($who,$connected_db)."' AND stato='a' UNION SELECT email FROM utente JOIN amicizia ON receiver=email WHERE sender='".escape($who,$connected_db)."' AND stato='a'";
+    $query="SELECT * FROM oggettoMultimediale JOIN canale ON canale.nome=oggettoMultimediale.canale AND canale.proprietario=oggettoMultimediale.proprietario WHERE canale.proprietario IN($friends) AND dataCaricemanto='$today' LIMIT 3 OFFSET $offset";
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;

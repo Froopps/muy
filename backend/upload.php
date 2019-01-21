@@ -130,7 +130,7 @@
     $query_values.="'".escape($_SESSION["email"],$connected_db)."'";
     $query_columns.="proprietario";
 
-    $query="INSERT INTO oggettomultimediale (".$query_columns.") VALUES (".$query_values.")";
+    $query="INSERT INTO oggettoMultimediale (".$query_columns.") VALUES (".$query_values.")";
     $res=$connected_db->query($query);
     if(!$res){
         $redirect_with_error.=urlencode("Errore nella connessione con il database 1");
