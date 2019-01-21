@@ -40,7 +40,7 @@
                 <table id="classifica_cat">
                     <tr>
                         <td class="eti_position"><h1>#1</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
+                        <td class="tab_top_cat"><?php display_tag_mosaic("#tit",$connected_db); ?></td>
                         <td class="eti_position"><h1>#2</h1></td>
                         <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
                         <td class="eti_position"><h1>#3</h1></td>

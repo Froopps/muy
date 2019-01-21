@@ -142,4 +142,36 @@
             echo "</div>";
         echo "</div>";
     }
+
+    function display_tag_mosaic($tag,$connected_db){
+        if($tag[0]!="#")
+            $tag="#".$tag;
+        $query="SELECT anteprima FROM `contenutoTaggato` JOIN `oggettoMultimediale` ON oggetto=percorso WHERE tag='".escape($tag,$connected_db)."' AND anteprima!='/defaults/default-audio.png' AND anteprima!='/defaults/default-image.png' ORDER BY RAND()";
+        $res=$connected_db->query($query);
+        if(!$res){
+            $redirect_with_error.="Errore nella connessione con il database";
+            header($redirect_with_error);
+            $connected_db->close();
+            exit();
+        }
+        
+        echo "<a class=\"mosaico\" id=\"bottom-layer\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($tag)))."\">";
+            if($res->num_rows>3){
+                for($i=0;$i<4;$i++){
+                    $row=$res->fetch_assoc();
+                    echo "<span class=\"mos_cel\"><img class=\"mos_img\" src=\"data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$row["anteprima"]))."\"></span>";
+                }
+            }else{
+                for($i=0;$i<$res->num_rows;$i++){
+                    $row=$res->fetch_assoc();
+                    echo "<span class=\"mos_cel\"><img class=\"mos_img\" src=\"data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$row["anteprima"]))."\"></span>";
+                }
+                for($i=0;$i<4-$res->num_rows;$i++)
+                    echo "<span class=\"mos_cel\"><img class=\"mos_img\" src=\"data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res/defaults/default-audio.png"))."\"></span>";
+            }
+            echo "<table class=\"mosaico\" id=\"top-layer\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($tag)))."\">";
+                echo "<tr><td><a class=\"etichetta\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($tag)))."\">".$tag."</a></td></tr>";
+            echo "</table>";
+        echo "</a>";
+    }
 ?>

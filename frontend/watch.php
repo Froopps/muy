@@ -99,7 +99,7 @@
                                 <?php //echo $row["visualizzazioni"]; --visual con ajax-- ?>
                             
                                 <?php
-                                    $query="SELECT visualizzazioni FROM `oggettomultimediale` WHERE extID='".$_GET["id"]."'";
+                                    $query="SELECT visualizzazioni FROM `oggettoMultimediale` WHERE extID='".$_GET["id"]."'";
                                     $res=$connected_db->query($query);
                                     if(!$res){
                                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
@@ -134,10 +134,12 @@
                             $res=get_content_tag($row["percorso"],$connected_db);
                             echo "<div class=\"eticanale\" id=\"info-eti\">";
                             if($res->num_rows>0){
-                                while($row_tag=$res->fetch_assoc())
-                                    echo "<a class=\"etichetta\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($row_tag["tag"])))."\">".stripslashes($row_tag["tag"])."</a>";
+                                while($row_tag=$res->fetch_assoc()){
+                                    echo "<a class=\"etichetta eli\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($row_tag["tag"])))."\">".stripslashes($row_tag["tag"])."</a>";
+                                    if($self)
+                                        echo "<button class=\"cross-but\" type=\"button\" onclick=\"del_eti('".$row_tag["tag"]."','".$_GET["id"]."',this)\">x</button>";
+                                }
                             }
-                                #echo "<button class=\"add_button\" type=\"button\" onclick=\"add_eti('".$_GET["id"]."',this)\"></button>";
                             if($self){
                                 echo "<input type=\"hidden\" name=\"newtag\" placeholder=\"#...\"/>";
                                 echo "<button class=\"add_button\" type=\"button\" onclick=\"add_eti('".$_GET["id"]."',this)\"></button>";

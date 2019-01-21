@@ -261,7 +261,6 @@ function visual(id){
 function add_eti(id,button){
     
     var in_text = document.getElementsByName("newtag")[0]
-    console.log(in_text)
     if(in_text.type == "hidden"){
         in_text.type = "text"
         document.getElementsByClassName("cross_button")[0].style.display = "block"
@@ -270,22 +269,28 @@ function add_eti(id,button){
         xhr.onreadystatechange = function(){
             if(xhr.readyState==4 && xhr.status==200){
                 var response = xhr.responseText
-                if(response=="denied")
+                if(response=="denied"){
                     alert("Accesso negato")
-                else if(response=="no_tag")
+                    in_text.value = ""
+                }else if(response=="no_tag")
                     alert("Inserisci almeno un'etichetta")
-                else if(response=="err_tag")
+                else if(response=="err_tag"){
                     alert("Uno o più tag non accettabili")
+                    in_text.value = ""
+                }
                 else if(response=="err_db")
                     alert("Errore nella connessione con il database")
-                else{
+                else if(response=="tag_dup"){
+                    alert("Etichetta già inserita")
+                    in_text.value = ""
+                }else{
                     document.getElementsByClassName("cross_button")[0].style.display = "none"
                     in_text.value = ""
                     in_text.type = "hidden"
                     
                     var node = document.createElement("a")
                     node.classList.add("etichetta")
-                    node.href = "categoria.php?tag="+response
+                    node.href = "categoria.php?tag=%23"+response
                     var textnode = document.createTextNode("#"+response)
                     node.appendChild(textnode)
                         console.log(button.previousSibling.previousSibling)
@@ -293,6 +298,13 @@ function add_eti(id,button){
                         button.parentElement.insertBefore(node,button.parentElement.firstChild)
                     else
                         button.parentElement.insertBefore(node,in_text)
+                    //cross
+                    node = document.createElement("button")
+                    node.classList.add("cross-but")
+                    node.type = "button"
+                    node.addEventListener("click",function(){del_eti("#"+response,id,this.previousSibling)})
+                    node.appendChild(document.createTextNode("x"))
+                    button.parentElement.insertBefore(node,in_text)
                 }
             }
         }
@@ -300,4 +312,26 @@ function add_eti(id,button){
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
         xhr.send("id="+id+"&tag="+in_text.value)
     }
+    
+}
+
+function del_eti(eti,id,elem){
+    
+    xhr = ajaxRequest()
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            var response = xhr.responseText
+            console.log(response)
+            if(response=="denied")
+                alert("Accesso negato")
+            else{
+                elem.previousSibling.style.display = "none"
+                elem.style.display = "none"
+            }
+        }
+    }
+    xhr.open("POST","http://localhost/muy/backend/delete_tag.php",true)
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    xhr.send("id="+id+"&tag="+eti)
+    
 }

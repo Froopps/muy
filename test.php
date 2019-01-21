@@ -67,6 +67,7 @@
     echo "<br>";
     echo "<br>";
     echo "<br>";
+    display_tag_mosaic("#cani",$connected_db);
     echo "<br>";
 #   if(empty($row)){
 #        echo "yws";

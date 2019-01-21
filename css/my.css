@@ -81,15 +81,25 @@ textarea{
 a.etichetta, div.can-vis{
     margin: 0.2em;
     padding: 0.3em;
-    background-color: #1db99a;
+    background-color: #16A085;
     color: white;
     border-radius: 7px
 }
+
+a.eli{margin-right: 0}
 
 a.etichetta:hover{
     background-color: #0effd2;
     color: black
 }
+
+button.cross-but{
+    background-color: transparent;
+    border: none;
+    padding: 0
+}
+
+button.cross-but:hover{color: red}
 
 div.can-vis{
     display: inline;
@@ -889,6 +899,7 @@ a.glyph-button{padding: 0 0.3em 0 0.3em}
 button.delete_button, button.add_button, button.cross_button{
     width: 30px;
     height:  30px;
+    margin-left: 0.15em;
     background: url(../sources/images/trash.png);
     background-size: 30px;
     background-color: transparent;
@@ -900,6 +911,12 @@ button.delete_button, button.add_button, button.cross_button{
 button.add_button{background-image: url(../sources/images/plus.png)}
 
 button.cross_button{background-image: url(../sources/images/cross.png)}
+
+.eticanale button.add_button, .eticanale button.cross_button{
+    width: 25px;
+    height 25px;
+    background-size: 25px
+}
 
 a.glyph-button:hover, button.delete_button:hover, button.add_button:hover, button.cross_button:hover{opacity: 0.7}
 
@@ -1133,7 +1150,7 @@ div#info-eti{
 
 input[name="newtag"]{
     width: auto;
-    margin-right: 0.5em;
+    margin-left: 0.15em;
     border-radius: 100em
 }
 
