@@ -42,6 +42,7 @@
                 <?php
                     if(isset($_GET["error"])){
                         echo "<span class='error_span'>".$_GET["error"]."</span>";
+                        exit();
                     }
                     if(isset($_GET["msg"])){
                         echo "<span class='message_span'>".$_GET["msg"]."</span>";

@@ -133,11 +133,12 @@ function get_searched_content($who,$pattern,$connected_db,$offset,$limit=3,$sugg
 }
 
 #query per reperire i contenuti caricati dai propri amici nella giornata corrente
-function get_today_friends_content($who,$connected,$offset){
+function get_today_friends_content($who,$connected_db,$offset){
     $offset=$offset*3;
     $today=date('Y-m-d',time());
     $friends="SELECT  email FROM utente JOIN amicizia ON sender=email WHERE receiver='".escape($who,$connected_db)."' AND stato='a' UNION SELECT email FROM utente JOIN amicizia ON receiver=email WHERE sender='".escape($who,$connected_db)."' AND stato='a'";
-    $query="SELECT * FROM oggettoMultimediale JOIN canale ON canale.nome=oggettoMultimediale.canale AND canale.proprietario=oggettoMultimediale.proprietario WHERE canale.proprietario IN($friends) AND dataCaricemanto='$today' LIMIT 3 OFFSET $offset";
+    $query="SELECT * FROM oggettoMultimediale JOIN canale ON canale.nome=oggettoMultimediale.canale AND canale.proprietario=oggettoMultimediale.proprietario WHERE canale.proprietario IN($friends) AND dataCaricamento LIKE '$today%' LIMIT 3 OFFSET $offset";
+    $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;
