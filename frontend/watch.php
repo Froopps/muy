@@ -74,7 +74,7 @@
                                 $_SERVER["DOCUMENT_ROOT"]."/muy/sources/content".$ytid;
                                 switch($row["tipo"]){
                                     case "a":
-                                        $file=$_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["anteprima"];
+                                        $file=$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$row["anteprima"];
                                         $image="data:image/$ext;base64,".base64_encode(file_get_contents($file));
                                         echo "<div class=\"audio-cover\"><img class=\"oggetto\" src=\"".$image."\" onclick=\"document.getElementById('modal_bg_img').style.display='flex'\"></div>";
                                         echo "<div class=\"audio-ctrl-bar\"><audio controls>";
@@ -99,11 +99,22 @@
                         <div class="info-head">
                             <div class="info-titolo"><h1><?php echo $row["titolo"]; ?></h1></div>
                                 <div class="ilikeit-box">
-                                    <button class="ili" type="button"></button>
-                                    <button class="ili" type="button"></button>
-                                    <button class="ili" type="button"></button>
-                                    <button class="ili" type="button"></button>
-                                    <button class="ili" type="button"></button>
+                                    <?php
+                                        if(isset($_SESSION['email'])){
+                                            $query="SELECT voto FROM oggettoMultimediale JOIN valutazione WHERE utente='".escape($_SESSION['email'],$connected_db)."' AND relativoA='".$row['percorso']."'";
+                                            $res=$connected_db->query($query);
+                                            $like=$res->fetch_row()[0];
+                                            if(!$res){
+                                                log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                                                $connected_db->close();
+                                                exit();
+                                            }
+                                            for($i=1;$i<=$like;$i++)
+                                                echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-f.png)\" type=\"button\" onclick=\"like_it('".$row['percorso']."',this.value)\" value='".$i."'></button>";
+                                            for($i=$like+1;$i<=5;$i++)
+                                                echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-e.png)\" type=\"button\" onclick=\"like_it('".$row['percorso']."',this.value)\" value='".$i."'></button>";
+                                        }   
+                                    ?>
                                 </div>
                                 <div><h1 id="visual">
                                 
@@ -121,7 +132,7 @@
 
                                     $num=$num["visualizzazioni"]+1;
 
-                                    $query="UPDATE `oggettomultimediale` SET visualizzazioni='".$num."' WHERE extID='".$_GET["id"]."'";
+                                    $query="UPDATE `oggettoMultimediale` SET visualizzazioni='".$num."' WHERE extID='".$_GET["id"]."'";
                                     $res=$connected_db->query($query);
                                     if(!$res){
                                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);

@@ -6,7 +6,7 @@
         exit();
     }
 
-    $query="SELECT visualizzazioni FROM `oggettomultimediale` WHERE extID='".$_GET["id"]."'";
+    $query="SELECT visualizzazioni FROM `oggettoMultimediale` WHERE extID='".$_GET["id"]."'";
     $res=$connected_db->query($query);
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
@@ -17,7 +17,7 @@
 
     $num=$row["visualizzazioni"]+1;
 
-    $query="UPDATE `oggettomultimediale` SET visualizzazioni='".$num."' WHERE extID='".$_GET["id"]."'";
+    $query="UPDATE `oggettoMultimediale` SET visualizzazioni='".$num."' WHERE extID='".$_GET["id"]."'";
     $res=$connected_db->query($query);
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);

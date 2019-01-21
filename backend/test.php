@@ -2,42 +2,25 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
-    echo "<?xml version='1.0' encoding='UTF-8'?>";
-    header("Content-type: text/xml; charset=utf-8");
-    $error="Errore nella connessione con il server";
+    if(!(isset($_POST['voto'])&&isset($_POST['relativoA'])&&isset($_SESSION['email']))||$error_connection['flag'])
+        goto error;
 
-    if(!isset($_SESSION['email'])||$error_connection['flag'])
+    $exists="SELECT * FROM valutazione WHERE utente='".escape($_SESSION['email'],$connected_db)."' AND relativoA='".$_POST['relativoA']."'";
+    $exists=$connected_db->query($exists);
+    if(!$exists)
         goto error;
-    $query="SELECT COUNT(*) FROM amicizia WHERE (sender='".$_SESSION['email']."' OR receiver='".$_SESSION['email']."') AND stato!='p' AND stato!='r'";
+    if(!$exists->fetch_row())
+        $query="INSERT INTO valutazione(relativoA,voto,utente) VALUES('".$_POST['relativoA']."','".$_POST['voto']."','".$_SESSION['email']."')";
+    else
+        $query="UPDATE valutazione SET voto='".$_POST['voto']."' WHERE relativoA='".$_POST['relativoA']."' AND utente ='".$_SESSION['email']."'";
     $res=$connected_db->query($query);
-    if(!$res)
-        goto error;
-    $row=$res->fetch_row();
-    if($row[0]!=0){
-        $error="Per eliminarti è necessario che tu non abbia richieste di amicizia pendenti nè alcuna amicizia corrente";
-        goto error;
-    }
-
-    $query="DELETE FROM amicizia WHERE sender='".$_SESSION['email']."' OR receiver='".$_SESSION['email']."'";
-    $res=$connected_db->query($query);
+    log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
     if(!$res){
-        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
-        goto error;
+        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+        goto error;  
     }
-    
-    $query="DELETE FROM utente WHERE email='".$_SESSION['email']."'";
-    $res=$connected_db->query($query);
-    if(!$res){
-        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
-        goto error;
-    }
-
-    echo "<error triggered='false'><message></message></error>";
+    echo "{\"error\":false}";
     exit();
-
     error:
-        echo "<error triggered='true'><message>$error</message></error>";
-        $connected_db->close();
-        exit();
-
+        echo "{\"error\":true}";
 ?>

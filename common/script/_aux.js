@@ -336,3 +336,38 @@ function del_eti(eti,id,elem){
     xhr.send("id="+id+"&tag="+eti)
     
 }
+
+function ground_like_stars(){
+    var starz=document.getElementsByClassName('ili')
+    for(i=0;i<5;i++)
+        starz[i].style.backgroundImage="url(../sources/images/star-e.png)"
+}
+
+function up_like_stars(value){
+    var starz=document.getElementsByClassName('ili')
+    for(i=0;i<value;i++)
+        starz[i].style.backgroundImage="url(../sources/images/star-f.png)"
+    for(i=value;i<starz.length;i++)
+        starz[i].style.backgroundImage="url(../sources/images/star-e.png)"
+}
+
+function like_it(percorso,voto){
+
+    console.log(percorso,voto)
+    var par="relativoA="+percorso+"&voto="+voto
+    xhr=ajaxRequest();
+    xhr.open("POST","http://localhost/muy/backend/test.php")
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            var res=JSON.parse(xhr.responseText)
+            if(res.error)
+                alert('Errore nella connessione')
+            else if(this.value=='0')
+                ground_like_stars()
+            else
+                up_like_stars(voto)
+        }
+    }
+    xhr.send(par)
+}
