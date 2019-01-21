@@ -52,7 +52,7 @@
             if(isset($written_key[$key])){
                 if(isset($info[$key]))
                     echo "<li>".toUpperFirst($written_key[$key]).": ".$info[$key]."</li>";
-            }else
+            }else if(isset($info[$key]))
                 echo "<li>".toUpperFirst($key).": ".$info[$key]."</li>";
         }
         echo "</ul></td></tr></table>";
@@ -234,7 +234,7 @@
 
         echo "<li class='search_results_entry'>";
             echo "<div class='search_foto'>";
-                echo "<img class='$img_class' src='$pro_pic' alt='Spiacenti contenuto non disponibile'>";
+                echo "<a href='$link_page'><img class='$img_class' src='$pro_pic' alt='Spiacenti contenuto non disponibile'></a>";
             echo "</div>";
             echo "<div class='search_info'>";
                 echo "<a class='categoria_titolo' href='$link_page'>$link_text</a>";

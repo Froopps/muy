@@ -33,13 +33,13 @@
         goto error;
     }
     rmdir($user_dir);
+    $utente=$_SESSION["nome"];
     session_destroy();
-    header("Location:../frontend/home.php?msg=Arrivederci");
+    header("Location:../frontend/home.php?msg=Addio, ".$utente);
     exit();
 
     error:
         $redirect_with_error.=urlencode($error);
         header($redirect_with_error);
         exit();
-
 ?>

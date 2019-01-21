@@ -3,7 +3,7 @@
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
     $redirect_with_error="Location: http://localhost/muy/frontend/upload.php?error=";
-    $redirect_with_msg="Location: http://localhost/muy/frontend/user.php?user=".urlencode($_SESSION["email"])."&msg=".urlencode("Upload avvenuto con successo");
+    $redirect_with_msg="Location: http://localhost/muy/frontend/user.php?user=".urlencode($_SESSION["email"])."&msg=".urlencode("Upload youtube avvenuto con successo");
     $query_columns="";
     $query_values="";
     #exit() is used after redirect to avoid further statements execution after redirecting with error
@@ -12,8 +12,8 @@
         goto error;
     }
 
-    if(empty($_POST["url"])){
-        $redirect_with_error.=urlencode("Inserisci un URL");
+    if(empty($_POST["url"])||empty($_POST["channel"])||empty($_POST["title"])){
+        $redirect_with_error.=urlencode("Inserisci tutti i dati richiesti");
         goto error;
     }
     $result=explode("www.youtu",$_POST["url"]);
@@ -23,10 +23,10 @@
     }
     $_POST["url"]=trimSpaceBorder($_POST["url"]);
 
-    $dir="/content/".$_SESSION["email"]."/".$_POST["channel"]."/"."youtube";
+    $dir="/content/".$_SESSION["email"]."/".$_POST["channel"]."/".$_POST["url"];
     #vedi functions.php
     $id=getYoutubeId($_POST["url"]);
-    $thumbnail="http://img.youtube.com/vi/".$id."/maxresdefault.jpg";
+    $thumbnail="http://img.youtube.com/vi/".$id."/hqdefault.jpg";
     $immagine="data:image/png;base64,".base64_encode(file_get_contents($thumbnail));
 
     #percorso
@@ -85,7 +85,7 @@
     $query_values.="'".escape($_SESSION["email"],$connected_db)."'";
     $query_columns.="proprietario";
 
-    $query="INSERT INTO oggettomultimediale (".$query_columns.") VALUES (".$query_values.")";
+    $query="INSERT INTO oggettoMultimediale (".$query_columns.") VALUES (".$query_values.")";
     $res=$connected_db->query($query);
     if(!$res){
         $redirect_with_error.=urlencode("Errore nella connessione con il database");
@@ -93,6 +93,7 @@
         goto error;
     }
 
+    echo $_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir;
     mkdir($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir,0770);
     ritaglia($immagine,$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir."/anteprima.png");
 

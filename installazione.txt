@@ -2,7 +2,7 @@ muy_res, ffmpeg.exe in /xampp
 
 link
 ln -s muy_res muy/sources/content
-mklink /D muy_res muy/sources/content
+mklink /D muy/sources/content muy_res
 
 nel php.ini
 upload_max_filesize=10G

@@ -125,7 +125,7 @@
                 <form enctype="multipart/form-data" action="../backend/upload_yt.php" method="post" id="up-youtube" style="display: none">
                     <table id="signup-table">
                         <tr><th colspan="2">Upload Youtube</th></tr>
-                        <tr><td>URL:</td><td class="left"><input type="text" name="url" placeholder="https://www.youtube.com/watch?..." required></td></tr>
+                        <tr><td>URL:</td><td class="left"><input type="text" name="url" placeholder="https://www.youtube.com/watch?..." required></td></tr><td></td>
                         <tr><td>Canale:</td><td class="left">
                             <select name="channel" required>
                                 <?php
@@ -156,6 +156,28 @@
                                 $connected_db->close();
                                 ?>
                             </select></td></tr>
+                        <tr>
+                            <td>Titolo:</td>
+                            <td class="left"><input type="text" name="title" placeholder="Titolo" onkeyup="pattern_validation(this,2,'tity-y','tity-n','tity-ny')" required></td>
+                            <td>
+                                <img id='tity-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                                <img id='tity-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                                <img id='tity-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Descrizione:</td>
+                            <td class="left"><textarea name="desc" placeholder="Descrizione" cols="54" rows="3" onkeyup="pattern_validation(this,2,'desy-y','desy-n','desy-ny')"></textarea></td>
+                            <td>
+                                <img id='desy-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                                <img id='desy-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                                <img id='desy-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Etichette:</td>
+                            <td class="left" colspan="2"><textarea name="tag" placeholder="Inserisci le etichette precedute da #&#10;Esempio: #mare #montagna" cols="54" rows="3"></textarea></td>
+                        </tr>
                         <tr><td colspan="2"><input type="submit"></td></tr>
                     </table>
                 </form>

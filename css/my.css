@@ -1165,6 +1165,20 @@ div.info-titolo{
     word-wrap: break-word
 }
 
+button.ili{
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    background-image: url(../sources/images/star-e.png);
+    background-size: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px
+}
+
+button.ili:hover{background-image: url(../sources/images/star-f.png)}
+
 /*  scroll
 div.info-titolo{
     max-width: 70%;

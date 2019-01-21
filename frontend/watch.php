@@ -71,30 +71,22 @@
                                 $ext=explode(".",$file[count($file)-1]);
                                 $ext=$ext[count($ext)-1];
 
-                                $archive=$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$row["percorso"];
-                                $tempath=$_SERVER["DOCUMENT_ROOT"]."/muy/sources/tmp/".$file[4];
+                                $_SERVER["DOCUMENT_ROOT"]."/muy/sources/content".$ytid;
                                 switch($row["tipo"]){
                                     case "a":
                                         $file=$_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["anteprima"];
-                                        $image="data:image/png;base64,".base64_encode(file_get_contents($file));
+                                        $image="data:image/$ext;base64,".base64_encode(file_get_contents($file));
                                         echo "<div class=\"audio-cover\"><img class=\"oggetto\" src=\"".$image."\" onclick=\"document.getElementById('modal_bg_img').style.display='flex'\"></div>";
                                         echo "<div class=\"audio-ctrl-bar\"><audio controls>";
-                                        echo "<source src=\"horse.ogg\" type=\"audio/".$ext."\">Your browser does not support the audio element.</audio></div>";
+                                        echo "<source src=\"../sources/content".$row["percorso"]."\" type=\"audio/".$ext."\">Your browser does not support the audio element.</audio></div>";
                                         break;
                                     case "v":
-                                        $path=$_SERVER["DOCUMENT_ROOT"]."/muy/source/fake/".$row["percorso"];
-                                        /*if(!file_exists($path))
-                                            symlink($archive,$tempath);*/
-                                        #copy($archive,$tempath);
-                                        #rename($_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"],$_SERVER["DOCUMENT_ROOT"]."\muy");
-                                        #symlink($_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"],$_SERVER["DOCUMENT_ROOT"]."\..\muy_res");
-                                        echo "<video controls>";
-                                        echo "<source src=\"../sources/tmp/".$file[4]."\" type=\"video/".$ext."\">Your browser does not support HTML5 video.</video>";
-                                        #unlink($_SERVER["DOCUMENT_ROOT"]."/muy/sources/tmp/".$file[4]);
+                                        echo "<video width=\"100%\" height=\"100%\" controls>";
+                                        echo "<source src=\"../sources/content".$row["percorso"]."\" type=\"video/".$ext."\">Your browser does not support HTML5 video.</video>";
                                         break;
                                     case "i":
                                         $file=$_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"];
-                                        $image="data:image/png;base64,".base64_encode(file_get_contents($file));
+                                        $image="data:image/$ext;base64,".base64_encode(file_get_contents($file));
                                         echo "<img class=\"oggetto\" src=\"".$image."\" onclick=\"document.getElementById('modal_bg_img').style.display='flex'\">";
                                         break;
                                     default:
@@ -106,9 +98,14 @@
                     <div class="infobox">
                         <div class="info-head">
                             <div class="info-titolo"><h1><?php echo $row["titolo"]; ?></h1></div>
-                            
-                            
-                            <div><h1 id="visual">
+                                <div class="ilikeit-box">
+                                    <button class="ili" type="button"></button>
+                                    <button class="ili" type="button"></button>
+                                    <button class="ili" type="button"></button>
+                                    <button class="ili" type="button"></button>
+                                    <button class="ili" type="button"></button>
+                                </div>
+                                <div><h1 id="visual">
                                 
                                 <?php //echo $row["visualizzazioni"]; --visual con ajax-- ?>
                             
