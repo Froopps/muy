@@ -75,10 +75,6 @@
     $query_columns.="dataNascita,";
     #nickname check
     if(!empty($_POST["nick"])){
-        if(!preg_match('/^[A-Za-z\'èéàìòù ]+$/',$_POST["nick"])){
-                $redirect_with_error.=urlencode("Nickname non valido");
-                goto error;
-            }
         if(strlen($_POST["nick"])>200){
                 $redirect_with_error.=urlencode("Nickname troppo lungo");
                 goto error;

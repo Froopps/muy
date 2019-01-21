@@ -130,7 +130,7 @@
     $query_values.="'".escape($_SESSION["email"],$connected_db)."'";
     $query_columns.="proprietario";
 
-    $query="INSERT INTO oggettomultimediale (".$query_columns.") VALUES (".$query_values.")";
+    $query="INSERT INTO oggettoMultimediale (".$query_columns.") VALUES (".$query_values.")";
     $res=$connected_db->query($query);
     if(!$res){
         $redirect_with_error.=urlencode("Errore nella connessione con il database 1");
@@ -190,7 +190,7 @@
                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                         goto error;
                     }
-                    $query="INSERT INTO contenutotaggato (tag,oggetto,dataAssegnamento) VALUES ('#".escape($tag,$connected_db)."','".escape($path,$connected_db)."','".date('Y-m-d H:i:s')."')";
+                    $query="INSERT INTO contenutoTaggato (tag,oggetto,dataAssegnamento) VALUES ('#".escape($tag,$connected_db)."','".escape($path,$connected_db)."','".date('Y-m-d H:i:s')."')";
                     $res=$connected_db->query($query);
                     if(!$res){
                         $redirect_with_error.=urlencode("Errore nella connessione con il database 4");

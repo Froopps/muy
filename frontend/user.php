@@ -63,7 +63,7 @@
                         if($self){
                             echo "<div class=\"flex-col\">";
                             echo "<div><button class=\"in_notext\" type=\"button\" onclick=\"document.getElementById('modal_bg_2').style.display='flex'\">Nuovo canale</button></div>";
-                            echo "<div><button class=\"in_notext\" id=\"delete\" type=\"button\">Elimina utente</button></div>";
+                            echo "<div><form action=\"../backend/delete_user.php\" method=\"get\"><button class=\"in_notext\" id=\"delete\" type=\"submit\">Elimina utente</button></form></div>";
                             echo "</div>";
                         }
                     ?>
@@ -74,7 +74,7 @@
                     if(!$res){
                         $redirect_with_error.=urlencode("Errore nella connessione con il database");
                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                        header($redirect_with_error);
+                        //header($redirect_with_error);
                         $connected_db->close();
                         exit();
                     }
@@ -102,7 +102,7 @@
                                 echo "</div>";
                             }
                             echo "<div class=\"scrollbar\">";
-                                $query="SELECT * FROM oggettomultimediale WHERE canale='".escape($row["nome"],$connected_db)."' AND proprietario='".escape($row["proprietario"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
+                                $query="SELECT * FROM oggettoMultimediale WHERE canale='".escape($row["nome"],$connected_db)."' AND proprietario='".escape($row["proprietario"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
                                 $res_ogg=$connected_db->query($query);
                                 if(!$res_ogg){
                                     $redirect_with_error.=urlencode("Errore nella connessione con il database");

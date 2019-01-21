@@ -1,6 +1,6 @@
 <header>
     <a id="logo" href="../frontend/home.php"></a>
-    <form autocomplete='off' id="src_block" action="#src_results" method="get">
+    <form autocomplete='off' id="src_block" action="search_results.php" method="get">
         <select name="src_type">
             <option value="oggettoMultimediale">Contenuto</option>
             <option value="utente">Utente</option>
