@@ -35,7 +35,7 @@
                     }
                 ?>
                 <video width="400" controls>
-                    <source src="../video/my_god.mp4" type="video/mp4">
+                    <source src="../sources/content/my_god/my_god.mp4" type="video/mp4">
                 </video>
             </div>
         </main>

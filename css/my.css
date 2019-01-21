@@ -947,7 +947,7 @@ button.cross_button{background-image: url(../sources/images/cross.png)}
 
 .eticanale button.add_button, .eticanale button.cross_button{
     width: 25px;
-    height 25px;
+    height: 25px;
     background-size: 25px
 }
 

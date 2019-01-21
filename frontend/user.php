@@ -108,7 +108,7 @@
                                 echo "</div>";
                                 echo "<div class=\"scrollbar\">";
                                     if($self||$row["visibilita"]=="public"||$relationship=="a"){
-                                        $query="SELECT * FROM oggettomultimediale WHERE canale='".escape($row["nome"],$connected_db)."' AND proprietario='".escape($row["proprietario"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
+                                        $query="SELECT * FROM oggettoMultimediale WHERE canale='".escape($row["nome"],$connected_db)."' AND proprietario='".escape($row["proprietario"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
                                         $res_ogg=$connected_db->query($query);
                                         if(!$res_ogg){
                                             $redirect_with_error.=urlencode("Errore nella connessione con il database");

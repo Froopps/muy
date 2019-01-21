@@ -3,6 +3,7 @@
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
     $redirect_with_error="Location: http://localhost/muy/frontend/user.php?user=".urlencode($_SESSION['email'])."&error=";
     $error="Errore nella connessione con il server";
+    $user_dir=$_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_SESSION["email"];
 
     if(!isset($_SESSION['email'])||$error_connection['flag'])
         goto error;
@@ -31,6 +32,7 @@
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
         goto error;
     }
+    rmdir($user_dir);
     session_destroy();
     header("Location:../frontend/home.php?msg=Arrivederci");
     exit();
