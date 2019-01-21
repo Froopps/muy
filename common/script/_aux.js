@@ -242,18 +242,15 @@ function delete_comment(id,email,commento){
 
 function visual(id){
 //leva se togli visual ajax
-    console.log(id)
     xhr = ajaxRequest()
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
                 var response = xhr.responseText
-                document.getElementById("visual")
                 document.getElementById("visual").innerHTML=response
         }
     }
     xhr.open("GET","http://localhost/muy/backend/visual.php?id="+id,true)
     xhr.send()
-
 }
 
 function add_eti(id,button){

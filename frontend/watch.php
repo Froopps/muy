@@ -21,6 +21,16 @@
     $self=false;
     if(isset($_SESSION["email"])&&$_SESSION["email"]==$row["proprietario"])
         $self=true;
+    #controlli amicizia e visibilità
+    #see getter functions
+    $vis=get_channel_visibility($row["canale"],$row["proprietario"],$connected_db);
+    if(!$self){
+        $relationship=get_relationship($_SESSION["email"],$row["proprietario"],$connected_db);
+        if($vis=="private")
+            header($redirect_with_error.urlencode("Accesso negato"));
+        else if($vis=="social"&&relationship!="a")
+            header($redirect_with_error.urlencode("Accesso negato"));
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -104,37 +114,9 @@
                                     <button class="ili" type="button"></button>
                                     <button class="ili" type="button"></button>
                                     <button class="ili" type="button"></button>
+                                    <button class="ili" id="no_ili" type="button"></button>
                                 </div>
-                                <div><h1 id="visual">
-                                
-                                <?php //echo $row["visualizzazioni"]; --visual con ajax-- ?>
-                            
-                                <?php
-                                    $query="SELECT visualizzazioni FROM `oggettoMultimediale` WHERE extID='".$_GET["id"]."'";
-                                    $res=$connected_db->query($query);
-                                    if(!$res){
-                                        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                        $connected_db->close();
-                                        exit();
-                                    }
-                                    $num=$res->fetch_assoc();
-
-                                    $num=$num["visualizzazioni"]+1;
-
-                                    $query="UPDATE `oggettomultimediale` SET visualizzazioni='".$num."' WHERE extID='".$_GET["id"]."'";
-                                    $res=$connected_db->query($query);
-                                    if(!$res){
-                                        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                        $connected_db->close();
-                                        exit();
-                                    }
-
-                                    echo $num;
-                                ?>
-                            
-                            </h1></div>
-                            
-                            
+                                <div><h1 id="visual"><?php echo $row["visualizzazioni"]; ?></h1></div>
                         </div>
                         <?php
                             if($error_connection["flag"]){
@@ -226,25 +208,20 @@
         }
         
         //visual con ajax, se togli togli sopra e la funzione in _aux.js
-        //window.onload = function(){visual(<?php echo $_GET["id"]; ?>)}
+        window.onload = function(){visual(<?php echo $_GET["id"]; ?>)}
     </script>
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
     <script>
-        //var video_id = window.location.search.split('v=')[1]
-        //var andPos = video_id.indexOf('&')
-        //if(andPos!=-1)
-         //video_id = video_id.substring(0, andPos)
         
-        // 2. This code loads the IFrame Player API code asynchronously.
+        // This code loads the IFrame Player API code asynchronously.
         var tag = document.createElement('script');
 
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        // 3. This function creates an <iframe> (and YouTube player)
-        //    after the API code downloads.
+        // This function creates an <iframe> (and YouTube player) after the API code downloads.
         var player;
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('yt_player', {
@@ -258,20 +235,15 @@
         });
         }
 
-        // 4. The API will call this function when the video player is ready.
+        // The API will call this function when the video player is ready.
         function onPlayerReady(event) {
             event.target.playVideo();
         }
 
-        // 5. The API calls this function when the player's state changes.
-        //    The function indicates that when playing a video (state=1),
-        //    the player should play for six seconds and then stop.
+        // The API calls this function when the player's state changes. The function indicates that when playing a video (state=1), the player should play for six seconds and then stop.
         var done = false;
         function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-            setTimeout(stopVideo, 6000);
-            done = true;
-        }
+            console.log("ok")
         }
         function stopVideo() {
             player.stopVideo();

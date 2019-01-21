@@ -1165,6 +1165,9 @@ div.info-titolo{
     word-wrap: break-word
 }
 
+div.ilikeit-box{
+}
+
 button.ili{
     background-color: transparent;
     color: transparent;
@@ -1179,6 +1182,10 @@ button.ili{
 
 button.ili:hover{background-image: url(../sources/images/star-f.png)}
 
+button#no_ili{background-image: url(../sources/images/star-r.png)}
+
+button#no_ili:hover{opacity: 0.7}
+
 /*  scroll
 div.info-titolo{
     max-width: 70%;
@@ -1190,21 +1197,23 @@ div.info-titolo{
 
 div#info-eti{
     display: flex;
+    flex-direction: row;
     align-items: center;
-    max-width: 100%;
-    overflow-y: scroll
+    width: 100%;
+    overflow-x: hidden
 }
 
 input[name="newtag"]{
     width: auto;
     margin-left: 0.15em;
+    padding-left: 0.7em;
     border-radius: 100em
 }
 
 div.info-descrizione{
     word-wrap: break-word;
     height: 34%;
-    margin: 0.5em 0.5em 0.5em 0;
+    margin: 0.5em 0 0.5em 0;
     overflow-y: scroll
 }
 

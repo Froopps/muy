@@ -151,4 +151,13 @@ function get_most_visited($type,$connected_db){
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;
 }
+
+function get_channel_visibility($channel,$user,$connected_db){
+    $query="SELECT visibilita FROM canale WHERE nome='$channel' AND proprietario='$user'";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    $row=$res->fetch_assoc();
+    return $row["visibilita"];
+}
 ?>

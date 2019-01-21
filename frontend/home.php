@@ -40,10 +40,14 @@
             <div class="content">
                 <?php
                     if(isset($_GET["error"])){
-                        #edit span to achieve a fashion error displaying
-                        echo "<span class='error_span'>".$_GET["error"]."</span>";
-                        exit();
+                            if(!(isset($mvvideo)&&isset($mvaudio)&&isset($mvimages))){
+                            #edit span to achieve a fashion error displaying
+                            echo "<span class='error_span'>".$_GET["error"]."</span>";
+                            exit();
+                        }else
+                            echo "<span class='error_span'>".$_GET["error"]."</span>";
                     }
+
                     if(isset($_GET["msg"])){
                         #edit span to achieve a fashion message displaying
                         echo "<span class='message_span'>".$_GET["msg"]."</span>";

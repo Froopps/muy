@@ -18,6 +18,20 @@
         $connected_db->close();
         exit();
     }
+    #controllo se contenuto è dell'utente loggato
+    $self=false;
+    if(isset($_SESSION["email"])&&$_SESSION["email"]==$_GET["proprietario"])
+        $self=true;
+    #controlli amicizia e visibilità
+    #see getter functions
+    $vis=get_channel_visibility($_GET["nome"],$_GET["proprietario"],$connected_db);
+    if(!$self){
+        $relationship=get_relationship($_SESSION["email"],$_GET["proprietario"],$connected_db);
+        if($vis=="private")
+            header($redirect_with_error.urlencode("Accesso negato"));
+        else if($vis=="social"&&relationship!="a")
+            header($redirect_with_error.urlencode("Accesso negato"));
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -45,8 +59,8 @@
 
         <main>
             <div class='content'>
-            <?php 
-            echo "<h2>".$_GET['nome']."</h2>";
+            <?php
+                echo "<h2>".$_GET['nome']."</h2>";
             ?>
             <div class="channel_view">
                 <?php
@@ -70,3 +84,4 @@
         <script type="text/javascript" src="../common/script/search.js"></script>
         <script type="text/javascript" src="../common/script/setup.js"></script>
 </body>
+</html>
