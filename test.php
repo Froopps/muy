@@ -15,12 +15,11 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
     
-    $id=getYoutubeId("https://www.youtube.com/watch?v=wIpkO_QSuHc");
-    $thumbnail="http://img.youtube.com/vi/".$id."/maxresdefault.jpg";
+    $id=getYoutubeId("https://www.youtube.com/watch?v=jNQXAC9IVRw");
+    echo $thumbnail="http://img.youtube.com/vi/".$id."/hqdefault.jpg";
     $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($thumbnail));
     echo "<img class='propic' src=$pro_pic>";
     ritaglia($pro_pic,$_SERVER["DOCUMENT_ROOT"]."/../muy_res/thumbnail.jpg");
-
 
     
     

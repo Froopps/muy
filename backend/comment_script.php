@@ -24,10 +24,6 @@
         #accedi
         echo "sign in";
         exit();
-    }else if($row["proprietario"]!=$_SESSION["email"]){
-        #accesso negato
-        echo "denied";
-        exit();
     }
 
     if(empty($_POST["commento"])){

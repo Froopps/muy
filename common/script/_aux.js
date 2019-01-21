@@ -134,8 +134,6 @@ function comment(comment,content,list,author,pic,email){
             var response = xhr.responseText
             if(response=="sign in")
                 alert("Registrati per commentare")
-            else if(response=="denied")
-                alert("Accesso negato")
             else if(response=="no comment")
                 alert("Scrivi un commento prima")
             else if(response=="too many")
@@ -288,23 +286,26 @@ function add_eti(id,button){
                     in_text.value = ""
                     in_text.type = "hidden"
                     
+                    var span = document.createElement("span")
+                    span.classList.add("eti-span")
+                    if(button.previousSibling.previousSibling==null)
+                        button.parentElement.insertBefore(span,button.parentElement.firstChild)
+                    else
+                        button.parentElement.insertBefore(span,in_text)
+                    
                     var node = document.createElement("a")
                     node.classList.add("etichetta")
                     node.href = "categoria.php?tag=%23"+response
                     var textnode = document.createTextNode("#"+response)
                     node.appendChild(textnode)
-                        console.log(button.previousSibling.previousSibling)
-                    if(button.previousSibling.previousSibling==null)
-                        button.parentElement.insertBefore(node,button.parentElement.firstChild)
-                    else
-                        button.parentElement.insertBefore(node,in_text)
+                    span.appendChild(node)
                     //cross
                     node = document.createElement("button")
                     node.classList.add("cross-but")
                     node.type = "button"
-                    node.addEventListener("click",function(){del_eti("#"+response,id,this.previousSibling)})
+                    node.addEventListener("click",function(){del_eti("#"+response,id,this)})
                     node.appendChild(document.createTextNode("x"))
-                    button.parentElement.insertBefore(node,in_text)
+                    span.appendChild(node)
                 }
             }
         }

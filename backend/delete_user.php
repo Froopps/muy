@@ -31,13 +31,13 @@
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
         goto error;
     }
+    $utente=$_SESSION["nome"];
     session_destroy();
-    header("Location:../frontend/home.php?msg=Arrivederci");
+    header("Location:../frontend/home.php?msg=Addio, ".$utente);
     exit();
 
     error:
         $redirect_with_error.=urlencode($error);
         header($redirect_with_error);
         exit();
-
 ?>
