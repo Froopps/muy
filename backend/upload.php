@@ -95,7 +95,7 @@
     $query_columns.="titolo,";
     #descrizione
     if(!empty($_POST["desc"])){
-        if(!preg_match('/^[A-Za-z0-9\'èéàòùì!? ]+$/',$_POST["desc"])){
+        if(!preg_match('/^[A-Za-z0-9\'èéàòùì!?-_.:,; ]+$/',$_POST["desc"])){
             $redirect_with_error.=urlencode("Descrizione non accettabile");
             goto error;
         }

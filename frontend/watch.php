@@ -3,6 +3,11 @@
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
     $redirect_with_error="Location: home.php?error=";
+    if($error_connection["flag"]){
+        $redirect_with_error.=urlencode($error_connection["msg"]);
+        header($redirect_with_error);
+        exit();
+    }
     if(isset($_GET["id"])){
         $res=get_content_by_id($_GET["id"],$connected_db);
         if(!$res||$res->num_rows!=1)
@@ -53,39 +58,48 @@
                 <div class="show-obj">
                     <div class="show">
                         <?php
-                            $file=explode("/",$row["percorso"]);
-                            $ext=explode(".",$file[count($file)-1]);
-                            $ext=$ext[count($ext)-1];
-                        
-                            $archive=$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$row["percorso"];
-                            $tempath=$_SERVER["DOCUMENT_ROOT"]."/muy/sources/tmp/".$file[4];
 
-                            switch($row["tipo"]){
-                                case "a":
-                                    $file=$_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["anteprima"];
-                                    $image="data:image/png;base64,".base64_encode(file_get_contents($file));
-                                    echo "<div class=\"audio-cover\"><img class=\"oggetto\" src=\"".$image."\" onclick=\"document.getElementById('modal_bg_img').style.display='flex'\"></div>";
-                                    echo "<div class=\"audio-ctrl-bar\"><audio controls>";
-                                    echo "<source src=\"horse.ogg\" type=\"audio/".$ext."\">Your browser does not support the audio element.</audio></div>";
-                                    break;
-                                case "v":
-                                    $path=$_SERVER["DOCUMENT_ROOT"]."/muy/source/fake/".$row["percorso"];
-                                    /*if(!file_exists($path))
-                                        symlink($archive,$tempath);*/
-                                    #copy($archive,$tempath);
-                                    #rename($_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"],$_SERVER["DOCUMENT_ROOT"]."\muy");
-                                    #symlink($_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"],$_SERVER["DOCUMENT_ROOT"]."\..\muy_res");
-                                    echo "<video controls>";
-                                    echo "<source src=\"../sources/tmp/".$file[4]."\" type=\"video/".$ext."\">Your browser does not support HTML5 video.</video>";
-                                    #unlink($_SERVER["DOCUMENT_ROOT"]."/muy/sources/tmp/".$file[4]);
-                                    break;
-                                case "i":
-                                    $file=$_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"];
-                                    $image="data:image/png;base64,".base64_encode(file_get_contents($file));
-                                    echo "<img class=\"oggetto\" src=\"".$image."\" onclick=\"document.getElementById('modal_bg_img').style.display='flex'\">";
-                                    break;
-                                default:
-                                    break;
+                            //questo fa schifo nello script dell'api
+                            $ytid="";
+                        
+                            if($row["percorso"][0]!="/"){
+                                //video yt
+                                echo "<div id=\"yt_player\"></div>";
+                                $ytid=getYoutubeId($row["percorso"]);
+                            }else{
+                                $file=explode("/",$row["percorso"]);
+                                $ext=explode(".",$file[count($file)-1]);
+                                $ext=$ext[count($ext)-1];
+
+                                $archive=$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$row["percorso"];
+                                $tempath=$_SERVER["DOCUMENT_ROOT"]."/muy/sources/tmp/".$file[4];
+                                switch($row["tipo"]){
+                                    case "a":
+                                        $file=$_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["anteprima"];
+                                        $image="data:image/png;base64,".base64_encode(file_get_contents($file));
+                                        echo "<div class=\"audio-cover\"><img class=\"oggetto\" src=\"".$image."\" onclick=\"document.getElementById('modal_bg_img').style.display='flex'\"></div>";
+                                        echo "<div class=\"audio-ctrl-bar\"><audio controls>";
+                                        echo "<source src=\"horse.ogg\" type=\"audio/".$ext."\">Your browser does not support the audio element.</audio></div>";
+                                        break;
+                                    case "v":
+                                        $path=$_SERVER["DOCUMENT_ROOT"]."/muy/source/fake/".$row["percorso"];
+                                        /*if(!file_exists($path))
+                                            symlink($archive,$tempath);*/
+                                        #copy($archive,$tempath);
+                                        #rename($_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"],$_SERVER["DOCUMENT_ROOT"]."\muy");
+                                        #symlink($_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"],$_SERVER["DOCUMENT_ROOT"]."\..\muy_res");
+                                        echo "<video controls>";
+                                        echo "<source src=\"../sources/tmp/".$file[4]."\" type=\"video/".$ext."\">Your browser does not support HTML5 video.</video>";
+                                        #unlink($_SERVER["DOCUMENT_ROOT"]."/muy/sources/tmp/".$file[4]);
+                                        break;
+                                    case "i":
+                                        $file=$_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"];
+                                        $image="data:image/png;base64,".base64_encode(file_get_contents($file));
+                                        echo "<img class=\"oggetto\" src=\"".$image."\" onclick=\"document.getElementById('modal_bg_img').style.display='flex'\">";
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
                         ?>
                     </div>
@@ -135,9 +149,10 @@
                             echo "<div class=\"eticanale\" id=\"info-eti\">";
                             if($res->num_rows>0){
                                 while($row_tag=$res->fetch_assoc()){
-                                    echo "<a class=\"etichetta eli\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($row_tag["tag"])))."\">".stripslashes($row_tag["tag"])."</a>";
+                                    echo "<span class=\"eti-span\"><a class=\"etichetta eli\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($row_tag["tag"])))."\">".stripslashes($row_tag["tag"])."</a>";
                                     if($self)
                                         echo "<button class=\"cross-but\" type=\"button\" onclick=\"del_eti('".$row_tag["tag"]."','".$_GET["id"]."',this)\">x</button>";
+                                    echo "</span>";
                                 }
                             }
                             if($self){
@@ -218,6 +233,54 @@
     </script>
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
+    <script>
+        //var video_id = window.location.search.split('v=')[1]
+        //var andPos = video_id.indexOf('&')
+        //if(andPos!=-1)
+         //video_id = video_id.substring(0, andPos)
+        
+        // 2. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt_player', {
+            height: '1080',
+            width: '1920',
+            videoId: '<?php echo $ytid; ?>',
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+        }
+
+        // 4. The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // 5. The API calls this function when the player's state changes.
+        //    The function indicates that when playing a video (state=1),
+        //    the player should play for six seconds and then stop.
+        var done = false;
+        function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+            setTimeout(stopVideo, 6000);
+            done = true;
+        }
+        }
+        function stopVideo() {
+            player.stopVideo();
+        }
+
+    </script>
 
 </body>
 

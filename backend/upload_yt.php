@@ -3,7 +3,7 @@
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
     $redirect_with_error="Location: http://localhost/muy/frontend/upload.php?error=";
-    $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=".urlencode("Upload avvenuto con successo");
+    $redirect_with_msg="Location: http://localhost/muy/frontend/user.php?user=".urlencode($_SESSION["email"])."&msg=".urlencode("Upload avvenuto con successo");
     $query_columns="";
     $query_values="";
     #exit() is used after redirect to avoid further statements execution after redirecting with error
@@ -11,25 +11,38 @@
         $redirect_with_error.=urlencode($error_connection["msg"]);
         goto error;
     }
-    #checking anyone sending post without the signup form. We need all the required data
+
     if(empty($_POST["url"])){
-        $redirect_with_error.=urlencode("Inserisci un url");
-        #$redirect_with_error.="Invia tutti i dati richiesti";
+        $redirect_with_error.=urlencode("Inserisci un URL");
         goto error;
     }
-    #controllo url youtube valido
-    #spazi inizio
-    while($_POST["url"][0]==" "){
-        $tag=substr($_POST["url"],1);
+    $result=explode("www.youtu",$_POST["url"]);
+    if(!isset($result[1])){
+        $redirect_with_error.=urlencode("URL non valido");
+        goto error;
     }
-    #spazi fine
-    while(substr($_POST["url"],-1)==" "){
-        $_POST["url"]=substr($_POST["url"],0,-1);
+    $_POST["url"]=trimSpaceBorder($_POST["url"]);
+
+    $dir="/content/".$_SESSION["email"]."/".$_POST["channel"]."/"."youtube";
+    $id=getYoutubeId($_POST["url"]);
+    $thumbnail="http://img.youtube.com/vi/".$id."/maxresdefault.jpg";
+    $immagine="data:image/png;base64,".base64_encode(file_get_contents($thumbnail));
+
+    #percorso
+    $query="SELECT percorso FROM oggettoMultimediale WHERE canale='".escape($_POST["channel"],$connected_db)."' AND proprietario='".escape($_SESSION["email"],$connected_db)."' AND percorso='".escape($_POST["url"],$connected_db)."'";
+    $res=$connected_db->query($query);
+    if(!$res){
+        $redirect_with_error.=urlencode("Errore nella connessione con il database");
+        goto error;
+    }
+    if($res->num_rows>0){
+        $redirect_with_error.=urlencode("Hai già questo video sul canale");
+        goto error;
     }
     $query_values.="'".escape($_POST["url"],$connected_db)."',";
     $query_columns.="percorso,";
     #anteprima
-    $query_values.="'anteprima_yt',";
+    $query_values.="'".escape($dir,$connected_db)."/anteprima.png',";
     $query_columns.="anteprima,";
     #titolo
     $query_values.="'titolo_yt',";
@@ -60,13 +73,16 @@
         goto error;
     }
 
+    mkdir($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir,0770);
+    ritaglia($immagine,$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir."/anteprima.png");
+
     #etichette
 
-    header($redirect_with_msg);
+    //header($redirect_with_msg);
     $connected_db->close();
     exit();
     error:
-        header($redirect_with_error);
+        //header($redirect_with_error);
         $connected_db->close();
         exit();
 ?>

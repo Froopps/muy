@@ -74,7 +74,7 @@
                         </tr>
                         <tr>
                             <td>Canale:</td>
-                            <td class="left" colspan="2">
+                            <td class="left">
                                 <select name="channel" required>
                                     <?php
                                         while($row=$res->fetch_assoc()){
@@ -89,13 +89,32 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr><td>Titolo:</td><td class="left" colspan="2"><input type="text" name="title" placeholder="Titolo" required></td></tr>
-                        <tr><td>Descrizione:</td><td class="left" colspan="2"><textarea name="desc" placeholder="Descrizione" cols="54" rows="3"></textarea></td></tr>
-                        <tr><td>Etichette:</td><td class="left" colspan="2"><textarea name="tag" placeholder="Inserisci le etichette precedute da #&#10;Esempio: #mare #montagna" cols="54" rows="3"></textarea></td></tr>
+                        <tr>
+                            <td>Titolo:</td>
+                            <td class="left"><input type="text" name="title" placeholder="Titolo" onkeyup="pattern_validation(this,2,'tit-y','tit-n','tit-ny')" required></td>
+                            <td>
+                                <img id='tit-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                                <img id='tit-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                                <img id='tit-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Descrizione:</td>
+                            <td class="left"><textarea name="desc" placeholder="Descrizione" cols="54" rows="3" onkeyup="pattern_validation(this,2,'des-y','des-n','des-ny')"></textarea></td>
+                            <td>
+                                <img id='des-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
+                                <img id='des-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
+                                <img id='des-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Etichette:</td>
+                            <td class="left" colspan="2"><textarea name="tag" placeholder="Inserisci le etichette precedute da #&#10;Esempio: #mare #montagna" cols="54" rows="3"></textarea></td>
+                        </tr>
 
                         <tr name="ante-line-img" style="display: none">
                             <td>Anteprima:</td>
-                            <td class="left" colspan="2"><input type="file" name="anteprima" accept="image/*"></td>
+                            <td class="left"><input type="file" name="anteprima" accept="image/*"></td>
                         </tr>
 
                         <tr><td colspan="3"><input type="submit"></td></tr>
@@ -146,6 +165,8 @@
     </main>
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
+    <script type="text/javascript" src="../common/script/user_info_validation.js"></script>
+    <script type="text/javascript" src="../common/script/search.js"></script>
     <script>
         function removeFile(){
             document.getElementsByName('file')[0].value=""
@@ -180,8 +201,6 @@
             }
         }
     </script>
-    <script type="text/javascript" src="../common/script/search.js"></script>
-    <script type="text/javascript" src="../common/script/setup.js"></script>
 
 </body>
 

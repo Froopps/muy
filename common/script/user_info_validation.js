@@ -1,4 +1,4 @@
-var filters=[/^[A-Za-z0-9\?\.\+\^\[\]\'&~=_-èéàòù ]+@[A-Za-z0-9\?\.\+\^\'&~=_-èéàòù ]+\.{1}[A-Za-z]{2,6}$/,/^[A-Za-z\'èéàòù ]+$/]
+var filters=[/^[A-Za-z0-9\?\.\+\^\[\]\'&~=_-èéàòù ]+@[A-Za-z0-9\?\.\+\^\'&~=_-èéàòù ]+\.{1}[A-Za-z]{2,6}$/,/^[A-Za-z\'èéàòù ]+$/,/^[A-Za-z0-9\'èéàòùì!?-_.:,; ]+$/]
 
 function pattern_validation(input,filter,logoy,logon,logony){
     var reg=new RegExp(filters[filter])

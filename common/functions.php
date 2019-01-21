@@ -175,4 +175,10 @@
         $time=$hh*3600+$mm*60+$ss;
         return $time;
     }
+
+    function getYoutubeId($url){
+        $edit=explode("v=",$url);
+        $id=explode("&",$edit[1]);
+        return($id[0]);
+    }
 ?>
