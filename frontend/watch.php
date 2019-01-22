@@ -113,6 +113,7 @@
                                                 echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-f.png)\" type=\"button\" onclick=\"like_it('".$row['percorso']."',this.value)\" value='".$i."'></button>";
                                             for($i=$like+1;$i<=5;$i++)
                                                 echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-e.png)\" type=\"button\" onclick=\"like_it('".$row['percorso']."',this.value)\" value='".$i."'></button>";
+                                            echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-r.png)\" type=\"button\" onclick=\"like_it('".$row['percorso']."',this.value)\" value='0'></button>";
                                         }   
                                     ?>
                                 </div>
