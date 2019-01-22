@@ -198,14 +198,21 @@
             }
             $link_id="";
             for($j=0;$j<count($mapping[$query][3]);$j++)
-                $link_id.=$mapping[$query][3][$j]."=".$row[$mapping[$query][4][$j]]."&";
+                $link_id.=$mapping[$query][3][$j]."=".urlencode($row[$mapping[$query][4][$j]])."&";
             $link_id=substr($link_id,0,strlen($link_id)-1);
-            if($query=='oggettoMultimediale')
-                $value=$content_type[$row[$mapping[$query][5]]];
-            else
-                $value=$row[$mapping[$query][5]];
+            if($query!='categoria'){
+                if($query=='oggettoMultimediale')
+                    $value=$content_type[$row[$mapping[$query][5]]];
+                else
+                    $value=$row[$mapping[$query][5]];
+                $foto=$row[$mapping[$query][0]];
+            }
+            else{
+                $foto=$mapping[$query][0];
+                $value='';
+            }
             $side_info=$mapping[$query][6].$value;
-            display_search_entry($row[$mapping[$query][0]],$row[$mapping[$query][1]],$mapping[$query][2],$link_id,$side_info);
+            display_search_entry($foto,$row[$mapping[$query][1]],$mapping[$query][2],$link_id,$side_info);
         }
         if(!$no_more){
             #e un bottone 'altro' dal cui valore dipenderà l'offset con cui fare la query per mostrare altri risultati
@@ -223,17 +230,20 @@
         $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
         $pro_pic_alt="Spiacenti foto non trovata";
         #se l'utente ha cercato una categoria stampare il mosaico
-        if($foto=='special')
-            display_tag_mosaic($link_id);
-        else{
-            if(!file_exists(stripslashes($pro_pic."/".$foto)))
-                log_into("Can't find profile pic at ".$pro_pic."/".$foto);
-            $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".stripslashes($foto)));
+        if(!file_exists(stripslashes($pro_pic."/".$foto))){
+            log_into("Can't find profile pic at ".$pro_pic."/".$foto);
+            $pro_pic='';
         }
+        else
+            $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".stripslashes($foto)));
 
         echo "<li class='search_results_entry'>";
             echo "<div class='search_foto'>";
+            #se non è la categoria
+            if($side_info!='')
                 echo "<a href='$link_page'><img class='$img_class' src='$pro_pic' alt='Spiacenti contenuto non disponibile'></a>";
+            else
+                display_tag_mosaic($link_text);
             echo "</div>";
             echo "<div class='search_info'>";
                 echo "<a class='categoria_titolo' href='$link_page'>$link_text</a>";

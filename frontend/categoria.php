@@ -43,11 +43,7 @@
                             exit();
                         }
                         if(isset($_SESSION["email"])){
-                            $query="SELECT oggettoMultimediale.proprietario, canale.visibilita, oggettoMultimediale.extID, oggettoMultimediale.percorso, oggettoMultimediale.anteprima, oggettoMultimediale.titolo, oggettoMultimediale.visualizzazioni, oggettoMultimediale.canale 
-                                    FROM contenutoTaggato 
-                                    JOIN oggettoMultimediale ON contenutoTaggato.oggetto=oggettoMultimediale.percorso 
-                                    JOIN canale ON (oggettoMultimediale.proprietario=canale.proprietario AND oggettoMultimediale.canale=canale.nome) 
-                                    WHERE tag='".escape($tag,$connected_db)."'";
+                            $query="SELECT oggettoMultimediale.proprietario, canale.visibilita, oggettoMultimediale.extID, oggettoMultimediale.percorso, oggettoMultimediale.anteprima, oggettoMultimediale.titolo, oggettoMultimediale.visualizzazioni, oggettoMultimediale.canale FROM contenutoTaggato JOIN oggettoMultimediale ON contenutoTaggato.oggetto=oggettoMultimediale.percorso JOIN canale ON (oggettoMultimediale.proprietario=canale.proprietario AND oggettoMultimediale.canale=canale.nome) WHERE tag='".escape($tag,$connected_db)."'";
                             $relationship="";
                         }else
                             $query="SELECT * FROM contenutoTaggato JOIN oggettoMultimediale ON contenutoTaggato.oggetto=oggettoMultimediale.percorso JOIN canale ON (oggettoMultimediale.proprietario=canale.proprietario AND oggettoMultimediale.canale=canale.nome) WHERE tag='".escape($tag,$connected_db)."' AND visibilita='public'";

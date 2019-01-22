@@ -229,6 +229,7 @@
     </script>
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
+    <script type="text/javascript" src="../common/script/search.js"></script>
     <script>
         
         // This code loads the IFrame Player API code asynchronously.
