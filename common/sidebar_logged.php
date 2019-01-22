@@ -2,14 +2,14 @@
     include_once "modal_channel.php"
 ?>
 
-<label class="burger" onclick="hide(getElementById('nav-toggle'))">
+<label for="nav-toggle" class="burger" onclick="hide(getElementById('nav-toggle'))">
     <!-- logo hamburger -->
     <div class="ham"></div>
     <div class="ham"></div>
     <div class="ham"></div>
 </label>
 
-<nav>
+<nav style="display: none">
     <input type="checkbox" id="nav-toggle" hidden>
     <!--<label for="nav-toggle" class="burger">-->
     <span id="nasc">
