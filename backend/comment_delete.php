@@ -3,7 +3,6 @@
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
     if($error_connection["flag"]){
-        $value=$error_connection["msg"];
         exit();
     }
 

@@ -166,4 +166,12 @@ function get_channel_visibility($channel,$user,$connected_db){
     $row=$res->fetch_assoc();
     return $row["visibilita"];
 }
+
+function get_top_tags($connected_db){
+    $query="SELECT tag, AVG(voto-1) AS media FROM contenutoTaggato JOIN valutazione ON (contenutoTaggato.oggetto=valutazione.relativoA) WHERE voto>'0' GROUP BY tag ORDER BY media DESC LIMIT 10 OFFSET 0";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
 ?>

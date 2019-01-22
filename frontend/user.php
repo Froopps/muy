@@ -66,7 +66,7 @@
                         if($self){
                             echo "<div class=\"flex-col\">";
                             echo "<div><button class=\"in_notext\" type=\"button\" onclick=\"document.getElementById('modal_bg_2').style.display='flex'\">Nuovo canale</button></div>";
-                            echo "<div><form action=\"../backend/delete_user.php\" method=\"get\"><button class=\"in_notext\" id=\"delete\" type=\"submit\">Elimina utente</button></form></div>";
+                            echo "<div><form action=\"../backend/delete_user.php\" method=\"get\" onsubmit=\"confirm('Conferma eliminazione')\"><button class=\"in_notext\" id=\"delete\" type=\"submit\">Elimina utente</button></form></div>";
                             echo "</div>";
                         }
                     ?>
@@ -139,7 +139,7 @@
                         }
                     }
                     if($no_channel)
-                        echo "<span class='message_span'>Non c'è nessun canale da mostrare</span>";
+                        echo "<span id='no-ch' class='message_span'>Non c'è nessun canale da mostrare</span>";
                     $connected_db->close();
                 ?>
                 

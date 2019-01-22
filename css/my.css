@@ -401,10 +401,9 @@ nav a:hover{background-color: gray}
 
 .burger{
     width: 44px;
-    position: relative;
+    position: fixed;
     left: 0;    /* per visualizzazione firefox */
     cursor: pointer;
-    position: absolute;
     z-index: 2;
     background-color:transparent;
     margin: 80px 0 0 0.7em;

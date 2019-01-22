@@ -21,9 +21,9 @@
         #function get_searched_content($who,$pattern,$connected_db,$offset,$limit=3,$suggestion=false)
         case 'oggettoMultimediale':
             if(!isset($_SESSION['email']))
-                $res=get_searched_content('',$_GET['src_txt'],$connected_db,$_GET['next']);
+                $res=get_searched_content('',$_GET['pattern'],$connected_db,$_GET['next']);
             else
-                $res=get_searched_content(escape($_SESSION['email'],$connected_db),$_GET['src_txt'],$connected_db,$_GET['next']);
+                $res=get_searched_content(escape($_SESSION['email'],$connected_db),$_GET['pattern'],$connected_db,$_GET['next']);
             break;
 
         /*REFRESH DELLA RICERCA DI CANALI*/
@@ -31,9 +31,9 @@
         #function get_searched_channel($who,$pattern,$connected_db,$offset,$limit=3,$suggestion=false)
         case 'canale':
             if(!isset($_SESSION['email']))
-                $res=get_searched_channel('',$_GET['src_txt'],$connected_db,$_GET['next']);
+                $res=get_searched_channel('',$_GET['pattern'],$connected_db,$_GET['next']);
             else
-                $res=get_searched_channel(escape($_SESSION['email'],$connected_db),$_GET['src_txt'],$connected_db,$_GET['next']);
+                $res=get_searched_channel(escape($_SESSION['email'],$connected_db),$_GET['pattern'],$connected_db,$_GET['next']);
             break;
         
         #REFRESH DELLA RICERCA UTENTE E CATEGORIA
