@@ -97,12 +97,14 @@
         }
         $add=0;
         $cont=0;
-        if(empty($row))
+        if($query_res->num_rows==0)
             return 0;
         else{
             while($row=$query_res->fetch_assoc()){
-                $add+=$row["voto"];
-                $cont++;
+                if($row["voto"]>0){
+                    $add+=$row["voto"];
+                    $cont++;
+                }
             }
         }
         $rating=$add/$cont;

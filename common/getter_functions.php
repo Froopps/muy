@@ -148,7 +148,7 @@ function get_today_friends_content($who,$connected_db,$offset){
 }
 
 function get_most_visited($type,$connected_db){
-    $query="SELECT * FROM oggettoMultimediale WHERE tipo='$type' ORDER BY visualizzazioni DESC LIMIT 10 OFFSET 0";
+    $query="SELECT * FROM oggettoMultimediale JOIN canale ON (oggettoMultimediale.proprietario=canale.proprietario AND oggettoMultimediale.canale=canale.nome) WHERE tipo='$type' AND visibilita='public' ORDER BY visualizzazioni DESC LIMIT 10 OFFSET 0";
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);

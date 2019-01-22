@@ -159,7 +159,7 @@
             break;
     }
 
-    $query="UPDATE canale SET dataUltimoInserimento='".date('Y-m-d')."' WHERE nome='".escape($_POST["channel"],$connected_db)."' AND proprietario='".escape($_SESSION["email"],$connected_db)."'";
+    $query="UPDATE canale SET dataUltimoInserimento='".date('Y-m-d H:i:s')."' WHERE nome='".escape($_POST["channel"],$connected_db)."' AND proprietario='".escape($_SESSION["email"],$connected_db)."'";
     $res=$connected_db->query($query);
     if(!$res){
         $redirect_with_error.=urlencode("Errore nella connessione con il database");

@@ -106,7 +106,7 @@
     }
     #city check
     if(!empty($_POST["citNa"])){
-        if(!preg_match('/^[A-Za-zèéàòùì ]+$/',$_POST["cit"])){
+        if(!preg_match('/^[A-Za-zèéàòùì ]+$/',$_POST["citNa"])){
             $redirect_with_error.=urlencode("Inserire un luogo di nascita valido");
             goto error;     
         }

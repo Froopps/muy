@@ -45,7 +45,7 @@
                         echo "<span class='error_span'>".$_GET["error"]."</span>";
                         if(!($mvvideo&&$mvaudio&&$mvimages))
                             exit();
-
+                    }
 
                     if(isset($_GET["msg"])){
                         #edit span to achieve a fashion message displaying
@@ -76,7 +76,7 @@
                 </div>
                 <div class="categoria">
                     <?php
-                        echo "<div><a class='categoria_titolo' href='categoria.php?tag=".htmlentities(urlencode("Most visited images")."&s=true")."'>Most visited images</a></div>"
+                        echo "<div><h2>Most visited images</h2></div>"
                     ?>
                     <div class="scrollbar">
                     <?php

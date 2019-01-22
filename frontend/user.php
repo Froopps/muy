@@ -95,7 +95,6 @@
                                     if($self){
                                         echo "<div class=\"flex-center\">";
                                             echo "<button class=\"delete_button\" onclick=\"delete_channel(this,'".$row["nome"]."','".$row["proprietario"]."')\"></button>";
-                                            echo "<a class=\"glyph-button\" href=\"channel_mod.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/pencil.png\" width=\"30px\" alt=\"Modifica\"></a>";
                                             echo "<a class=\"glyph-button\" href=\"upload.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/plus.png\" width=\"30px\" alt=\"Aggiungi\"></a>";
                                         echo "</div>";
                                     }

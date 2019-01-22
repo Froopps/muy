@@ -1298,12 +1298,12 @@ div.show .oggetto:hover{cursor: zoom-in}
 .audio-cover{
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 90%
 }
 
 .audio-ctrl-bar{
-    width: 100%;
-    height: 10%
+    width: 100%
 }
 
 audio{

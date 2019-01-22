@@ -80,7 +80,7 @@
         }
         $row=$res->fetch_assoc();
         echo "<div class=\"ohidden\"><a class=\"oggetto-canale\" href=\"user.php?user=".htmlentities(urlencode(stripslashes($info["proprietario"])))."\">".$row["nickname"]."</a></div>";
-        echo "<div class=\"ohidden\"><a class=\"oggetto-canale\" href=\"categoria.php?tag=".htmlentities(urlencode($info["canale"]))."&s=c&user=".htmlentities(urlencode($info["proprietario"]))."\">".$info["canale"]."</a></div>";
+        echo "<div class=\"ohidden\"><a class=\"oggetto-canale\" href=\"canale.php?nome=".htmlentities(urlencode($info["canale"]))."&proprietario=".htmlentities(urlencode($info["proprietario"]))."\">".$info["canale"]."</a></div>";
         echo "<h3>Visual: ".$info["visualizzazioni"]."</h3>";
         echo "<h3 class=\"rate\">".valutazione($info["percorso"],$connected_db)."</h3>";
         echo "</span>";

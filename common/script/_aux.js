@@ -132,7 +132,7 @@ function comment(comment,content,list,author,pic,email){
         if(xhr.readyState==4 && xhr.status==200){
             var response = xhr.responseText
             if(response=="sign in")
-                alert("Registrati per commentare")
+                alert("Accedi per commentare")
             else if(response=="no comment")
                 alert("Scrivi un commento prima")
             else if(response=="too many")

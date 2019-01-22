@@ -32,7 +32,7 @@ CREATE TABLE canale(
     visibilita ENUM('public','private','social')DEFAULT'public'NOT NULL,
     etichetta VARCHAR(200),
     dataCreazione DATE NOT NULL,
-    dataUltimoInserimento DATE,
+    dataUltimoInserimento DATETIME,
     CONSTRAINT canale_pk PRIMARY KEY (nome,proprietario),
     CONSTRAINT canale_fk FOREIGN KEY (proprietario) REFERENCES utente(email) ON DELETE CASCADE ON UPDATE CASCADE
 );

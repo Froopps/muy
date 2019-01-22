@@ -18,6 +18,7 @@
         $connected_db->close();
         exit();
     }
+    $row=$res->fetch_assoc();
     #controllo se contenuto è dell'utente loggato
     $self=false;
     if(isset($_SESSION["email"])&&$_SESSION["email"]==$_GET["proprietario"])
