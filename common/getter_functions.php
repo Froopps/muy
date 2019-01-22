@@ -83,7 +83,10 @@ function get_content_tag($path,$connected_db){
 #per ottenere risultati dalla ricerca di utente e categoria che sono sempre pubblici
 function get_public_result($table,$pattern,$connected_db,$offset,$limit=3,$suggestion=false){
     #per categoria e utente non c'è bisogno di verificare nessuna relzione di amicizia
+    if($table=='categoria')
+        $pattern="#".$pattern;
     $pattern=escape($pattern,$connected_db);
+    log_into($pattern);
     $offset=$offset*3;
     $mapping=array("utente"=>"nickname","categoria"=>"tag");
     #mostra prima le tuple che hanno valore completamente uguale al pattern per quell'attributo, poi quelle che iniziano
@@ -94,7 +97,7 @@ function get_public_result($table,$pattern,$connected_db,$offset,$limit=3,$sugge
         $res=$connected_db->query($query2.$limit);
     else
         $res=$connected_db->query($query.$query2.$limit);
-    if($res)
+    if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;
 }

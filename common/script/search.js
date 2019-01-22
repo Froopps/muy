@@ -3,18 +3,20 @@ function suggestions_search(){
     var type=document.getElementById('src_block').elements['src_type'].value
     var list=document.getElementsByClassName('sug_list')[0]
     var block=document.getElementsByClassName('sug_block')[0]
-    if(bar.value.length<=1){
+    var value=escape_sharp(bar.value)
+    if(value.length<=1){
         block.style.display='none'
         list.style.display='none'
     }
     else{
         var xhr=ajaxRequest()
-        xhr.open("GET","http://localhost/muy/backend/get_suggestions.php?table="+type+"&pattern="+bar.value)
+        xhr.open("GET","http://localhost/muy/backend/get_suggestions.php?table="+type+"&pattern="+value)
         xhr.responseType='text'
         block.style.display='flex'
         list.style.display='block'
         xhr.onreadystatechange=function(){
             if(xhr.readyState==4 && xhr.status==200){
+                console.log(xhr.responseText)
                 document.getElementsByClassName('sug_list')[0].innerHTML=xhr.responseText
             }
         }

@@ -38,3 +38,15 @@ function search_the_last(el,cl){
     else
         return search_the_last(el.previousSibling,cl)
 }
+
+function escape_sharp(s){
+    t=''
+    for(i=0;i<s.length;i++){
+        if(s[i]!="#")t+=s[i]
+    }
+    return t
+}
+
+var escape_on_submit=function escape_on_submit(el){
+    el.elements['src_txt'].value=escape_sharp(el.elements['src_txt'].value)
+}

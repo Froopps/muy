@@ -46,7 +46,7 @@
                         if(!($mvvideo&&$mvaudio&&$mvimages))
                             exit();
 
-
+                    }
                     if(isset($_GET["msg"])){
                         #edit span to achieve a fashion message displaying
                         echo "<span class='message_span'>".$_GET["msg"]."</span>";
