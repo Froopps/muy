@@ -1,4 +1,3 @@
-
 //crop_image(container(could be an img,div or something),input type file to retrieve the file selected,button for submission)
 function crop_image(in_file,image,button){
     if(in_file.files && in_file.files[0]){
@@ -72,7 +71,7 @@ function set_def_foto(button){
     var par="default=1"
     xhr=ajaxRequest()
         xhr.open("POST","http://localhost/muy/backend/pro_pic_update.php",true)
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
         xhr.onreadystatechange=function(){
             if(xhr.readyState==4 && xhr.status==200)
                 button.innerHTML="ok"
@@ -120,7 +119,7 @@ function delete_content(element,content){
             }
         }
         xhr.open("POST","http://localhost/muy/backend/delete_content.php",true)
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
         xhr.send(par)
     }
     
@@ -151,7 +150,7 @@ function comment(comment,content,list,author,pic,email){
         }
     }
     xhr.open("POST","http://localhost/muy/backend/comment_script.php",true)
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
     xhr.send("commento="+comment.value+"&id="+content)
     
 }
@@ -235,25 +234,22 @@ function delete_comment(id,email,commento){
         }
     }
     xhr.open("POST","http://localhost/muy/backend/comment_delete.php",true)
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
     xhr.send("id="+id+"&email="+email)
 
 }
 
 function visual(id){
 //leva se togli visual ajax
-    console.log(id)
     xhr = ajaxRequest()
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
                 var response = xhr.responseText
-                document.getElementById("visual")
                 document.getElementById("visual").innerHTML=response
         }
     }
     xhr.open("GET","http://localhost/muy/backend/visual.php?id="+id,true)
     xhr.send()
-
 }
 
 function add_eti(id,button){
@@ -310,7 +306,7 @@ function add_eti(id,button){
             }
         }
         xhr.open("POST","http://localhost/muy/backend/add_tag.php",true)
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
         xhr.send("id="+id+"&tag="+in_text.value)
     }
     
@@ -322,7 +318,6 @@ function del_eti(eti,id,elem){
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
             var response = xhr.responseText
-            console.log(response)
             if(response=="denied")
                 alert("Accesso negato")
             else{
@@ -336,6 +331,7 @@ function del_eti(eti,id,elem){
     xhr.send("id="+id+"&tag="+eti)
     
 }
+
 
 function ground_like_stars(){
     var starz=document.getElementsByClassName('ili')
@@ -372,4 +368,23 @@ function like_it(percorso,voto){
         }
     }
     xhr.send(par)
+}
+
+function delete_channel(button,channel,user){
+
+    if(confirm("Conferma eliminazione")){
+        xhr = ajaxRequest()
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                var response = xhr.responseText
+                if(response=="denied")
+                    alert("Accesso negato")
+                else
+                    button.parentElement.parentElement.parentElement.style.display = "none"
+            }
+        }
+        xhr.open("POST","http://localhost/muy/backend/delete_channel.php",true)
+        xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
+        xhr.send("nome="+channel+"&proprietario="+user)
+    }
 }

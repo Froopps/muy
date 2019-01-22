@@ -42,11 +42,9 @@
                     }
                 ?>
                 <?php
-                    
                     $query="SELECT tag FROM categoria WHERE 1 ORDER BY tag ASC";
                     $res=$connected_db->query($query);
                     if(!$res){
-                        $redirect_with_error.=urlencode("Errore nella connessione con il database");
                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                         echo "<span class='error_span>Errore nella connessione col server</span>";
                         exit();

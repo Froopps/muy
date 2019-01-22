@@ -10,7 +10,7 @@ function get_user_by_email($mail,$connected_db){
 }
 
 function get_channel_by_owner($mail,$connected_db){
-    $query="SELECT * FROM canale WHERE proprietario='".escape($mail,$connected_db)."'";
+    $query="SELECT * FROM canale WHERE proprietario='".escape($mail,$connected_db)."' ORDER BY dataUltimoInserimento DESC";
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
@@ -153,5 +153,14 @@ function get_most_visited($type,$connected_db){
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;
+}
+
+function get_channel_visibility($channel,$user,$connected_db){
+    $query="SELECT visibilita FROM canale WHERE nome='$channel' AND proprietario='$user'";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    $row=$res->fetch_assoc();
+    return $row["visibilita"];
 }
 ?>

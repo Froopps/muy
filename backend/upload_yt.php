@@ -23,9 +23,9 @@
     }
     $_POST["url"]=trimSpaceBorder($_POST["url"]);
 
-    $dir="/content/".$_SESSION["email"]."/".$_POST["channel"]."/".$_POST["url"];
     #vedi functions.php
     $id=getYoutubeId($_POST["url"]);
+    $dir="/content/".$_SESSION["email"]."/".$_POST["channel"]."/".$id;
     $thumbnail="http://img.youtube.com/vi/".$id."/hqdefault.jpg";
     $immagine="data:image/png;base64,".base64_encode(file_get_contents($thumbnail));
 
@@ -93,9 +93,16 @@
         goto error;
     }
 
-    echo $_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir;
     mkdir($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir,0770);
     ritaglia($immagine,$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir."/anteprima.png");
+
+    $query="UPDATE canale SET dataUltimoInserimento='".date('Y-m-d')."' WHERE nome='".escape($_POST["channel"],$connected_db)."' AND proprietario='".escape($_SESSION["email"],$connected_db)."'";
+    $res=$connected_db->query($query);
+    if(!$res){
+        $redirect_with_error.=urlencode("Errore nella connessione con il database");
+        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+        goto error;
+    }
 
     #etichette
     if(!(empty($_POST["tag"]))){
@@ -150,11 +157,11 @@
             }
         }
     }
-    //header($redirect_with_msg);
+    header($redirect_with_msg);
     $connected_db->close();
     exit();
     error:
-        //header($redirect_with_error);
+        header($redirect_with_error);
         $connected_db->close();
         exit();
 ?>

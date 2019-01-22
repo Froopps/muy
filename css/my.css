@@ -203,7 +203,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 2;
+    z-index: 3;
 	width: 100%;
     max-height: 60.4px;
     box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
@@ -400,12 +400,14 @@ nav a{
 nav a:hover{background-color: gray}
 
 .burger{
+    width: 44px;
+    position: relative;
     left: 0;    /* per visualizzazione firefox */
     cursor: pointer;
     position: absolute;
     z-index: 2;
     background-color:transparent;
-    margin: 1.1em 0 0 0.7em;
+    margin: 80px 0 0 0.7em;
     padding: 0 6px 6px 6px
 }
 
@@ -435,8 +437,10 @@ nav hr{
     background-color:#e8e9ed;
     width: 100%;
     height: 100%;
+    
     left: -300px;
     opacity: 0;
+    
     position: relative;
     transition: left 0.5s, opacity 0.3s;
     -webkit-transition: left 0.5s, opacity 0.3s;
@@ -453,11 +457,6 @@ nav hr{
 [id='nav-toggle']:checked ~ #nasc{
     left: 0;
     opacity: 1;
-    /*box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
-    -webkit-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
-    -moz-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
-    -o-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);
-    -ms-box-shadow:4px 0px 20px 0px rgba(0,0,0, 0.5);*/
     overflow-y: auto
 }
 
@@ -518,6 +517,9 @@ nav hr{
 
 
 main{
+    width: 95%;
+    left: 44px;
+    position: relative;
     display: flex;
     justify-content: center;
     height: inherit
@@ -530,19 +532,9 @@ main a{
 }
 
 div.content{
-    /*margin: 90px 0 0 15%*/
-    /*
-    float: left;
-    width: 85%;
-    margin: 90px 0 0 285.5px
-    
-    padding: 90px 285.5px 0 285.5px;
-    */
     min-width: 50%;
     padding-top: 80px;
-    padding-left: 100px;
-    /*width: 85%;*/
-    max-width: 85%
+    max-width: 95%
 }
 
 div.content-centre{
@@ -927,7 +919,11 @@ div.categoria_user_nome{
     align-items: center
 }
 
-a.glyph-button{padding: 0 0.3em 0 0.3em}
+a.glyph-button, button.delete_button{
+    width: 30px;
+    height: 30px;
+    margin: 0 0.3em 0 0.3em
+}
 
 button.delete_button, button.add_button, button.cross_button{
     width: 30px;
@@ -1165,24 +1161,31 @@ div.info-titolo{
     word-wrap: break-word
 }
 
+div.ilikeit-box{
+}
+
 button.ili{
     background-color: transparent;
     color: transparent;
     border: none;
     background-image: url(../sources/images/star-e.png);
-    background-size: 40px;
+    background-size: 35px;
     background-position: center;
     background-repeat: no-repeat;
-    width: 40px;
-    height: 40px;
     animation: myzoom 0.7s ease-in-out;
     -webkit-animation: myzoom 0.7s ease-in-out;
     -moz-animation: myzoom 0.7s ease-in-out;
-    -o-animation: myzoom 0.7s ease-in-out
+    -o-animation: myzoom 0.7s ease-in-out;
+    width: 35px;
+    height: 35px
 
 }
 
 button.ili:hover{background-image: url(../sources/images/star-f.png)}
+
+button#no_ili{background-image: url(../sources/images/star-r.png)}
+
+button#no_ili:hover{opacity: 0.7}
 
 /*  scroll
 div.info-titolo{
@@ -1195,21 +1198,23 @@ div.info-titolo{
 
 div#info-eti{
     display: flex;
+    flex-direction: row;
     align-items: center;
-    max-width: 100%;
-    overflow-y: scroll
+    width: 100%;
+    overflow-x: hidden
 }
 
 input[name="newtag"]{
     width: auto;
     margin-left: 0.15em;
+    padding-left: 0.7em;
     border-radius: 100em
 }
 
 div.info-descrizione{
     word-wrap: break-word;
     height: 34%;
-    margin: 0.5em 0.5em 0.5em 0;
+    margin: 0.5em 0 0.5em 0;
     overflow-y: scroll
 }
 
@@ -1304,4 +1309,8 @@ div.show .oggetto:hover{cursor: zoom-in}
 audio{
     width: 100%;
     height: 100%
+}
+
+@media screen and (max-width: 750px){
+    a#primo, a#head_usr{display: none}
 }

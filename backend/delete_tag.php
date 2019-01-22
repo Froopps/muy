@@ -11,7 +11,7 @@
         exit();
 
     #controllo se altro utente o utente non iscritto sta cercando di eliminare tag
-    $query="SELECT proprietario FROM `oggettomultimediale` WHERE percorso='".escape($path,$connected_db)."'";
+    $query="SELECT proprietario FROM `oggettoMultimediale` WHERE percorso='".escape($path,$connected_db)."'";
     $res=$connected_db->query($query);
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
@@ -25,7 +25,7 @@
         exit();
     }
 
-    echo $query="DELETE FROM `contenutotaggato` WHERE tag='".escape($_POST["tag"],$connected_db)."' AND oggetto='".escape($path,$connected_db)."'";
+    echo $query="DELETE FROM `contenutoTaggato` WHERE tag='".escape($_POST["tag"],$connected_db)."' AND oggetto='".escape($path,$connected_db)."'";
     $res=$connected_db->query($query);
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
@@ -34,7 +34,7 @@
     }
 
     #check and delete unassigned tags
-    $query="DELETE FROM `categoria` WHERE tag NOT IN (SELECT tag FROM contenutotaggato)";
+    $query="DELETE FROM `categoria` WHERE tag NOT IN (SELECT tag FROM contenutoTaggato)";
     $res=$connected_db->query($query);
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);

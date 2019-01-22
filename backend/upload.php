@@ -133,7 +133,7 @@
     $query="INSERT INTO oggettoMultimediale (".$query_columns.") VALUES (".$query_values.")";
     $res=$connected_db->query($query);
     if(!$res){
-        $redirect_with_error.=urlencode("Errore nella connessione con il database 1");
+        $redirect_with_error.=urlencode("Errore nella connessione con il database");
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
         goto error;
     }
@@ -159,6 +159,14 @@
             break;
     }
 
+    $query="UPDATE canale SET dataUltimoInserimento='".date('Y-m-d')."' WHERE nome='".escape($_POST["channel"],$connected_db)."' AND proprietario='".escape($_SESSION["email"],$connected_db)."'";
+    $res=$connected_db->query($query);
+    if(!$res){
+        $redirect_with_error.=urlencode("Errore nella connessione con il database");
+        log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+        goto error;
+    }
+
     #etichette
     if(!(empty($_POST["tag"]))){
         if($_POST["tag"][0]=="#"){
@@ -178,7 +186,7 @@
                 $query="SELECT * FROM `categoria` WHERE tag='#".escape($tag,$connected_db)."'";
                 $res=$connected_db->query($query);
                 if(!$res){
-                    $redirect_with_error.=urlencode("Errore nella connessione con il database 2");
+                    $redirect_with_error.=urlencode("Errore nella connessione con il database");
                     log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                     goto error;
                 }
@@ -187,7 +195,7 @@
                     $query="INSERT INTO categoria (tag) VALUES ('#".escape($tag,$connected_db)."')";
                     $res=$connected_db->query($query);
                     if(!$res){
-                        $redirect_with_error.=urlencode("Errore nella connessione con il database 3");
+                        $redirect_with_error.=urlencode("Errore nella connessione con il database");
                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                         goto error;
                     }

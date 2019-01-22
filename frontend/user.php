@@ -88,9 +88,13 @@
                             $no_channel=0;
                             echo "<div class=\"categoria\">";
                                 echo "<div class=\"categoria_user_nome\">";
-                                    echo "<a class=\"categoria_titolo\" href=\"categoria.php?tag=".htmlentities(urlencode($row["nome"]))."&s=c&user=".htmlentities(urlencode($_GET["user"]))."\">".stripslashes($row["nome"])."</a>";
+                                    if($self||$row["visibilita"]=="public")
+                                        echo "<a class=\"categoria_titolo\" href=\"canale.php?nome=".htmlentities(urlencode($row["nome"]))."&proprietario=".htmlentities(urlencode($_GET["user"]))."\">".stripslashes($row["nome"])."</a>";
+                                    else
+                                        echo "<h2>".stripslashes($row["nome"])."</h2>";
                                     if($self){
-                                        echo "<div>";
+                                        echo "<div class=\"flex-center\">";
+                                            echo "<button class=\"delete_button\" onclick=\"delete_channel(this,'".$row["nome"]."','".$row["proprietario"]."')\"></button>";
                                             echo "<a class=\"glyph-button\" href=\"channel_mod.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/pencil.png\" width=\"30px\" alt=\"Modifica\"></a>";
                                             echo "<a class=\"glyph-button\" href=\"upload.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/plus.png\" width=\"30px\" alt=\"Aggiungi\"></a>";
                                         echo "</div>";
