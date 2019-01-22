@@ -151,7 +151,7 @@ function get_today_friends_content($who,$connected_db,$offset){
 }
 
 function get_most_visited($type,$connected_db){
-    $query="SELECT * FROM oggettoMultimediale WHERE tipo='$type' ORDER BY visualizzazioni DESC LIMIT 10 OFFSET 0";
+    $query="SELECT * FROM oggettoMultimediale JOIN canale ON (oggettoMultimediale.proprietario=canale.proprietario AND oggettoMultimediale.canale=canale.nome) WHERE tipo='$type' AND visibilita='public' ORDER BY visualizzazioni DESC LIMIT 10 OFFSET 0";
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
@@ -166,6 +166,7 @@ function get_channel_visibility($channel,$user,$connected_db){
     $row=$res->fetch_assoc();
     return $row["visibilita"];
 }
+
 
 #tutti gli utenti che hanno almeno tre video,di cui ognuno ha almeno dieci mi piace ordinati per somma
 function get_top_vip_users($connected_db){
@@ -192,6 +193,15 @@ function get_near_friends($who,$connected_db,$offset){
 function get_top_vip($connected_db){
     $more_than_ten="SELECT relativoA FROM valutazione GROUP BY relativoA HAVING COUNT(*)>=10";
     $query="SELECT proprietario, SUM(voto-1) AS s FROM valutazione JOIN oggettoMultimediale ON percorso=relativoA WHERE relativoA IN ($more_than_ten) GROUP BY proprietario HAVING COUNT(DISTINCT relativoA)>=3 ORDER BY s DESC LIMIT 10";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
+
+function get_top_tags($connected_db){
+    $query="SELECT tag, AVG(voto-1) AS media FROM contenutoTaggato JOIN valutazione ON (contenutoTaggato.oggetto=valutazione.relativoA) WHERE voto>'0' GROUP BY tag ORDER BY media DESC LIMIT 10 OFFSET 0";
+
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);

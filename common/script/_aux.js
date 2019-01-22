@@ -132,7 +132,7 @@ function comment(comment,content,list,author,pic,email){
         if(xhr.readyState==4 && xhr.status==200){
             var response = xhr.responseText
             if(response=="sign in")
-                alert("Registrati per commentare")
+                alert("Accedi per commentare")
             else if(response=="no comment")
                 alert("Scrivi un commento prima")
             else if(response=="too many")
@@ -370,6 +370,106 @@ function like_it(percorso,voto){
     xhr.send(par)
 }
 
+function new_channel(name,label,type){
+
+    name = document.getElementsByName(name)[0]
+    label = document.getElementsByName(label)[0]
+    type = document.getElementsByName(type)[0]
+    var par = "channel_name="+name.value+"&label="+label.value+"&channel_type="+type.value
+    
+    xhr = ajaxRequest()
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState==4 && xhr.status==200){
+            var response = xhr.responseText
+            if(response=="db_err")
+                alert("Errore nella connessione con il database")
+            else if(response=="data_miss")
+                alert("Inserire tutti i dati necessari")
+            else if(response=="duplicate")
+                alert("Hai già un canale con questo nome")
+            else if(response=="long")
+                alert("Il nome del canale è troppo lungo")
+            else if(response=="type_err")
+                alert("Esprimere un valore di visibilità sensato")
+            else{
+                console.log()
+                if(document.getElementById("no-ch")!=null)
+                    document.getElementById("no-ch").style.display = 'none'
+                
+                document.getElementById("modal_bg_2").style.display = 'none'
+
+                var canale = document.createElement("div")
+                canale.classList.add("categoria")
+                document.getElementsByClassName("content")[0].appendChild(canale)
+
+                var head = document.createElement("div")
+                head.classList.add("categoria_user_nome")
+                canale.appendChild(head)
+
+                var node1 = document.createElement("a")
+                node1.classList.add("categoria_titolo")
+                node1.href = "canale.php?nome="+name.value+"&proprietario="+response
+                var textnode = document.createTextNode(name.value)
+                node1.appendChild(textnode)
+                head.appendChild(node1)
+
+                node1 = document.createElement("div")
+                node1.classList.add("flex-center")
+                head.appendChild(node1)
+
+                var node2 = document.createElement("button")
+                node2.classList.add("delete_button")
+                node2.addEventListener("click",function(){delete_channel(this,name.value,response)})
+                node1.appendChild(node2)
+
+                node2 = document.createElement("a")
+                node2.classList.add("glyph-button")
+                node2.href = "upload.php?canale="+name.value
+                node1.appendChild(node2)
+
+                node1 = node2
+                node2 = document.createElement("img")
+                node2.src = "../sources/images/plus.png"
+                node2.alt = "Aggiungi"
+                node2.width = "30"
+                node1.appendChild(node2)
+
+                node1 = document.createElement("hr")
+                node1.align = "left"
+                canale.appendChild(node1)
+
+                node1 = document.createElement("div")
+                node1.classList.add("eticanale")
+                canale.appendChild(node1)
+
+                node2 = document.createElement("div")
+                node2.classList.add("can-vis")
+                textnode = document.createTextNode("#"+type.value)
+                node2.appendChild(textnode)
+                node1.appendChild(node2)
+
+                node1 = document.createElement("div")
+                node1.classList.add("scrollbar")
+                canale.appendChild(node1)
+
+                node2 = document.createElement("span")
+                node2.classList.add("message_span")
+                textnode = document.createTextNode("Non c'è nessun elemento da mostrare")
+                node2.appendChild(textnode)
+                node1.appendChild(node2)
+
+                name.value = ""
+                label.value = ""
+                type.value = "public"
+            }
+        }
+    }
+    xhr.open("POST","http://localhost/muy/backend/new_channel.php",true)
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
+    xhr.send(par)
+
+}
+
 function delete_channel(button,channel,user){
 
     if(confirm("Conferma eliminazione")){
@@ -377,6 +477,7 @@ function delete_channel(button,channel,user){
         xhr.onreadystatechange = function(){
             if(xhr.readyState==4 && xhr.status==200){
                 var response = xhr.responseText
+    console.log(response)
                 if(response=="denied")
                     alert("Accesso negato")
                 else

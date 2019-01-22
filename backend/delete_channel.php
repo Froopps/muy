@@ -30,8 +30,6 @@
             rmdir($path.$row["percorso"]."/../");
         }
     }
-    rmdir($path."/content/".$_POST["proprietario"]."/".$_POST["nome"]);
-
     $query="DELETE FROM `canale` WHERE nome='".escape($_POST["nome"],$connected_db)."' AND proprietario='".escape($_POST["proprietario"],$connected_db)."'";
     $res=$connected_db->query($query);
     if(!$res){
@@ -39,6 +37,8 @@
         $connected_db->close();
         exit();
     }
+
+    rmdir($path."/content/".$_POST["proprietario"]."/".$_POST["nome"]);
 
     echo "ok";
     $connected_db->close();

@@ -22,7 +22,7 @@
             exit();
         }
         
-        echo "<title>MyUNIMIYoutube | ".$row["nickname"]."</title>";
+        echo "<title>MUY | ".$row["nickname"]."</title>";
         include "../common/head.php";
     ?>
 </head>
@@ -66,7 +66,7 @@
                         if($self){
                             echo "<div class=\"flex-col\">";
                             echo "<div><button class=\"in_notext\" type=\"button\" onclick=\"document.getElementById('modal_bg_2').style.display='flex'\">Nuovo canale</button></div>";
-                            echo "<div><form action=\"../backend/delete_user.php\" method=\"get\"><button class=\"in_notext\" id=\"delete\" type=\"submit\">Elimina utente</button></form></div>";
+                            echo "<div><form action=\"../backend/delete_user.php\" method=\"get\" onsubmit=\"confirm('Conferma eliminazione')\"><button class=\"in_notext\" id=\"delete\" type=\"submit\">Elimina utente</button></form></div>";
                             echo "</div>";
                         }
                     ?>
@@ -95,7 +95,6 @@
                                     if($self){
                                         echo "<div class=\"flex-center\">";
                                             echo "<button class=\"delete_button\" onclick=\"delete_channel(this,'".$row["nome"]."','".$row["proprietario"]."')\"></button>";
-                                            echo "<a class=\"glyph-button\" href=\"channel_mod.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/pencil.png\" width=\"30px\" alt=\"Modifica\"></a>";
                                             echo "<a class=\"glyph-button\" href=\"upload.php?canale=".htmlentities(urlencode($row["nome"]))."\"><img src=\"../sources/images/plus.png\" width=\"30px\" alt=\"Aggiungi\"></a>";
                                         echo "</div>";
                                     }
@@ -140,7 +139,7 @@
                         }
                     }
                     if($no_channel)
-                        echo "<span class='message_span'>Non c'è nessun canale da mostrare</span>";
+                        echo "<span id='no-ch' class='message_span'>Non c'è nessun canale da mostrare</span>";
                     $connected_db->close();
                 ?>
                 

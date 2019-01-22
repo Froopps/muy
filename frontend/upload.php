@@ -26,7 +26,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | Upload</title>
+	<title>MUY | Upload</title>
 	
     <?php include "../common/head.php"; ?>
 </head>

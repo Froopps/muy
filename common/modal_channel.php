@@ -3,25 +3,22 @@
         <div class="closure_cross_container">
             <span class="closure_cross" onclick="document.getElementById('modal_bg_2').style.display='none'">&times</span>
         </div>
-        <form class="modal_login" method="post" action="../backend/new_channel.php">
-            <?php
-                echo "<input type='hidden' name='owner' value=\"".escape($_SESSION["email"],$connected_db)."\">";
-            ?>
+        <div class="modal_login">
             <div class="modal_group">
                 <label for="channel_name">Nome Canale:</label>
                 <input type="text" class="modal_text" name="channel_name" required>
             </div>
             <div class="modal_group">
                 <label for="label">Etichetta:</label>
-                <input type="text" class="modal_text" name="label">
+                <input type="text" class="modal_text" name="label" placeholder="inserisci etichette separate da virgole">
             </div>
             <select class="src_type sel_channel_vis" name="channel_type">
                 <option value="public">Pubblico</option>
                 <option value="social">Social</option>
                 <option value="private">Privato</option>
             </select>
-            <div class="modal_group"><input class="modal_button"  type="submit" value="Crea"></div>
-        </form>
+            <div class="modal_group"><input class="modal_button"  type="submit" value="Crea" onclick="new_channel('channel_name','label','channel_type')"></div>
+        </div>
         <div class="closure_cross_container"></div>
     </div>
 </div>

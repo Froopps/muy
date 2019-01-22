@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | <?php echo $tag=$_GET["tag"]; ?></title>
+	<title>MUY | <?php echo $tag=$_GET["tag"]; ?></title>
     
     <?php include "../common/head.php"; ?>
 </head>
@@ -39,19 +39,39 @@
                 <div>
                     <?php
                         if($error_connection["flag"]){
-                            echo "<span class='error_span>Errore nella connessione col server</span>";
+                            echo "<span class='error_span'>Errore nella connessione col server</span>";
                             exit();
                         }
-                        $query="SELECT * FROM contenutoTaggato JOIN oggettoMultimediale ON (contenutoTaggato.oggetto = oggettoMultimediale.percorso) WHERE tag='".escape($tag,$connected_db)."'";
+                        if(isset($_SESSION["email"])){
+                            $query="SELECT oggettoMultimediale.proprietario, canale.visibilita, oggettoMultimediale.extID, oggettoMultimediale.percorso, oggettoMultimediale.anteprima, oggettoMultimediale.titolo, oggettoMultimediale.visualizzazioni, oggettoMultimediale.canale FROM contenutoTaggato JOIN oggettoMultimediale ON contenutoTaggato.oggetto=oggettoMultimediale.percorso JOIN canale ON (oggettoMultimediale.proprietario=canale.proprietario AND oggettoMultimediale.canale=canale.nome) WHERE tag='".escape($tag,$connected_db)."'";
+                            $relationship="";
+                        }else
+                            $query="SELECT * FROM contenutoTaggato JOIN oggettoMultimediale ON contenutoTaggato.oggetto=oggettoMultimediale.percorso JOIN canale ON (oggettoMultimediale.proprietario=canale.proprietario AND oggettoMultimediale.canale=canale.nome) WHERE tag='".escape($tag,$connected_db)."' AND visibilita='public'";
                         $res=$connected_db->query($query);
                         if(!$res){
                             log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                             echo "<span class='error_span>Errore nella connessione col server</span>";
                             exit();
                         }
-                        while($row=$res->fetch_assoc()){
-                            display_multimedia_object($row,$connected_db);
-                        }
+                        if($res->num_rows>0){
+                            while($row=$res->fetch_assoc()){
+                                if(isset($_SESSION["email"])){
+                                    if($_SESSION["email"]==$row["proprietario"])
+                                        display_multimedia_object($row,$connected_db);
+                                    else{
+                                        if($row["visibilita"]=="public")
+                                            display_multimedia_object($row,$connected_db);
+                                        else if($row["visibilita"]=="social"){
+                                            $relationship=get_relationship($_SESSION["email"],$row["proprietario"],$connected_db);
+                                            if($relationship=="a")
+                                                display_multimedia_object($row,$connected_db);
+                                        }
+                                    }
+                                }else
+                                    display_multimedia_object($row,$connected_db);
+                            }
+                        }else
+                            echo "<span class='error_span'>Non puoi vedere nessun contenuto con questo tag</span>";
                     ?>
                 </div>
                 </div>

@@ -13,7 +13,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | Base</title>
+	<title>MUY | Ricerca</title>
     
     <?php include "../common/head.php"; ?>
 </head>
