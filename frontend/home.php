@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | Home</title>
+	<title>MUY | Home</title>
     
     <?php 
         include "../common/head.php";

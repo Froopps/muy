@@ -44,7 +44,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | Canale</title>
+	<title>MUY | Canale</title>
     
     <?php include "../common/head.php"; ?>
 </head>

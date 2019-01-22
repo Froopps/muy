@@ -42,7 +42,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | <?php echo $row["titolo"]; ?></title>
+	<title>MUY | <?php echo $row["titolo"]; ?></title>
     
     <?php include "../common/head.php"; ?>
 </head>

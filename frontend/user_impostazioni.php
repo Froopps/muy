@@ -18,7 +18,7 @@
 <html>
 
 <head>
-    <title>MyUNIMIYoutube | Impostazioni</title>
+    <title>MUY | Impostazioni</title>
     <link rel="stylesheet" href="../node_modules/croppie/croppie.css">
     
     <?php include "../common/head.php"; ?>

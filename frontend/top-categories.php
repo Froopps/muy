@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | Top categories</title>
+	<title>MUY | Top categories</title>
     
     <?php include "../common/head.php"; ?>
 </head>

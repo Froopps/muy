@@ -19,7 +19,7 @@
 <html>
 
 <head>
-    <title>MyUNIMIYoutube | Amici</title>
+    <title>MUY | Amici</title>
     
     <?php include "../common/head.php"; ?>
 </head>

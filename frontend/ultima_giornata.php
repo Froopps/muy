@@ -13,7 +13,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | Ultimi Upload</title>
+	<title>MUY | Ultimi Upload</title>
     
     <?php include "../common/head.php"; ?>
 </head>

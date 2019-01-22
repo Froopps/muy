@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | <?php echo $tag=$_GET["tag"]; ?></title>
+	<title>MUY | <?php echo $tag=$_GET["tag"]; ?></title>
     
     <?php include "../common/head.php"; ?>
 </head>

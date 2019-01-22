@@ -6,7 +6,7 @@
 <html>
 
 <head>
-	<title>MyUNIMIYoutube | Login</title>
+	<title>MUY | Login</title>
     
     <?php include "../common/head.html"; ?>
 </head>
