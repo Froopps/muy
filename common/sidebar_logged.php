@@ -21,7 +21,7 @@
         <li><a href="../frontend/top-users.php">Top users</a></li>
         <li><a href="../frontend/top-categories.php">Top categories</a></li>
         <li><a href="../frontend/etichette.php">Etichette</a></li>
-        <li><a href="../frontend/ultima_giornata.php">La tua giornata</a></li>
+        <li><a href="../frontend/ultima_giornata.php">Ultima giornata</a></li>
         <li class="no_link">Account<hr></li>
         <?php
             echo "<li><a href='../frontend/user.php?user=".htmlentities(urlencode($_SESSION["email"]))."'>".$_SESSION["nome"]."</a></li>";
