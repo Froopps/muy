@@ -1,11 +1,12 @@
+<label for="nav-toggle" class="burger">
+    <!-- logo hamburger -->
+    <div class="ham"></div>
+    <div class="ham"></div>
+    <div class="ham"></div>
+</label>
+
 <nav>
     <input type="checkbox" id="nav-toggle" hidden>
-    <label for="nav-toggle" class="burger">
-        <!-- logo hamburger -->
-        <div class="ham"></div>
-        <div class="ham"></div>
-        <div class="ham"></div>
-    </label>
     <span id="nasc">
     <ul>
         <li><a href="../frontend/home.php">Home</a></li>
@@ -19,3 +20,12 @@
     </ul>
     </span>
 </nav>
+
+<script>
+    function hide(elem) {
+        if(elem.parentElement.style.display == 'none')
+            elem.parentElement.style.display = 'block'
+        else
+            elem.parentElement.style.display = 'none'
+    }
+</script>

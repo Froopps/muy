@@ -10,7 +10,7 @@ function get_user_by_email($mail,$connected_db){
 }
 
 function get_channel_by_owner($mail,$connected_db){
-    $query="SELECT * FROM canale WHERE proprietario='".escape($mail,$connected_db)."'";
+    $query="SELECT * FROM canale WHERE proprietario='".escape($mail,$connected_db)."' ORDER BY dataUltimoInserimento DESC";
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
@@ -72,7 +72,7 @@ function get_content_by_id($id,$connected_db){
 }
 
 function get_content_tag($path,$connected_db){
-    $query="SELECT tag FROM contenutotaggato WHERE oggetto='".escape($path,$connected_db)."' ORDER BY dataAssegnamento ASC";
+    $query="SELECT tag FROM contenutoTaggato WHERE oggetto='".escape($path,$connected_db)."' ORDER BY dataAssegnamento ASC";
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);

@@ -24,13 +24,18 @@
         $self=true;
     #controlli amicizia e visibilità
     #see getter functions
-    $vis=get_channel_visibility($_GET["nome"],$_GET["proprietario"],$connected_db);
+    $vis=get_channel_visibility($row["canale"],$row["proprietario"],$connected_db);
     if(!$self){
-        $relationship=get_relationship($_SESSION["email"],$_GET["proprietario"],$connected_db);
         if($vis=="private")
             header($redirect_with_error.urlencode("Accesso negato"));
-        else if($vis=="social"&&relationship!="a")
-            header($redirect_with_error.urlencode("Accesso negato"));
+        else if($vis=="social"){
+            if(isset($_SESSION["email"])){
+                $relationship=get_relationship($_SESSION["email"],$row["proprietario"],$connected_db);
+                if($relationship!="a")
+                    header($redirect_with_error.urlencode("Accesso negato"));
+            }else
+                header($redirect_with_error.urlencode("Accesso negato"));
+        }
     }
 ?>
 

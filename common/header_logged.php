@@ -16,7 +16,7 @@
     </form>
     <span>
         <?php
-            echo "<a href='../frontend/user.php?user=".htmlentities(urlencode($_SESSION["email"]))."'>".$_SESSION["nome"]."</a>";
+            echo "<a id='head_usr' href='../frontend/user.php?user=".htmlentities(urlencode($_SESSION["email"]))."'>".$_SESSION["nome"]."</a>";
         ?>
         <a href="../backend/esci.php">Esci</a>
     </span>

@@ -85,7 +85,7 @@
     echo "<br>";
     echo "<br>";
     while($row=$res->fetch_assoc()){
-        echo $pippo=$row["oggetto"];
+        echo $row["oggetto"][1];
         echo "<br>";
     }
     echo "<br>";

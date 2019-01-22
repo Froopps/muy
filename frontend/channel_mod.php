@@ -33,7 +33,7 @@
                         header($redirect_with_error);
                         exit();
                     }
-                    $query="SELECT * FROM `oggettomultimediale` WHERE canale='".escape($canale,$connected_db)."' AND proprietario='".escape($_SESSION["email"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
+                    $query="SELECT * FROM `oggettoMultimediale` WHERE canale='".escape($canale,$connected_db)."' AND proprietario='".escape($_SESSION["email"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
                     $res=$connected_db->query($query);
                     if(!$res){
                         $connected_db->close();
@@ -51,7 +51,7 @@
                     if($no_content)
                         echo "<span class='message_span'>Non hai ancora caricato nessun contenuto</span>";
                 
-                    $query="SELECT * FROM `oggettomultimediale` WHERE canale='".escape($canale,$connected_db)."' AND proprietario='".escape($_SESSION["email"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
+                    $query="SELECT * FROM `oggettoMultimediale` WHERE canale='".escape($canale,$connected_db)."' AND proprietario='".escape($_SESSION["email"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
                     $res=$connected_db->query($query);
                     if(!$res){
                         $connected_db->close();

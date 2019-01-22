@@ -64,7 +64,7 @@
                             }else
                                 echo "yes ".$_GET["s"];
                         }else{
-                            $query="SELECT * FROM contenutotaggato JOIN oggettomultimediale ON (contenutotaggato.oggetto = oggettomultimediale.percorso) WHERE tag='".escape($tag,$connected_db)."'";
+                            $query="SELECT * FROM contenutoTaggato JOIN oggettoMultimediale ON (contenutoTaggato.oggetto = oggettoMultimediale.percorso) WHERE tag='".escape($tag,$connected_db)."'";
                             $res=$connected_db->query($query);
                             if(!$res){
                                 $redirect_with_error.=urlencode("Errore nella connessione con il database");

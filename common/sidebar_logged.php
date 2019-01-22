@@ -1,15 +1,17 @@
 <?php
     include_once "modal_channel.php"
 ?>
+
+<label class="burger" onclick="hide(getElementById('nav-toggle'))">
+    <!-- logo hamburger -->
+    <div class="ham"></div>
+    <div class="ham"></div>
+    <div class="ham"></div>
+</label>
+
 <nav>
     <input type="checkbox" id="nav-toggle" hidden>
-    <label for="nav-toggle" class="burger">
-    <!--<label class="burger" onclick="hide()">-->
-        <!-- logo hamburger -->
-        <div class="ham"></div>
-        <div class="ham"></div>
-        <div class="ham"></div>
-    </label>
+    <!--<label for="nav-toggle" class="burger">-->
     <span id="nasc">
     <!--<span id="nasc" style="left: -300px">-->
     <ul>
@@ -33,32 +35,10 @@
 </nav>
 
 <script>
-    function hide() {
-        /*
-        var bar = document.getElementById("nasc")
-        var cont = document.getElementsByClassName("content")[0]
-        var style = getComputedStyle(bar)
-        */
-        var s = document.styleSheets[0]
-
-        for(var i = 0; i < s.cssRules.length; i++) {
-            var rule = s.cssRules[i];
-            if(rule.selectorText === "#nasc") {
-                if(rule.style.display!="none")
-                    rule.style.display = "none"
-                else
-                    rule.style.display = "block"
-                return;
-            }
-        }
-        /*
-        if (bar.style.left=="0px") {
-            bar.style.left = "-300px"
-            cont.style.transform = "translateX(-200px)"
-        }else{
-            bar.style.left = "0"
-            cont.style.transform = "translateX(0px)"
-        }
-        */
+    function hide(elem) {
+        if(elem.parentElement.style.display == 'none')
+            elem.parentElement.style.display = 'block'
+        else
+            elem.parentElement.style.display = 'none'
     }
 </script>

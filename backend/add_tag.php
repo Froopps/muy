@@ -64,7 +64,7 @@
             }
         }
         
-        $query="SELECT * FROM `contenutotaggato` WHERE tag='#".escape($tag,$connected_db)."' AND oggetto='".escape($path,$connected_db)."'";
+        $query="SELECT * FROM `contenutoTaggato` WHERE tag='#".escape($tag,$connected_db)."' AND oggetto='".escape($path,$connected_db)."'";
         $res=$connected_db->query($query);
         if(!$res){
             echo "err_db";
@@ -73,7 +73,7 @@
         }
         $row=$res->fetch_assoc();
         if(empty($row)){
-             $query="INSERT INTO contenutotaggato (tag,oggetto,dataAssegnamento) VALUES ('#".escape($tag,$connected_db)."','".escape($path,$connected_db)."','".date('Y-m-d H:i:s')."')";
+             $query="INSERT INTO contenutoTaggato (tag,oggetto,dataAssegnamento) VALUES ('#".escape($tag,$connected_db)."','".escape($path,$connected_db)."','".date('Y-m-d H:i:s')."')";
              $res=$connected_db->query($query);
              if(!$res){
                 echo "err_db";

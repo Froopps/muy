@@ -12,7 +12,7 @@
         exit();
 
     #controllo se altro utente o utente non iscritto sta cercando di commmentare
-    $query="SELECT proprietario FROM `oggettomultimediale` WHERE percorso='".escape($path,$connected_db)."'";
+    $query="SELECT proprietario FROM `oggettoMultimediale` WHERE percorso='".escape($path,$connected_db)."'";
     $res=$connected_db->query($query);
     if(!$res){
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
