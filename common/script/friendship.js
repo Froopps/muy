@@ -31,7 +31,10 @@ function refresh_friendslist(action,button){
     xhr.onreadystatechange=function(){
         if(xhr.readyState==4 && xhr.status==200){
             //cercare l'ultimo elemento di blocco con classe four_more per inserire i nuovi risultati
-            search_the_last(document.getElementsByClassName(table[action])[0].lastChild,'four_more').innerHTML=xhr.responseText
+            //search_the_last(document.getElementsByClassName(table[action])[0].lastChild,'four_more').innerHTML=xhr.responseText
+            var w_b=document.createElement('div')
+            w_b.innerHTML=xhr.responseText
+            document.getElementsByClassName(table[action])[0].appendChild(w_b)
         }
     }
     xhr.send()
@@ -67,4 +70,28 @@ function up_status(action,object,button){
         }
     }
     xhr.send(par)
+}
+
+function del_pending(button){
+    if(confirm("Una volta effettuata l'operazione tutte le richieste da te inviate saranno ritirate")){
+        xhr=ajaxRequest()
+        console.log('ya')
+        xhr.open("GET","http://localhost/muy/backend/delete_pending.php")
+        button.disabled=true
+        button.style.display='none'
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+            
+                console.log(xhr.responseText)
+                var error=JSON.parse(xhr.responseText)
+            
+                if(error.error)
+                    append_error_atop(error.childNodes[0].childNodes[0].nodeValue)
+                else
+                    button.innerHTML="Eliminate con successo"
+                    button.style.display='inline-block'
+            }
+        }
+        xhr.send()
+    }
 }

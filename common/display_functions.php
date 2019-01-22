@@ -75,9 +75,7 @@
         $res=get_user_by_email($info["proprietario"],$connected_db);
         
         if(!$res){
-            $redirect_with_error.="Errore nella connessione con il database";
-            header($redirect_with_error);
-            $connected_db->close();
+            echo "<span class='error_span>Errore nella connessione col server</span>";
             exit();
         }
         $row=$res->fetch_assoc();
@@ -103,8 +101,6 @@
             echo "</div>";
         }
         if(!$no_more){
-            #se possono esserci risultati successivi, inserisci nel DOM un elemento in cui inserirli tramite chiamata AJAX
-            echo "<div class='four_more'></div>";
             #e un bottone 'altro' dal cui valore dipenderà l'offset con cui fare la query per mostrare altri risultati
             echo "<div class='error_div'><span><button class='in_notext show_more' style='background-color:#837d7d' value='$next' type='button' onclick=\"refresh_friendslist('$action',this)\">Altro</button></span></div>";
         }
@@ -143,15 +139,14 @@
         echo "</div>";
     }
 
-    function display_tag_mosaic($tag,$connected_db){
+    function display_tag_mosaic($tag){
+        global $connected_db;
         if($tag[0]!="#")
             $tag="#".$tag;
         $query="SELECT anteprima FROM `contenutoTaggato` JOIN `oggettoMultimediale` ON oggetto=percorso WHERE tag='".escape($tag,$connected_db)."' AND anteprima!='/defaults/default-audio.png' AND anteprima!='/defaults/default-image.png' ORDER BY RAND()";
         $res=$connected_db->query($query);
         if(!$res){
-            $redirect_with_error.="Errore nella connessione con il database";
-            header($redirect_with_error);
-            $connected_db->close();
+            echo "<span class='error_span>Errore nella connessione col server</span>";
             exit();
         }
         
@@ -190,7 +185,8 @@
                         "oggettoMultimediale"=>array("anteprima","titolo","watch.php?",array("id"),array("extID"),"tipo","Tipologia: "),
                         #utilizzata la stessa logica anche per fare il refresh della lista dei contenuti caricati nell'ultima giornata
                         #vedi ultima_giornata.php
-                        "todayContent"=>array("anteprima","titolo","watch.php?",array("id"),array("extID"),"tipo","Tipologia: ")
+                        "todayContent"=>array("anteprima","titolo","watch.php?",array("id"),array("extID"),"tipo","Tipologia: "),
+                        "categoria"=>array("special","tag","categoria.php?",array("tag"),array("tag"),"data","","")
         );
         $content_type=array("v"=>"Video","a"=>"Audio","i"=>"Immagine");
         $no_more=false;
@@ -212,8 +208,6 @@
             display_search_entry($row[$mapping[$query][0]],$row[$mapping[$query][1]],$mapping[$query][2],$link_id,$side_info);
         }
         if(!$no_more){
-            #se possono esserci risultati successivi, inserisci nel DOM un elemento in cui inserirli tramite chiamata AJAX
-            echo "<div class='wrapper_block'></div>";
             #e un bottone 'altro' dal cui valore dipenderà l'offset con cui fare la query per mostrare altri risultati
             echo "<div class='error_div'><span><button class='in_notext show_more' style='background-color:#837d7d' value='$next' type='button' onclick=\"refresh_search_res('$query',this,'$pattern')\">Altro</button></span></div>";
         }
@@ -228,9 +222,14 @@
         $link_page.=$link_id;
         $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
         $pro_pic_alt="Spiacenti foto non trovata";
-        if(!file_exists(stripslashes($pro_pic."/".$foto)))
-            log_into("Can't find profile pic at ".$pro_pic."/".$foto);
-        $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".stripslashes($foto)));
+        #se l'utente ha cercato una categoria stampare il mosaico
+        if($foto=='special')
+            display_tag_mosaic($link_id);
+        else{
+            if(!file_exists(stripslashes($pro_pic."/".$foto)))
+                log_into("Can't find profile pic at ".$pro_pic."/".$foto);
+            $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($pro_pic."/".stripslashes($foto)));
+        }
 
         echo "<li class='search_results_entry'>";
             echo "<div class='search_foto'>";

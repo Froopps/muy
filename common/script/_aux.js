@@ -339,15 +339,17 @@ function del_eti(eti,id,elem){
 
 function ground_like_stars(){
     var starz=document.getElementsByClassName('ili')
-    for(i=0;i<5;i++)
+    for(i=0;i<5;i++){
+        console.log(i)
         starz[i].style.backgroundImage="url(../sources/images/star-e.png)"
+    }
 }
 
 function up_like_stars(value){
     var starz=document.getElementsByClassName('ili')
     for(i=0;i<value;i++)
         starz[i].style.backgroundImage="url(../sources/images/star-f.png)"
-    for(i=value;i<starz.length;i++)
+    for(i=value;i<starz.length-1;i++)
         starz[i].style.backgroundImage="url(../sources/images/star-e.png)"
 }
 
@@ -356,7 +358,7 @@ function like_it(percorso,voto){
     console.log(percorso,voto)
     var par="relativoA="+percorso+"&voto="+voto
     xhr=ajaxRequest();
-    xhr.open("POST","http://localhost/muy/backend/test.php")
+    xhr.open("POST","http://localhost/muy/backend/like_it.php")
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){

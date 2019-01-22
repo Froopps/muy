@@ -35,49 +35,23 @@
                     }
                 ?>
                 <div class="categoria">
-                <div class="flex-space-between">
-                    <span><h2><?php echo $tag; ?></h2></span>
-                    <span>
-                        Ordina:
-                        <select name="sort">
-                            <option value="visual">Visualizzazioni</option>
-                            <option value="rating">Voto</option>
-                            <option value="newest">Più recenti</option>
-                            <option value="oldest">Più vecchi</option>
-                        </select>
-                    </span>
-                </div>
+                <h2><?php echo $tag; ?></h2>
                 <div>
                     <?php
-                        if(isset($_GET["s"]))
-                            $redirect_with_error="Location: http://localhost/muy/frontend/categoria.php?tag=".htmlentities(urlencode($_GET["tag"]))."&s=true&error=";
-                        else
-                            $redirect_with_error="Location: http://localhost/muy/frontend/categoria.php?tag=".htmlentities(urlencode($_GET["tag"]))."error=";
                         if($error_connection["flag"]){
-                            $redirect_with_error.=urlencode($error_connection["msg"]);
-                            header($redirect_with_error);
+                            echo "<span class='error_span>Errore nella connessione col server</span>";
                             exit();
                         }
-                        if(isset($_GET["s"])){
-                            #casi speciali
-                            if($_GET["s"]=="c"){
-                            }else
-                                echo "yes ".$_GET["s"];
-                        }else{
-                            $query="SELECT * FROM contenutotaggato JOIN oggettomultimediale ON (contenutotaggato.oggetto = oggettomultimediale.percorso) WHERE tag='".escape($tag,$connected_db)."'";
-                            $res=$connected_db->query($query);
-                            if(!$res){
-                                $redirect_with_error.=urlencode("Errore nella connessione con il database");
-                                log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                header($redirect_with_error);
-                                $connected_db->close();
-                                exit();
-                            }
-                            while($row=$res->fetch_assoc()){
-                                display_multimedia_object($row,$connected_db);
-                            }
+                        $query="SELECT * FROM contenutoTaggato JOIN oggettoMultimediale ON (contenutoTaggato.oggetto = oggettoMultimediale.percorso) WHERE tag='".escape($tag,$connected_db)."'";
+                        $res=$connected_db->query($query);
+                        if(!$res){
+                            log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
+                            echo "<span class='error_span>Errore nella connessione col server</span>";
+                            exit();
                         }
-                        $connected_db->close();
+                        while($row=$res->fetch_assoc()){
+                            display_multimedia_object($row,$connected_db);
+                        }
                     ?>
                 </div>
                 </div>

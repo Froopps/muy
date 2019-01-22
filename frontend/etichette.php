@@ -1,6 +1,12 @@
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
+    $redirect_with_error="Location: http://localhost/muy/frontend/etichette.php?error=";
+        if($error_connection["flag"]){
+            $redirect_with_error.=urlencode($error_connection["msg"]);
+            header($redirect_with_error);
+            exit();
+        }
 ?>
 
 <!DOCTYPE HTML>
@@ -36,19 +42,13 @@
                     }
                 ?>
                 <?php
-                    $redirect_with_error="Location: http://localhost/muy/frontend/etichette.php?error=";
-                        if($error_connection["flag"]){
-                            $redirect_with_error.=urlencode($error_connection["msg"]);
-                            header($redirect_with_error);
-                            exit();
-                        }
+                    
                     $query="SELECT tag FROM categoria WHERE 1 ORDER BY tag ASC";
                     $res=$connected_db->query($query);
                     if(!$res){
                         $redirect_with_error.=urlencode("Errore nella connessione con il database");
                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                        header($redirect_with_error);
-                        $connected_db->close();
+                        echo "<span class='error_span>Errore nella connessione col server</span>";
                         exit();
                     }
                     while($row=$res->fetch_assoc()){

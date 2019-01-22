@@ -129,20 +129,13 @@
                         <tr><td>Canale:</td><td class="left">
                             <select name="channel" required>
                                 <?php
-                                $redirect_with_error="Location: http://localhost/muy/home.php?error=";
-                                if($error_connection["flag"]){
-                                    $redirect_with_error.=urlencode($error_connection["msg"]);
-                                    header($redirect_with_error);
-                                    exit();
-                                }
                                 $query="SELECT nome FROM canale WHERE proprietario='".escape($_SESSION["email"],$connected_db);
                                 $query.="'";
                                 $res=$connected_db->query($query);
                                 if(!$res){
-                                    $redirect_with_error.=urlencode("Errore nella connessione con il database");
+                                    
                                     log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                    header($redirect_with_error);
-                                    $connected_db->close();
+                                    echo "<span class='error_span>Errore nella connessione col server</span>";
                                     exit();
                                 }
                                 while($row=$res->fetch_assoc()){

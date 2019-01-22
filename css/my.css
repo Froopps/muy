@@ -1174,7 +1174,12 @@ button.ili{
     background-position: center;
     background-repeat: no-repeat;
     width: 40px;
-    height: 40px
+    height: 40px;
+    animation: myzoom 0.7s ease-in-out;
+    -webkit-animation: myzoom 0.7s ease-in-out;
+    -moz-animation: myzoom 0.7s ease-in-out;
+    -o-animation: myzoom 0.7s ease-in-out
+
 }
 
 button.ili:hover{background-image: url(../sources/images/star-f.png)}

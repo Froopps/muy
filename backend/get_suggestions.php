@@ -4,6 +4,7 @@
 
     $valid=array('utente','oggettoMultimediale','canale','categoria');
     $mapping=array("utente"=>"nickname","oggettoMultimediale"=>"titolo","canale"=>"nome","categoria"=>"tag");
+   
     if(!(isset($_GET['table'])&&isset($_GET['pattern'])&&in_array($_GET['table'],$valid)))
         exit();
     switch($_GET['table']){

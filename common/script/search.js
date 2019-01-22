@@ -9,7 +9,7 @@ function suggestions_search(){
     }
     else{
         var xhr=ajaxRequest()
-        xhr.open("GET","http://localhost/muy/backend/get_suggestions.php?pattern="+bar.value+"&table="+type)
+        xhr.open("GET","http://localhost/muy/backend/get_suggestions.php?table="+type+"&pattern="+bar.value)
         xhr.responseType='text'
         block.style.display='flex'
         list.style.display='block'
@@ -41,7 +41,9 @@ function refresh_search_res(action,button,pattern){
     xhr.onreadystatechange=function(){
         if(xhr.readyState==4 && xhr.status==200){
             //cercare l'ultimo elemento di blocco con classe four_more per inserire i nuovi risultati
-            search_the_last(document.getElementsByClassName('search_results')[0].lastChild,'wrapper_block').innerHTML=xhr.responseText
+            var w_b=document.createElement('div')
+            w_b.innerHTML=xhr.responseText
+            document.getElementsByClassName('search_results')[0].appendChild(w_b)
         }
     }
     xhr.send()

@@ -83,6 +83,7 @@ function get_content_tag($path,$connected_db){
 #per ottenere risultati dalla ricerca di utente e categoria che sono sempre pubblici
 function get_public_result($table,$pattern,$connected_db,$offset,$limit=3,$suggestion=false){
     #per categoria e utente non c'è bisogno di verificare nessuna relzione di amicizia
+    $pattern=escape($pattern,$connected_db);
     $offset=$offset*3;
     $mapping=array("utente"=>"nickname","categoria"=>"tag");
     #mostra prima le tuple che hanno valore completamente uguale al pattern per quell'attributo, poi quelle che iniziano
@@ -93,7 +94,7 @@ function get_public_result($table,$pattern,$connected_db,$offset,$limit=3,$sugge
         $res=$connected_db->query($query2.$limit);
     else
         $res=$connected_db->query($query.$query2.$limit);
-    if(!$res)
+    if($res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
     return $res;
 }
@@ -101,6 +102,7 @@ function get_public_result($table,$pattern,$connected_db,$offset,$limit=3,$sugge
 function get_searched_channel($who,$pattern,$connected_db,$offset,$limit=3,$suggestion=false){
     #per contenuto e canale c'è bisogno di verificare nessuna relzione di amicizia
     #subject sarebbe il richiedente
+    $pattern=escape($pattern,$connected_db);
     $offset=$offset*3;
     #query per prelevare tutti gli amici dell'utente che ricerca
     $friends="SELECT  email FROM utente JOIN amicizia ON sender=email WHERE receiver='".escape($who,$connected_db)."' AND stato='a' UNION SELECT email FROM utente JOIN amicizia ON receiver=email WHERE sender='".escape($who,$connected_db)."' AND stato='a'";
@@ -118,6 +120,7 @@ function get_searched_channel($who,$pattern,$connected_db,$offset,$limit=3,$sugg
 }
 
 function get_searched_content($who,$pattern,$connected_db,$offset,$limit=3,$suggestion=false){
+    $pattern=escape($pattern,$connected_db);
     $offset=$offset*3;
     $friends="SELECT  email FROM utente JOIN amicizia ON sender=email WHERE receiver='".escape($who,$connected_db)."' AND stato='a' UNION SELECT email FROM utente JOIN amicizia ON receiver=email WHERE sender='".escape($who,$connected_db)."' AND stato='a'";
     $query="SELECT extID,anteprima,titolo,tipo FROM oggettoMultimediale JOIN canale ON canale.proprietario=oggettoMultimediale.proprietario AND canale.nome=oggettoMultimediale.canale WHERE titolo='$pattern' AND (canale.visibilita='public' OR canale.proprietario='$who' OR (canale.visibilita='social' AND canale.proprietario IN ($friends))) UNION ";

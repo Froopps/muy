@@ -41,6 +41,10 @@
                 exit();
             }
         case 'passwd':
+            if(!isset($_SESSION['true_user'])){
+                $value="Utente non identificato";
+                goto error;
+            }
             $value=(strlen($_POST['value'])<8||!isset($_SESSION['true_user'])) ? 'Password non valida' : 1;
             if($value==1)
                 unset($_SESSION['true_user']);

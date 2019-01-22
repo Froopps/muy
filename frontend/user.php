@@ -111,10 +111,9 @@
                                         $query="SELECT * FROM oggettoMultimediale WHERE canale='".escape($row["nome"],$connected_db)."' AND proprietario='".escape($row["proprietario"],$connected_db)."' ORDER BY `dataCaricamento` DESC";
                                         $res_ogg=$connected_db->query($query);
                                         if(!$res_ogg){
-                                            $redirect_with_error.=urlencode("Errore nella connessione con il database");
+                                            
                                             log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                            header($redirect_with_error);
-                                            $connected_db->close();
+                                            echo "<span class='error_span>Errore nella connessione col server</span>";
                                             exit();
                                         }
                                         $no_content=1;

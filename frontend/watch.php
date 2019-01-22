@@ -106,7 +106,7 @@
                                             $like=$res->fetch_row()[0];
                                             if(!$res){
                                                 log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                                $connected_db->close();
+                                                echo "<span class='error_span>Errore nella connessione col server</span>";
                                                 exit();
                                             }
                                             for($i=1;$i<=$like;$i++)
@@ -126,7 +126,7 @@
                                     $res=$connected_db->query($query);
                                     if(!$res){
                                         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                                        $connected_db->close();
+                                        echo "<span class='error_span>Errore nella connessione col server</span>";
                                         exit();
                                     }
                                     $num=$res->fetch_assoc();
@@ -149,11 +149,7 @@
                             
                         </div>
                         <?php
-                            if($error_connection["flag"]){
-                                $redirect_with_error.=urlencode($error_connection["msg"]);
-                                header($redirect_with_error);
-                                exit();
-                            }
+                        
                             $res=get_content_tag($row["percorso"],$connected_db);
                             echo "<div class=\"eticanale\" id=\"info-eti\">";
                             if($res->num_rows>0){

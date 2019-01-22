@@ -49,10 +49,8 @@
                         
                         $res=get_user_by_email($_SESSION["email"],$connected_db);
                         if(!$res){
-                            $redirect_with_error.=urlencode("Errore nella connessione con il database");
                             log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
-                            header($redirect_with_error);
-                            $connected_db->close();
+                            echo "<span class='error_span>Errore nella connessione col server</span>";
                             exit();
                         }
                         $row=$res->fetch_assoc();

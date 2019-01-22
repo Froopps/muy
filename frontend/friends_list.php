@@ -31,8 +31,9 @@
     ?>
     <main>
         <div class="content">
+            <button class='in_notext' id='delete' type='button' onclick='del_pending(this)'>Ritira tutte le richieste</button>
             <div class="headingArea">
-                <h2>Richieste</h2>
+                <h2 style='margin-top:10%'>Richieste</h2>
             </div>
             <div class="friend_list_tb pending_view">
             <?php
@@ -40,8 +41,7 @@
                     #all'utente loggato
                     $res=get_pending_request($_SESSION['email'],0,$connected_db);
                     if(!$res){
-                        $redirect_with_error.="Errore nella connessione con il server";
-                        header($redirect_with_error);
+                        echo "<span class='error_span>Errore nella connessione col server</span>";
                         exit();
                     }
                     if($res->num_rows==0)
@@ -59,8 +59,7 @@
                 $res=get_suggestions_by_city($_SESSION['email'],0,$connected_db);
                 #se la query fallisce log e redirect con segnalazione
                 if(!$res){
-                    $redirect_with_error.="Errore nella connessione con il server";
-                    header($redirect_with_error);
+                    echo "<span class='error_span>Errore nella connessione col server</span>";
                     exit();
                 }
                 #verifico che effettivamente l'utente abbia ramicizie correnti
@@ -79,8 +78,7 @@
                 $res=get_friends($_SESSION['email'],0,$connected_db);
                 #se la query fallisce log e redirect con segnalazione
                 if(!$res){
-                    $redirect_with_error.="Errore nella connessione con il server";
-                    header($redirect_with_error);
+                    echo "<span class='error_span>Errore nella connessione col server</span>";
                     exit();
                 }
                 #verifico che effettivamente l'utente abbia ramicizie correnti
