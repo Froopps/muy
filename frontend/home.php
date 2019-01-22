@@ -42,7 +42,8 @@
                     if(isset($_GET["error"])){
                         #edit span to achieve a fashion error displaying
                         echo "<span class='error_span'>".$_GET["error"]."</span>";
-                        exit();
+                        if(!($mvvideo&&$mvaudio&&$mvimages))
+                            exit();
                     }
                     if(isset($_GET["msg"])){
                         #edit span to achieve a fashion message displaying

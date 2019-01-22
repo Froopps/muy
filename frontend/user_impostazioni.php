@@ -59,6 +59,14 @@
                         //echo "<tr><td><input type='file' accept='image/png,image/jpeg' onchange=\"crop_image(this,document.getElementById('croppie_box'),'".$_SESSION["email"]."',document.getElementById('crop_button'))\"></td><td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td><td><button type='button' class='in_notext' onclick=\"set_def_foto('".$_SESSION["email"]."',this)\">Elimina</button></td></tr>";
                     
                     ?>
+                    <tr class='heading_in_table'><td><h4>Foto profilo</h4><td></tr>
+                    <tr>
+                        <td><input type='file' accept='image/*' onchange="crop_image(this,document.getElementById('croppie_box'),document.getElementById('crop_button'),'pro')"></td>
+                        <td></td>
+                        <td><button type='button' class='in_notext' onclick="set_def_foto('<?php echo $_SESSION['email'];?>',this)">Elimina</button></td>
+                        <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
+                    </tr>
+                    <tr><td><img id='croppie_box' src='#' alt='Spiazènti'></td></tr>
                     <tr class='heading_in_table'><td><h4>Email</h4></td></tr>
                     <tr>
                         <td><input class='in_email_up' type="text" name='email' value="<?php echo $row['email'];?>" onkeyup="pattern_validation(this,0,'mail-y','mail-n','mail-ny')"></td>
@@ -72,14 +80,14 @@
                     </tr>
                     <tr class='heading_in_table'><td><h4>Password:</h4></td></tr>
                     <tr>
-                        <td><input class='in_email_up' type="password" name='pwd' onfocus="document.getElementById('modal_bg_3').style.display='flex'"></td>
+                        <td><input class='in_pass_up' type="password" name='passwd'></td>
                         <td>
                             <img id='mail-y' src="../sources/images/yes.png" alt="yes" width="27px" style='display: none'>
                             <img id='mail-n' src="../sources/images/no.png" alt="no" width="25px" style='display: none'>
                             <img id='mail-ny' src="../sources/images/blank.png" alt="no" width="25px" style='display: block'>
                         </td>
                         <td></td>
-                        <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_email_up')[0],this)">Aggiorna</button></td>
+                        <td><button id='pass_butt' class='in_notext' type='button' onclick="show_conf_def()">Aggiorna</button></td>
                     </tr>
                     <tr class='heading_in_table'><td><h4>Nome</h4></td></tr>
                     <tr>
@@ -133,14 +141,6 @@
                         <td></td>
                         <td><button class='in_notext' type='button' onclick="update_user_info(document.getElementsByClassName('in_citta_up')[0],this)">Aggiorna</button></td>
                     </tr>
-                    <tr class='heading_in_table'><td><h4>Foto profilo</h4><td></tr>
-                    <tr>
-                        <td><input type='file' accept='image/*' onchange="crop_image(this,document.getElementById('croppie_box'),document.getElementById('crop_button'),'pro')"></td>
-                        <td></td>
-                        <td><button type='button' class='in_notext' onclick="set_def_foto('<?php echo $_SESSION['email'];?>',this)">Elimina</button></td>
-                        <td><button id='crop_button' class='in_notext' type='button'>Aggiorna</button></td>
-                    </tr>
-                    <tr><td><img id='croppie_box' src='#' alt='Spiazènti'></td></tr>
                 </table>
             </div>
         </div>
@@ -149,7 +149,6 @@
     <script type="text/javascript" src="../common/script/setup.js"></script>
     <script type="text/javascript" src="../common/script/_aux.js"></script>
     <script type="text/javascript" src="../node_modules/croppie/croppie.js"></script>
-    <script type="text/javascript" src="../common/script/user_info_validation.js"></script>
     <script type="text/javascript" src="../common/script/search.js"></script>
 </body>
 </html>

@@ -36,11 +36,14 @@
                 #solo dopo l'inserimento della precedente (rendendo la modifica della password sicura rispetto a richieste http
                 #inviate al server per vie traverse o fatte da un utente maligno
                 #in possesso del dispositivo dell'utente reale) si introduce un flag di sessione.
+                echo "<error triggered='false'><message></message></error>";
                 $_SESSION['true_user']=1;
                 exit();
             }
         case 'passwd':
-            $value=(strlen($_POST['value'])<8) ? 'La password deve essere di almeno otto caratteri' : 1;
+            $value=(strlen($_POST['value'])<8||!isset($_SESSION['true_user'])) ? 'Password non valida' : 1;
+            if($value==1)
+                unset($_SESSION['true_user']);
             break;
         case 'sesso':
             $value=!($_POST['value']=='Maschio'||$_POST['value']=='Femmina') ? 'Stringa non valida' : 1;
@@ -59,7 +62,10 @@
     }
 
     if($value==1){
-        $query="UPDATE utente SET ".$_POST["attribute"]."='".escape($_POST["value"],$connected_db)."' WHERE email='".$_SESSION["email"]."'";
+        if($_POST['attribute']=='passwd')
+        $query="UPDATE utente SET ".$_POST["attribute"]."='".blowhash($_POST["value"])."' WHERE email='".$_SESSION["email"]."'";
+        else
+            $query="UPDATE utente SET ".$_POST["attribute"]."='".escape($_POST["value"],$connected_db)."' WHERE email='".$_SESSION["email"]."'";
         $res=$connected_db->query($query);
         $connected_db->close();
     }
