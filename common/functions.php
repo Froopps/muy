@@ -15,7 +15,7 @@
     }
     #log into a file
     function log_into($msg){
-        $logfile=realpath($_SERVER["DOCUMENT_ROOT"]."/../muy_res/log_files")."/db_error.txt";
+        $logfile=realpath($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res/log_files")."/db_error.txt";
         $timestamp=date('Y-m-d H:i:s',time());
         $fp=fopen($logfile,"a");
         fwrite($fp,$msg.$timestamp."\n");

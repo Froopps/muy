@@ -10,7 +10,7 @@
         #change in /default/logo.jpg
         #can't link by url something outside webroot directory for security constraints. So we need to embedd
         #the URI urlencoding file_get_contents() return value
-        $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
+        $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res";
         $pro_pic_alt="-No image-";
         if(!file_exists($pro_pic."/".$info["foto"]))
             log_into("Can't find profile pic at ".$pro_pic."/".$info["foto"]);
@@ -63,7 +63,7 @@
     }
 
     function display_multimedia_object($info,$connected_db){
-        $path=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
+        $path=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res";
         echo "<span class=\"obj_multimedia\">";
         #leva if e lascia solo else
         if($info["anteprima"]=="anteprima_yt")
@@ -108,7 +108,7 @@
     }
 
     function display_friendslist_entry($info,$action){
-        $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
+        $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res";
         $pro_pic_alt="Spiacenti foto non trovata";
         if(!file_exists($pro_pic."/".stripslashes($info["foto"])))
             log_into("Can't find profile pic at ".$pro_pic."/".$info["foto"]);
@@ -154,15 +154,15 @@
             if($res->num_rows>3){
                 for($i=0;$i<4;$i++){
                     $row=$res->fetch_assoc();
-                    echo "<span class=\"mos_cel\"><img class=\"mos_img\" src=\"data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$row["anteprima"]))."\"></span>";
+                    echo "<span class=\"mos_cel\"><img class=\"mos_img\" src=\"data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$row["anteprima"]))."\"></span>";
                 }
             }else{
                 for($i=0;$i<$res->num_rows;$i++){
                     $row=$res->fetch_assoc();
-                    echo "<span class=\"mos_cel\"><img class=\"mos_img\" src=\"data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$row["anteprima"]))."\"></span>";
+                    echo "<span class=\"mos_cel\"><img class=\"mos_img\" src=\"data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$row["anteprima"]))."\"></span>";
                 }
                 for($i=0;$i<4-$res->num_rows;$i++)
-                    echo "<span class=\"mos_cel\"><img class=\"mos_img\" src=\"data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res/defaults/default-audio.png"))."\"></span>";
+                    echo "<span class=\"mos_cel\"><img class=\"mos_img\" src=\"data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res/defaults/default-audio.png"))."\"></span>";
             }
             echo "<table class=\"mosaico\" id=\"top-layer\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($tag)))."\">";
                 echo "<tr><td><a class=\"etichetta\" href=\"categoria.php?tag=".htmlentities(urlencode(stripslashes($tag)))."\">".$tag."</a></td></tr>";
@@ -227,7 +227,7 @@
         else
             $img_class="propic";
         $link_page.=$link_id;
-        $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res";
+        $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res";
         $pro_pic_alt="Spiacenti foto non trovata";
         #se l'utente ha cercato una categoria stampare il mosaico
         if(!file_exists(stripslashes($pro_pic."/".$foto))){

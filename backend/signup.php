@@ -134,7 +134,7 @@
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
         goto error;
     }
-    $new_user_dir=$_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_POST["mail"];
+    $new_user_dir=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res/content/".$_POST["mail"];
     mkdir($new_user_dir,0770);
 
     $_SESSION["email"]=stripslashes($resm["result"]);

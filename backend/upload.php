@@ -33,7 +33,7 @@
         $redirect_with_error.=urlencode("Nome file troppo lungo");
         goto error;
     }
-    if(file_exists($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path)){
+    if(file_exists($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path)){
         $redirect_with_error.=urlencode("Il file esiste già, rinominalo prima di caricarlo");
         goto error;
     }
@@ -138,24 +138,24 @@
         goto error;
     }
     #move files
-    mkdir($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$dir,0770);
-    move_uploaded_file($_FILES["file"]["tmp_name"],$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path);
+    mkdir($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$dir,0770);
+    move_uploaded_file($_FILES["file"]["tmp_name"],$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path);
     switch(substr($_FILES["file"]["type"],0,6)){
         case "audio/":
             if(!$antdef)
-                ritaglia($_FILES["anteprima"]["tmp_name"],$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
+                ritaglia($_FILES["anteprima"]["tmp_name"],$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path_anteprima);
             break;
         case "video/":
             $ffmpeg=$_SERVER["DOCUMENT_ROOT"]."/../ffmpeg.exe";
             #get frame
-            $cmd=$ffmpeg." -i ".$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path." -an -ss ".rand(0,getDuration($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path,$ffmpeg))." ".$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima.".png";
+            $cmd=$ffmpeg." -i ".$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path." -an -ss ".rand(0,getDuration($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path,$ffmpeg))." ".$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path_anteprima.".png";
             exec($cmd);
-            ritaglia($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima.".png",$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
-            unlink($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima.".png");
+            ritaglia($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path_anteprima.".png",$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path_anteprima);
+            unlink($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path_anteprima.".png");
             break;
         case "image/":
             if(!$antdef)
-                ritaglia($_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path,$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$path_anteprima);
+                ritaglia($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path,$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$path_anteprima);
             break;
     }
 

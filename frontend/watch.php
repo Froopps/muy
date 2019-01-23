@@ -86,21 +86,21 @@
                                 $ext=explode(".",$file[count($file)-1]);
                                 $ext=$ext[count($ext)-1];
 
-                                $_SERVER["DOCUMENT_ROOT"]."/muy/sources/content".$ytid;
+                                //$_SERVER["DOCUMENT_ROOT"]."/muy/sources/content".$ytid;
                                 switch($row["tipo"]){
                                     case "a":
-                                        $file=$_SERVER["DOCUMENT_ROOT"]."/../muy_res".$row["anteprima"];
+                                        $file=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res".$row["anteprima"];
                                         $image="data:image/$ext;base64,".base64_encode(file_get_contents($file));
                                         echo "<div class=\"audio-cover\"><img class=\"oggetto\" src=\"".$image."\" onclick=\"document.getElementById('modal_bg_img').style.display='flex'\"></div>";
                                         echo "<div class=\"audio-ctrl-bar\"><audio controls>";
-                                        echo "<source src=\"../sources/content".$row["percorso"]."\" type=\"audio/".$ext."\">Your browser does not support the audio element.</audio></div>";
+                                        echo "<source src=\"../muy_res".$row["percorso"]."\" type=\"audio/".$ext."\">Your browser does not support the audio element.</audio></div>";
                                         break;
                                     case "v":
                                         echo "<video width=\"100%\" height=\"100%\" controls>";
-                                        echo "<source src=\"../sources/content".$row["percorso"]."\" type=\"video/".$ext."\">Your browser does not support HTML5 video.</video>";
+                                        echo "<source src=\"../muy_res".$row["percorso"]."\" type=\"video/".$ext."\">Your browser does not support HTML5 video.</video>";
                                         break;
                                     case "i":
-                                        $file=$_SERVER["DOCUMENT_ROOT"]."\..\muy_res".$row["percorso"];
+                                        $file=$_SERVER["DOCUMENT_ROOT"]."\muy\muy_res".$row["percorso"];
                                         $image="data:image/$ext;base64,".base64_encode(file_get_contents($file));
                                         echo "<img class=\"oggetto\" src=\"".$image."\" onclick=\"document.getElementById('modal_bg_img').style.display='flex'\">";
                                         break;
@@ -140,6 +140,8 @@
                             </h1></div>
                         </div>
                         <?php
+                            $nome=get_user_by_email($row["proprietario"],$connected_db);
+                            echo "<div class=\"info-head\"><a class=\"oggetto-canale\" href=\"user.php?user=".$row["proprietario"]."\">".$nome->fetch_assoc()["nickname"]."</a><a class=\"oggetto-canale\" href=\"canale.php?nome=".$row["canale"]."&proprietario=".$row["proprietario"]."\">".$row["canale"]."</a></div>";
                         
                             $res=get_content_tag($row["percorso"],$connected_db);
                             echo "<div class=\"eticanale\" id=\"info-eti\">";
@@ -174,7 +176,7 @@
                                     echo "<div class=\"commento\">";
                                         echo "<div class=\"comm-head\">";
                                             echo "<div class=\"flex-center\">";
-                                                $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res/".$row["foto"]));
+                                                $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res/".$row["foto"]));
                                                 echo "<a href=\"user.php?user=".$row["email"]."\"><img class=\"comm-img\" src=\"".$pro_pic."\"></a>";
                                                 echo "<a class=\"comm-aut\" href=\"user.php?user=".$row["email"]."\"><b>".$row["nickname"]."</b></a>";
                                             echo "</div>";
@@ -197,7 +199,7 @@
                                 $query="SELECT foto FROM utente WHERE email='".escape($_SESSION["email"],$connected_db)."'";
                                 $res=$connected_db->query($query);
                                 $row=$res->fetch_assoc();
-                                $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/../muy_res/".$row["foto"]));
+                                $pro_pic="data:image/png;base64,".base64_encode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res/".$row["foto"]));
                                 echo "<div class=\"com-button\"><button class=\"in_notext\" type=\"button\" onclick=\"comment(document.getElementById('comm'),'".$_GET['id']."',document.getElementById('lista-commenti'),'".$_SESSION['nome']."','".$pro_pic."','".$_SESSION['email']."')\">Commenta</button></div>";
                             }else
                                 echo "<div class=\"com-button\"><button class=\"in_notext\" type=\"button\" onclick=\"comment(document.getElementById('comm'),'".$_GET['id']."',document.getElementById('lista-commenti'),'no','no')\">Commenta</button></div>";

@@ -78,12 +78,13 @@ textarea{
 }
 
 
-a.etichetta, div.can-vis{
+a.etichetta, div.can-vis, a#no_link:hover{
     margin: 0.2em;
     padding: 0.3em;
     background-color: #16A085;
     color: white;
-    border-radius: 7px
+    border-radius: 7px;
+    cursor: auto
 }
 
 a.eli{margin-right: 0}

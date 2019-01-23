@@ -20,7 +20,7 @@
     }
     #query before saving the result to avoid unused image on server
 
-    $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_SESSION["email"]."/".$_FILES["cropped_pro_pic"]["name"];
+    $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res/content/".$_SESSION["email"]."/".$_FILES["cropped_pro_pic"]["name"];
     $q_pro_pic=escape("content/".$_SESSION["email"]."/".$_FILES["cropped_pro_pic"]["name"],$connected_db);
     $query="UPDATE utente SET foto='".$q_pro_pic."' WHERE email='".escape($_SESSION["email"],$connected_db)."'";
     

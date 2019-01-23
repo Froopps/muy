@@ -66,7 +66,7 @@
                         if($self){
                             echo "<div class=\"flex-col\">";
                             echo "<div><button class=\"in_notext\" type=\"button\" onclick=\"document.getElementById('modal_bg_2').style.display='flex'\">Nuovo canale</button></div>";
-                            echo "<div><form action=\"../backend/delete_user.php\" method=\"get\" onsubmit=\"confirm('Conferma eliminazione')\"><button class=\"in_notext\" id=\"delete\" type=\"submit\">Elimina utente</button></form></div>";
+                            echo "<div><form action=\"../backend/delete_user.php\" method=\"get\" onsubmit=\"return confirm('Conferma eliminazione')\"><button class=\"in_notext\" id=\"delete\" type=\"submit\">Elimina utente</button></form></div>";
                             echo "</div>";
                         }
                     ?>
@@ -105,7 +105,7 @@
                                 if(!empty($row["etichetta"])){
                                         $eti=explode(",",$row["etichetta"]);
                                         foreach($eti as $et){
-                                            echo "<a class='etichetta' href='#etichetta'>#".stripslashes($et)."</a>";
+                                            echo "<a id='no_link' class='etichetta' href='#'>#".stripslashes($et)."</a>";
                                         }
                                 }
                                 echo "</div>";

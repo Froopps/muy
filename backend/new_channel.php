@@ -60,6 +60,6 @@
         log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
         exit();
     }
-    mkdir($_SERVER["DOCUMENT_ROOT"]."/../muy_res/content/".$_SESSION["email"]."/".$_POST["channel_name"],0770);
+    mkdir($_SERVER["DOCUMENT_ROOT"]."/muy/muy_res/content/".$_SESSION["email"]."/".$_POST["channel_name"],0770);
     echo ($_SESSION["email"]);
 ?>

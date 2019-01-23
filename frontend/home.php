@@ -58,7 +58,9 @@
                     ?>
                     <div class="scrollbar">
                         <?php
-                           while($row=$mvvideo->fetch_assoc())
+                            if($mvvideo->num_rows==0)
+                                echo "<span class='message_span'>Non ci sono ancora video</span>";
+                            while($row=$mvvideo->fetch_assoc())
                                 display_multimedia_object($row,$connected_db); 
                         ?>
                     </div>
@@ -69,6 +71,8 @@
                     ?>
                     <div class="scrollbar">
                         <?php
+                            if($mvaudio->num_rows==0)
+                                echo "<span class='message_span'>Non ci sono ancora audio</span>";
                             while($row=$mvaudio->fetch_assoc())
                                 display_multimedia_object($row,$connected_db);
                         ?>
@@ -80,8 +84,10 @@
                     ?>
                     <div class="scrollbar">
                     <?php
-                    while($row=$mvimages->fetch_assoc())
-                        display_multimedia_object($row,$connected_db);
+                        if($mvimages->num_rows==0)
+                            echo "<span class='message_span'>Non ci sono ancora immagini</span>";
+                        while($row=$mvimages->fetch_assoc())
+                            display_multimedia_object($row,$connected_db);
                     ?>
                     </div>
                 </div>

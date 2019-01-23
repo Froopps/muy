@@ -46,6 +46,8 @@
                     <?php
                         $count=0;
                         echo "<tr>";
+                        if($top->num_rows==0)
+                                echo "<span class='message_span'>Non ci sono ancora etichette</span>";
                         while($row=$top->fetch_assoc()){
                             $count++;
                             if($count==6)
@@ -57,32 +59,6 @@
                         }
                         echo "</tr>";
                     ?>
-                    <!--
-                    <tr>
-                        <td class="eti_position"><h1>#1</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                        <td class="eti_position"><h1>#2</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                        <td class="eti_position"><h1>#3</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                        <td class="eti_position"><h1>#4</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                        <td class="eti_position"><h1>#5</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="eti_position"><h1>#6</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                        <td class="eti_position"><h1>#7</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                        <td class="eti_position"><h1>#8</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                        <td class="eti_position"><h1>#9</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                        <td class="eti_position"><h1>#10</h1></td>
-                        <td class="tab_top_cat"><?php include "../common/mosaico.html"; ?></td>
-                    </tr>
-                    -->
                 </table>
 
             </div>
