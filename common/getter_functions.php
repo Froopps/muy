@@ -191,8 +191,9 @@ function get_near_friends($who,$connected_db,$offset){
 }
 
 function get_top_vip($connected_db){
-    $more_than_ten="SELECT relativoA FROM valutazione GROUP BY relativoA HAVING COUNT(*)>=10";
-    $query="SELECT proprietario, SUM(voto-1) AS s FROM valutazione JOIN oggettoMultimediale ON percorso=relativoA WHERE relativoA IN ($more_than_ten) GROUP BY proprietario HAVING COUNT(DISTINCT relativoA)>=3 ORDER BY s DESC LIMIT 10";
+    $more_than_ten="SELECT relativoA FROM valutazione GROUP BY relativoA HAVING COUNT(*)>=2";
+    $top="SELECT proprietario FROM valutazione JOIN oggettoMultimediale ON percorso=relativoA JOIN utente ON proprietario=email WHERE relativoA IN ($more_than_ten) GROUP BY proprietario HAVING COUNT(DISTINCT relativoA)>=2";
+    $query="SELECT email,nickname,foto,nome,cognome,dataNascita,sesso,citta,cittaNascita,visibilita,SUM(voto-1) AS somma_voti FROM valutazione JOIN oggettoMultimediale ON percorso=relativoA JOIN utente ON proprietario=email WHERE email IN ($top) ORDER BY somma_voti DESC LIMIT 10";
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
@@ -200,7 +201,7 @@ function get_top_vip($connected_db){
 }
 
 function get_top_tags($connected_db){
-    $query="SELECT tag, AVG(voto-1) AS media FROM contenutoTaggato JOIN valutazione ON (contenutoTaggato.oggetto=valutazione.relativoA) WHERE voto>'0' GROUP BY tag ORDER BY media DESC LIMIT 10 OFFSET 0";
+    $query="SELECT tag, AVG(voto-1) AS media,COUNT(DISTINCT oggetto) AS video_totali_votati FROM contenutoTaggato JOIN valutazione ON (contenutoTaggato.oggetto=valutazione.relativoA) WHERE voto>'0' GROUP BY tag ORDER BY media DESC LIMIT 10 OFFSET 0";
 
     $res=$connected_db->query($query);
     if(!$res)

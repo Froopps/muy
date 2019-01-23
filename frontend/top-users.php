@@ -44,8 +44,11 @@
                         echo "<span class='message_span'>".$_GET["msg"]."</span>";
                     }
                 ?>
+                <a class='categoria_titolo' href='../common/get_xml_top_usr.php?action=user'>Esporta in xml</a>;
                 <table id="classifica_usr">
+                    
                     <?php
+                        
                         $res=get_top_vip($connected_db);
                         if(!$res)
                             echo "<span class='error_span'>Errore nella connessione al server</span>";
@@ -58,17 +61,13 @@
                             for($i=0;$i<5&&$b;$i++){
                                 echo "<tr>";
                                 for($j=0;$j<2;$j++){
-                                    if(!$row=$res->fetch_row()){
+                                    if(!$row=$res->fetch_assoc()){
                                         $b=false;
                                         break;
                                     }
                                     echo "<td class='tab_top_usr'>";
-                                    $res=get_user_by_email($row[0],$connected_db);
-    
-                                    if(!$res){
-                                        echo "<span class='error_span'>Errore nella connessione al server</span>";
-                                    }
-                                    display_user_info($res->fetch_assoc(),$connected_db);
+                                    echo "<h2>Voti totali:".$row['somma_voti']."</h2>";
+                                    display_user_info($row,$connected_db);
                                     echo "</td>";
                                 }
                                 echo "</tr>";
