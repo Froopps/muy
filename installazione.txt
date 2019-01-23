@@ -7,3 +7,5 @@ mklink /D muy/sources/content muy_res
 nel php.ini
 upload_max_filesize=10G
 post_max_size=10G
+
+setup -> localhost:8080

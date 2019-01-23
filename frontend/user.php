@@ -105,7 +105,7 @@
                                 if(!empty($row["etichetta"])){
                                         $eti=explode(",",$row["etichetta"]);
                                         foreach($eti as $et){
-                                            echo "<a id='no_link' class='etichetta' href='#'>#".stripslashes($et)."</a>";
+                                            echo "<a id='no_link' class='etichetta'>#".stripslashes($et)."</a>";
                                         }
                                 }
                                 echo "</div>";
