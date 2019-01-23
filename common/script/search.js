@@ -10,7 +10,7 @@ function suggestions_search(){
     }
     else{
         var xhr=ajaxRequest()
-        xhr.open("GET",location+"/backend/get_suggestions.php?table="+type+"&pattern="+value)
+        xhr.open("GET",muy+"/backend/get_suggestions.php?table="+type+"&pattern="+value)
         xhr.responseType='text'
         block.style.display='flex'
         list.style.display='block'
@@ -37,7 +37,7 @@ function autocomp(value){
 //per mantenere concettualmente separate
 function refresh_search_res(action,button,pattern){
     xhr=ajaxRequest()
-    xhr.open("GET",location+"/common/refresh_search_list.php?action="+action+"&next="+button.value+"&pattern="+pattern)
+    xhr.open("GET",muy+"/common/refresh_search_list.php?action="+action+"&next="+button.value+"&pattern="+pattern)
     xhr.responseType='text'
     button.remove()
     xhr.onreadystatechange=function(){
