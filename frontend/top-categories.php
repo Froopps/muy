@@ -41,9 +41,10 @@
                         echo "<span class='message_span'>".$_GET["msg"]."</span>";
                     }
                 ?>
-
+                <a class='categoria_titolo' href='../common/get_xml_top_usr.php?action=tags'>Esporta in xml</a>;
                 <table id="classifica_cat">
                     <?php
+<<<<<<< HEAD
                         $count=0;
                         echo "<tr>";
                         if($top->num_rows==0)
@@ -56,8 +57,34 @@
                             echo "<td class=\"tab_top_cat\">";
                                 display_tag_mosaic($row["tag"],$connected_db);
                             echo "</td>";
+=======
+                        $res=get_top_tags($connected_db);
+                        if(!$res)
+                            echo "<span class='error_span'>Errore nella connessione al server</span>";
+                        else{
+                            $b=true;
+                            if($res->num_rows==0){
+                                echo "<span class='message_span'>Non ci sono utenti top users al momento</span>";
+                                $b=false;
+                            }
+                            $count=0;
+                            for($i=0;$i<5&&$b;$i++){
+                                echo "<tr>";
+                                for($j=0;$j<2;$j++){
+                                    $count++;
+                                    if(!$row=$res->fetch_assoc()){
+                                        $b=false;
+                                        break;
+                                    }
+                                    echo "<td class=\"eti_position\"><h1>#$count</h1></td>";
+                                    echo "<td class=\"tab_top_cat\">";
+                                    display_tag_mosaic($row["tag"],$connected_db);
+                                    echo "</td>";
+                                }
+                                echo "</tr>";
+                            }
+>>>>>>> il_grande_lebowski
                         }
-                        echo "</tr>";
                     ?>
                 </table>
 
