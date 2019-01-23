@@ -1,3 +1,5 @@
+var location='http://localhost:8080/muy'
+
 function ajaxRequest(){
     var request=false;
     try{request=new XMLHttpRequest()}

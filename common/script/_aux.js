@@ -29,7 +29,7 @@ function crop_image(in_file,image,button){
                     button.style.display='none'
                     button.disabled=true
                     //altough the name may let think differently, the function uploads content preview image too 
-                    xhr.open("POST","http://localhost/muy/backend/pro_pic_update.php",true)
+                    xhr.open("POST",location+"/backend/pro_pic_update.php",true)
                     xhr.onreadystatechange=function(){
                         if(xhr.readyState==4 && xhr.status==200){
                             var error=xhr.responseXML.getElementsByTagName('error')[0]
@@ -70,7 +70,7 @@ function set_def_foto(button){
 
     var par="default=1"
     xhr=ajaxRequest()
-        xhr.open("POST","http://localhost/muy/backend/pro_pic_update.php",true)
+        xhr.open("POST",location+"/backend/pro_pic_update.php",true)
         xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
         xhr.onreadystatechange=function(){
             if(xhr.readyState==4 && xhr.status==200)
@@ -84,7 +84,7 @@ function update_user_info(attribute,button){
     var par="attribute="+attribute.name+"&value="+attribute.value
      console.log(attribute.name,' ',attribute.value)
     xhr=ajaxRequest()
-    xhr=open_xml_post("http://localhost/muy/backend/validate_new_info.php")
+    xhr=open_xml_post(location+"/backend/validate_new_info.php")
     button.style.display='none'
     button.disabled=true
     xhr.onreadystatechange=function(){
@@ -118,7 +118,7 @@ function delete_content(element,content){
                 element.parentElement.parentElement.style.display = "none"
             }
         }
-        xhr.open("POST","http://localhost/muy/backend/delete_content.php",true)
+        xhr.open("POST",location+"/backend/delete_content.php",true)
         xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
         xhr.send(par)
     }
@@ -149,7 +149,7 @@ function comment(comment,content,list,author,pic,email){
             }
         }
     }
-    xhr.open("POST","http://localhost/muy/backend/comment_script.php",true)
+    xhr.open("POST",location+"/backend/comment_script.php",true)
     xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
     xhr.send("commento="+comment.value+"&id="+content)
     
@@ -233,7 +233,7 @@ function delete_comment(id,email,commento){
             }
         }
     }
-    xhr.open("POST","http://localhost/muy/backend/comment_delete.php",true)
+    xhr.open("POST",location+"/backend/comment_delete.php",true)
     xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
     xhr.send("id="+id+"&email="+email)
 
@@ -248,7 +248,7 @@ function visual(id){
                 document.getElementById("visual").innerHTML=response
         }
     }
-    xhr.open("GET","http://localhost/muy/backend/visual.php?id="+id,true)
+    xhr.open("GET",location+"/backend/visual.php?id="+id,true)
     xhr.send()
 }
 
@@ -305,7 +305,7 @@ function add_eti(id,button){
                 }
             }
         }
-        xhr.open("POST","http://localhost/muy/backend/add_tag.php",true)
+        xhr.open("POST",location+"/backend/add_tag.php",true)
         xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
         xhr.send("id="+id+"&tag="+in_text.value)
     }
@@ -326,7 +326,7 @@ function del_eti(eti,id,elem){
             }
         }
     }
-    xhr.open("POST","http://localhost/muy/backend/delete_tag.php",true)
+    xhr.open("POST",location+"/backend/delete_tag.php",true)
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     xhr.send("id="+id+"&tag="+eti)
     
@@ -354,7 +354,7 @@ function like_it(percorso,voto){
     console.log(percorso,voto)
     var par="relativoA="+percorso+"&voto="+voto
     xhr=ajaxRequest();
-    xhr.open("POST","http://localhost/muy/backend/like_it.php")
+    xhr.open("POST",location+"/backend/like_it.php")
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     xhr.onreadystatechange = function(){
         if(xhr.readyState==4 && xhr.status==200){
@@ -464,7 +464,7 @@ function new_channel(name,label,type){
             }
         }
     }
-    xhr.open("POST","http://localhost/muy/backend/new_channel.php",true)
+    xhr.open("POST",location+"/backend/new_channel.php",true)
     xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
     xhr.send(par)
 
@@ -484,7 +484,7 @@ function delete_channel(button,channel,user){
                     button.parentElement.parentElement.parentElement.style.display = "none"
             }
         }
-        xhr.open("POST","http://localhost/muy/backend/delete_channel.php",true)
+        xhr.open("POST",location+"/backend/delete_channel.php",true)
         xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
         xhr.send("nome="+channel+"&proprietario="+user)
     }

@@ -72,7 +72,7 @@ var pass=document.getElementsByClassName('in_pass_up')[0]
 pass.addEventListener('focus',show_conf,true)
 function old_pwd_check(input){
         var par="attribute=old_pwd&value="+input
-        xhr=open_xml_post("http://localhost/muy/backend/validate_new_info.php")
+        xhr=open_xml_post(location+"/backend/validate_new_info.php")
         xhr.onreadystatechange=function(){
             if(xhr.readyState==4 && xhr.status==200){
                 var error=xhr.responseXML.getElementsByTagName('error')[0]

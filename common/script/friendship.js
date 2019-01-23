@@ -1,6 +1,6 @@
 function request_fr(button,user){
     par='receiver='+user
-    xhr=open_xml_post("http://localhost/muy/backend/fr_request.php")
+    xhr=open_xml_post(location+"/backend/fr_request.php")
     button.style.display='none'
     button.disabled=true
     xhr.onreadystatechange=function(){
@@ -25,7 +25,7 @@ function request_fr(button,user){
 function refresh_friendslist(action,button){
     var table={'pending':'pending_view','friends':'friends_view','suggest':'suggestions_view'}
     xhr=ajaxRequest()
-    xhr.open("GET","http://localhost/muy/common/refresh_fr_list.php?action="+action+"&next="+button.value)
+    xhr.open("GET",location+"/common/refresh_fr_list.php?action="+action+"&next="+button.value)
     xhr.responseType='text'
     button.remove()
     xhr.onreadystatechange=function(){
@@ -44,7 +44,7 @@ function refresh_friendslist(action,button){
 function up_status(action,object,button){
     var cons={'accept':'Amici','deny':'Bloccato','erase':'Bloccato'}
     var par='action='+action+"&object="+object
-    xhr=open_xml_post("http://localhost/muy/backend/up_status.php")
+    xhr=open_xml_post(location+"/backend/up_status.php")
     if((action=='deny'||action=='erase')&&!confirm("Una volta effettuata la cancellazione o il rifiuto, tu e "+object+" non potrete più essere amici"))
         return
     
@@ -76,7 +76,7 @@ function del_pending(button){
     if(confirm("Una volta effettuata l'operazione tutte le richieste da te inviate saranno ritirate")){
         xhr=ajaxRequest()
         console.log('ya')
-        xhr.open("GET","http://localhost/muy/backend/delete_pending.php")
+        xhr.open("GET",location+"/backend/delete_pending.php")
         button.disabled=true
         button.style.display='none'
         xhr.onreadystatechange=function(){
