@@ -1,4 +1,4 @@
-var location='http://localhost:8080/muy'
+var muy='http://localhost/muy'
 
 function ajaxRequest(){
     var request=false;
