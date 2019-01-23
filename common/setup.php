@@ -17,4 +17,5 @@
         log_into($connected_db->connect_error);
     }
     $connected_db->set_charset('utf8');
+    $location="http://localhost/muy";
 ?>

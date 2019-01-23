@@ -11,10 +11,8 @@
     
     <?php 
         include "../common/head.php";
-        if($error_connection["flag"]){
-            header("Location: http://localhost/pagina_errore");
-            exit();
-        }
+        if($error_connection["flag"])
+            $_GET["error"]="Errore connessione";
     ?>
 </head>
 

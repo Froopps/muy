@@ -1,7 +1,7 @@
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
-    $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=";
+    $redirect_with_error="Location:$location/frontend/home.php?error=";
     if($error_connection["flag"]){
         $redirect_with_error.=urlencode($error_connection["msg"]);
         header($redirect_with_error);
@@ -29,7 +29,7 @@
     $_SESSION["foto"]=$row[4];
     #just for developement test, in signup.php too
 
-    $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=".urlencode("Ciao ".$_SESSION["nome"].", bentornat");
+    $redirect_with_msg="Location:$location/frontend/home.php?msg=".urlencode("Ciao ".$_SESSION["nome"].", bentornat");
     if($row[5]=="Maschio")
         $redirect_with_msg.="o!";
     else

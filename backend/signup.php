@@ -2,7 +2,7 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
-    $redirect_with_error="Location: http://localhost/muy/frontend/signup.php?error=";
+    $redirect_with_error="Location:$location/frontend/signup.php?error=";
     $query_columns="";
     $query_values="";
     #exit() is used after redirect to avoid further statements execution after redirecting with error
@@ -146,9 +146,9 @@
     #just for developement test, in login-check.php too
 
     if($_POST["sex"]=="Femmina")
-        $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=".urlencode("Sei registrata, ".$_SESSION["nome"]."! Benvenuta su MUY");
+        $redirect_with_msg="Location:$location/frontend/home.php?msg=".urlencode("Sei registrata, ".$_SESSION["nome"]."! Benvenuta su MUY");
     if($_POST["sex"]=="Maschio")
-        $redirect_with_msg="Location: http://localhost/muy/frontend/home.php?msg=".urlencode("Sei registrato, ".$_SESSION["nome"]."! Benvenuto su MUY");
+        $redirect_with_msg="Location:$location/frontend/home.php?msg=".urlencode("Sei registrato, ".$_SESSION["nome"]."! Benvenuto su MUY");
 
     header($redirect_with_msg);
     $connected_db->close();

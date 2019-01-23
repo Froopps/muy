@@ -2,7 +2,7 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
-    $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=";
+    $redirect_with_error="Location:$location/frontend/home.php?error=";
     if($error_connection["flag"]){
         $redirect_with_error.=urlencode($error_connection["msg"]);
         header($redirect_with_error);

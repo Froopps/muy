@@ -1,7 +1,7 @@
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
-    $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=";
+    $redirect_with_error="Location:$location/frontend/home.php?error=";
 
     if(!(isset($_GET['nome'])&&isset($_GET['proprietario']))){
         $redirect_with_error.=urlencode("Errore nella connessione con il database");

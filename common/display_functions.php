@@ -119,7 +119,7 @@
                 echo "<img class='pro_pic_in_list' src='$pro_pic' alt=$pro_pic_alt>";
             echo "</div>";
             echo "<div class='friend_list_entry_half'>";
-                echo "<div><a href='http://localhost/muy/frontend/user.php?user=".urlencode($info['email'])."'><h4 class='nick_in_link'>".stripslashes($info['nickname'])."</h4></a></div>";
+                echo "<div><a href='$location/frontend/user.php?user=".urlencode($info['email'])."'><h4 class='nick_in_link'>".stripslashes($info['nickname'])."</h4></a></div>";
                 echo "<div class='action_div'>";
                 switch($action){
                     case 'pending':

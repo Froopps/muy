@@ -1,7 +1,7 @@
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
-    $redirect_with_error="Location: http://localhost/muy/frontend/user.php?user=".urlencode($_SESSION['email'])."&error=";
+    $redirect_with_error="Location:$location/frontend/user.php?user=".urlencode($_SESSION['email'])."&error=";
     $error="Errore nella connessione con il server";
     $user_dir=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res/content/".$_SESSION["email"];
     $path=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res";
@@ -65,7 +65,7 @@
 
     $utente=$_SESSION["nome"];
     session_destroy();
-    header("Location:../frontend/home.php?msg=Addio, ".$utente);
+    header("Location:$location/frontend/home.php?msg=Addio, ".$utente);
     exit();
     error:
         $redirect_with_error.=urlencode($error);

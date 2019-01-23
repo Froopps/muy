@@ -2,8 +2,8 @@
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
 
-    $redirect_with_error="Location: http://localhost/muy/frontend/upload.php?error=";
-    $redirect_with_msg="Location: http://localhost/muy/frontend/user.php?user=".urlencode($_SESSION["email"])."&msg=".urlencode("Upload youtube avvenuto con successo");
+    $redirect_with_error="Location:$location/frontend/upload.php?error=";
+    $redirect_with_msg="Location:$location/frontend/user.php?user=".urlencode($_SESSION["email"])."&msg=".urlencode("Upload youtube avvenuto con successo");
     $query_columns="";
     $query_values="";
     #exit() is used after redirect to avoid further statements execution after redirecting with error
