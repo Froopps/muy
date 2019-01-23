@@ -9,7 +9,6 @@
         </select>
         <input id="srcbtn" type="submit">
         <input id="src" type="text" name="src_txt" placeholder="Cerca..." onkeyup="suggestions_search()">
-        <a id="avanzata" href="#ricerca_avanzata">Avanzata</a>
     </form>
     <span>
         <!---a href="../frontend/signup.php">Registrati</a--->

@@ -16,6 +16,10 @@
             $res=get_today_friends_content($_SESSION['email'],$connected_db,$_GET['next']);
             break;
 
+        case('nearFriends'):
+            $res=get_near_friends($_SESSION['email'],$connected_db,$_GET['next']);
+            break;
+
         /*REFRESH RICERCA OGGETTI MULTIMEDIALI*/
         #vedi getter_functions.php
         #function get_searched_content($who,$pattern,$connected_db,$offset,$limit=3,$suggestion=false)

@@ -117,20 +117,20 @@
 
                                     <?php
                                         if(isset($_SESSION['email'])){
-                                            $query="SELECT voto FROM oggettoMultimediale JOIN valutazione WHERE utente='".escape($_SESSION['email'],$connected_db)."' AND relativoA='".$row['percorso']."'";
+                                            $query="SELECT voto FROM oggettoMultimediale JOIN valutazione WHERE utente='".escape($_SESSION['email'],$connected_db)."' AND relativoA= ALL(SELECT percorso FROM oggettoMultimediale WHERE extID='".$row['extID']."')";
                                             $res=$connected_db->query($query);
-                                            $like=$res->fetch_row()[0];
                                             if(!$res){
                                                 log_into("Errore di esecuzione della query".$query." ".$connected_db->error);
                                                 echo "<span class='error_span>Errore nella connessione col server</span>";
                                                 exit();
                                             }
+                                            $like=$res->fetch_row()[0];
                                             for($i=1;$i<=$like;$i++)
-                                                echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-f.png)\" type=\"button\" onclick=\"like_it('".$row['percorso']."',this.value)\" value='".$i."'></button>";
+                                                echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-f.png)\" type=\"button\" onclick=\"like_it('".$row['extID']."',this.value)\" value='".$i."'></button>";
                                             for($i=$like+1;$i<=5;$i++)
-                                                echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-e.png)\" type=\"button\" onclick=\"like_it('".$row['percorso']."',this.value)\" value='".$i."'></button>";
-                                            echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-r.png)\" type=\"button\" onclick=\"like_it('".$row['percorso']."',this.value)\" value='0'></button>";
-                                        }   
+                                                echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-e.png)\" type=\"button\" onclick=\"like_it('".$row['extID']."',this.value)\" value='".$i."'></button>";
+                                            echo "<button class=\"ili\" style=\"background-image:url(../sources/images/star-r.png)\" type=\"button\" onclick=\"like_it('".$row['extID']."',this.value)\" value='0'></button>";
+                                        } 
                                     ?>
                                 </div>
                                 <div><h1 id="visual">

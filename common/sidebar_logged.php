@@ -27,7 +27,7 @@
             echo "<li><a href='../frontend/user.php?user=".htmlentities(urlencode($_SESSION["email"]))."'>".$_SESSION["nome"]."</a></li>";
         ?>
         <li><a href="../frontend/friends_list.php">Amici</a></li>
-        <li><a href="#stats">Statistiche</a></li>
+        <li><a href="../frontend/coetanei_vicini.php">Coetanei vicini</a></li>
         <li><a href="../frontend/user_impostazioni.php">Impostazioni</a></li>
         <li class="no_link">About<hr></li>
         <li><a href="#xyz">Chi siamo</a></li>

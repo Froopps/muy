@@ -167,8 +167,42 @@ function get_channel_visibility($channel,$user,$connected_db){
     return $row["visibilita"];
 }
 
+
+#tutti gli utenti che hanno almeno tre video,di cui ognuno ha almeno dieci mi piace ordinati per somma
+function get_top_vip_users($connected_db){
+    $query="SELECT proprietario,SUM(voto-1) AS s FROM oggettoMultimediale JOIN valutazione ON percorso=relativoA GROUP BY proprietario,relativoA HAVING COUNT(DISTINCT relativoA) AND HAVING COUNT(*) ORDER BY s DESC";
+    $res=$connected_db->query($query);
+}
+
+function get_near_friends($who,$connected_db,$offset){
+    $offset=$offset*3;
+    $user=get_user_by_email($who,$connected_db);
+    if(!$user)
+        return NULL;
+    $row=$user->fetch_assoc();
+    $city=$row['citta'];
+    $bd=substr($row['dataNascita'],0,4);
+    $friends="SELECT  email FROM utente JOIN amicizia ON sender=email WHERE receiver='".escape($who,$connected_db)."' AND stato='a' UNION SELECT email FROM utente JOIN amicizia ON receiver=email WHERE sender='".escape($who,$connected_db)."' AND stato='a'";
+    $query="SELECT * FROM utente WHERE email IN ($friends) AND citta='$city' AND dataNascita LIKE '$bd%' LIMIT 3 OFFSET $offset";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
+
+function get_top_vip($connected_db){
+    $more_than_ten="SELECT relativoA FROM valutazione GROUP BY relativoA HAVING COUNT(*)>=2";
+    $top="SELECT proprietario FROM valutazione JOIN oggettoMultimediale ON percorso=relativoA JOIN utente ON proprietario=email WHERE relativoA IN ($more_than_ten) GROUP BY proprietario HAVING COUNT(DISTINCT relativoA)>=2";
+    $query="SELECT email,nickname,foto,nome,cognome,dataNascita,sesso,citta,cittaNascita,visibilita,SUM(voto-1) AS somma_voti FROM valutazione JOIN oggettoMultimediale ON percorso=relativoA JOIN utente ON proprietario=email WHERE email IN ($top) ORDER BY somma_voti DESC LIMIT 10";
+    $res=$connected_db->query($query);
+    if(!$res)
+        log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);
+    return $res;
+}
+
 function get_top_tags($connected_db){
-    $query="SELECT tag, AVG(voto-1) AS media FROM contenutoTaggato JOIN valutazione ON (contenutoTaggato.oggetto=valutazione.relativoA) WHERE voto>'0' GROUP BY tag ORDER BY media DESC LIMIT 10 OFFSET 0";
+    $query="SELECT tag, AVG(voto-1) AS media,COUNT(DISTINCT oggetto) AS video_totali_votati FROM contenutoTaggato JOIN valutazione ON (contenutoTaggato.oggetto=valutazione.relativoA) WHERE voto>'0' GROUP BY tag ORDER BY media DESC LIMIT 10 OFFSET 0";
+
     $res=$connected_db->query($query);
     if(!$res)
         log_into("Errore nell'esecuzione della query ".$query." ".$connected_db->error);

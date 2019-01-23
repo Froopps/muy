@@ -186,7 +186,8 @@
                         #utilizzata la stessa logica anche per fare il refresh della lista dei contenuti caricati nell'ultima giornata
                         #vedi ultima_giornata.php
                         "todayContent"=>array("anteprima","titolo","watch.php?",array("id"),array("extID"),"tipo","Tipologia: "),
-                        "categoria"=>array("special","tag","categoria.php?",array("tag"),array("tag"),"data","","")
+                        "categoria"=>array("special","tag","categoria.php?",array("tag"),array("tag"),"data","",""),
+                        "nearFriends"=>array("foto","nickname","user.php?",array("user"),array("email"),"email","Account: "),
         );
         $content_type=array("v"=>"Video","a"=>"Audio","i"=>"Immagine");
         $no_more=false;

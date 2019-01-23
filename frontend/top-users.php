@@ -1,6 +1,14 @@
 <?php
     session_start();
     include_once realpath($_SERVER["DOCUMENT_ROOT"]."/muy/common/setup.php");
+
+    $redirect_with_error="Location: http://localhost/muy/frontend/home.php?error=";
+    if($error_connection["flag"]){
+        $redirect_with_error.=urlencode($error_connection["msg"]);
+        header($redirect_with_error);
+        exit();
+        
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -36,27 +44,37 @@
                         echo "<span class='message_span'>".$_GET["msg"]."</span>";
                     }
                 ?>
+                <a class='categoria_titolo' href='../common/get_xml_top_usr.php?action=user'>Esporta in xml</a>;
                 <table id="classifica_usr">
-                    <tr>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                        <td class="tab_top_usr"><?php include "../common/user_info.html"; ?></td>
-                    </tr>
+                    
+                    <?php
+                        
+                        $res=get_top_vip($connected_db);
+                        if(!$res)
+                            echo "<span class='error_span'>Errore nella connessione al server</span>";
+                        else{
+                            $b=true;
+                            if($res->num_rows==0){
+                                echo "<span class='message_span'>Non ci sono utenti top users al momento</span>";
+                                $b=false;
+                            }
+                            for($i=0;$i<5&&$b;$i++){
+                                echo "<tr>";
+                                for($j=0;$j<2;$j++){
+                                    if(!$row=$res->fetch_assoc()){
+                                        $b=false;
+                                        break;
+                                    }
+                                    echo "<td class='tab_top_usr'>";
+                                    echo "<h2>Voti totali:".$row['somma_voti']."</h2>";
+                                    display_user_info($row,$connected_db);
+                                    echo "</td>";
+                                }
+                                echo "</tr>";
+                            }
+                        }
+                    ?>
+                    
                 </table>
             </div>
         </main>

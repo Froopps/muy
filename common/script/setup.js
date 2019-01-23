@@ -20,6 +20,14 @@ function open_xml_post(script){
     return xhr
 }
 
+function open_xml_get(script){
+    xhr=ajaxRequest()
+    xhr.open("GET",script)
+    xhr.responseType='document'
+    xhr.overrideMimeType('application/xml')
+    return xhr
+}
+
 function append_error_atop(value){
     var newErSpan=document.createElement('span')
     var container=document.getElementsByClassName('content')[0]
@@ -50,3 +58,4 @@ function escape_sharp(s){
 var escape_on_submit=function escape_on_submit(el){
     el.elements['src_txt'].value=escape_sharp(el.elements['src_txt'].value)
 }
+
