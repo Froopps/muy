@@ -39,8 +39,8 @@
                 </video>
             </div>
         </main>
-        <script type="text/javascript" src="../common/script/search.js"></script>
         <script type="text/javascript" src="../common/script/setup.js"></script>
+        <script type="text/javascript" src="../common/script/search.js"></script>
 </body>
 
 </html>

@@ -64,7 +64,7 @@
                         else{
                             $b=true;
                             if($res->num_rows==0){
-                                echo "<span class='message_span'>Non ci sono utenti top users al momento</span>";
+                                echo "<span class='message_span'>Non ci sono etichette top al momento</span>";
                                 $b=false;
                             }
                             $count=0;
@@ -90,8 +90,8 @@
 
             </div>
         </main>
-        <script type="text/javascript" src="../common/script/search.js"></script>
         <script type="text/javascript" src="../common/script/setup.js"></script>
+        <script type="text/javascript" src="../common/script/search.js"></script>
 </body>
 
 </html>
