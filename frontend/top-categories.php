@@ -50,7 +50,7 @@
                         else{
                             $b=true;
                             if($res->num_rows==0){
-                                echo "<span class='message_span'>Non ci sono utenti top users al momento</span>";
+                                echo "<span class='message_span'>Non ci sono etichette top al momento</span>";
                                 $b=false;
                             }
                             $count=0;
