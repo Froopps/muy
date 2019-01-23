@@ -5,6 +5,8 @@
     if($error_connection["flag"])
         exit();
 
+    print_r($_POST);
+
     $path=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res";
 
     #controllo se altro utente o utente non iscritto sta cercando di eliminare tag
@@ -39,9 +41,9 @@
         $connected_db->close();
         exit();
     }
-
-    rmdir($path."/content/".$_POST["proprietario"]."/".$_POST["nome"]);
-
+    
+    log_into($_POST["nome"],$_POST["proprietario"]);
+    $ris=rmdir($path."/content/".$_POST["proprietario"]."/".$_POST["nome"]);
     echo "ok";
     $connected_db->close();
 ?>

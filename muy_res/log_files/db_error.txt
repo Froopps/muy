@@ -1,4 +1,4 @@
-Errore di esecuzione della querySELECT nome FROM canale WHERE email='compips@gmail.com' Unknown column 'email' in 'where clause'2018-12-28 17:40:14
+111Errore di esecuzione della querySELECT nome FROM canale WHERE email='compips@gmail.com' Unknown column 'email' in 'where clause'2018-12-28 17:40:14
 Errore di esecuzione della querySELECT nome FROM canale WHERE email='compips@gmail.com' Unknown column 'email' in 'where clause'2018-12-28 17:40:34
 Errore di esecuzione della queryINSERT INTO utente ('D:/Programmi/Xampp/htdocs/content/compips@gmail.com/Secondo canale/giac_cadente.gif''Primo Caricamento Test''Questa è l\'ha descrizione'tipo,'locale''2018-12-29''0''Secondo canale''compips@gmail.com') VALUES (percorso,titolo,descrizione,'i',collocazione,dataCaricamento,visualizzazioni,canale,proprietario,) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''D:/Programmi/Xampp/htdocs/content/compips@gmail.com/Secondo canale/giac_cadente' at line 12018-12-29 17:54:51
 Errore di esecuzione della queryINSERT INTO oggettomultimediale ('D:/Programmi/Xampp/htdocs/content/compips@gmail.com/Primo canale/giac_cadente.gif''Primo Caricamento Test''Questa è l\'ha descrizione'tipo,'locale''2018-12-29''0''Primo canale''compips@gmail.com') VALUES (percorso,titolo,descrizione,'i',collocazione,dataCaricamento,visualizzazioni,canale,proprietario,) You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''D:/Programmi/Xampp/htdocs/content/compips@gmail.com/Primo canale/giac_cadente.g' at line 12018-12-29 17:58:18
@@ -375,3 +375,17 @@ Can't find profile pic at D:/Programmi/Xampp/htdocs/muy/muy_res/content/x@gmail.
 Ute2019-01-23 02:07:11
 Can't find profile pic at D:/Programmi/Xampp/htdocs/muy/muy_res/content/y@gmail.com/pro_pic2019-01-23 02:07:11
 Can't find profile pic at D:/Programmi/Xampp/htdocs/muy/muy_res/content/z@gmail.com/pro_pic2019-01-23 02:07:11
+2019-01-23 10:17:55
+2019-01-23 10:17:57
+2019-01-23 10:18:00
+Can't find profile pic at D:/Programmi/Xampp/htdocs/muy/muy_res/content/f@gmail.com/pro_pic2019-01-23 10:18:00
+2019-01-23 10:21:53
+2019-01-23 10:32:09
+2019-01-23 10:33:25
+aa2019-01-23 10:34:22
+sad2019-01-23 10:34:28
+2019-01-23 10:34:36
+aa2019-01-23 10:36:40
+2019-01-23 10:36:58
+asd2019-01-23 10:38:56
+aa2019-01-23 10:39:03

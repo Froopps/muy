@@ -372,7 +372,11 @@ function like_it(percorso,voto){
 
 function new_channel(name,label,type){
 
+    console.log(name)
     name = document.getElementsByName(name)[0]
+    console.log(name)
+    nome = name.value
+    
     label = document.getElementsByName(label)[0]
     type = document.getElementsByName(type)[0]
     var par = "channel_name="+name.value+"&label="+label.value+"&channel_type="+type.value
@@ -419,7 +423,7 @@ function new_channel(name,label,type){
 
                 var node2 = document.createElement("button")
                 node2.classList.add("delete_button")
-                node2.addEventListener("click",function(){delete_channel(this,name.value,response)})
+                node2.addEventListener("click",function(){delete_channel(this,nome,response)})
                 node1.appendChild(node2)
 
                 node2 = document.createElement("a")
