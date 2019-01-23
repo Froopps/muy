@@ -108,6 +108,7 @@
     }
 
     function display_friendslist_entry($info,$action){
+        global $location;
         $pro_pic=$_SERVER["DOCUMENT_ROOT"]."/muy/muy_res";
         $pro_pic_alt="Spiacenti foto non trovata";
         if(!file_exists($pro_pic."/".stripslashes($info["foto"])))
